@@ -1,0 +1,24 @@
+<table>
+  <tr>
+    <td>IdProducto</td>
+    <td>IdSubcategoria</td>
+    <td>IdDescuento</td>
+    <td>NombreProducto</td>
+    <td>Descripcion</td>
+    <td>PrecioProducto</td>
+    <td>ImagenProducto</td>
+  </tr>
+<?php foreach ($listaProductos as $producto) {?>
+  <tr>
+    <td><?=$producto->getIdProducto() ; ?></td>
+    <td><?=$producto->getIdSubcategoria() ; ?></td>
+    <td><?=$producto->getIdDescuento() ; ?></td>
+    <td><?=$producto->getNombreProducto(); ?></td>
+    <td><?=$producto->getDescripcion() ; ?></td>
+    <td><?=$producto->getPrecioProducto() ; ?></td>
+    <td><?=$producto->getImagenProducto(); ?></td>
+    <td><a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>">link</a></td>
+  </tr>
+<?php } ?>
+
+</table>

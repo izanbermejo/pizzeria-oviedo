@@ -1,0 +1,34 @@
+:root {
+  --bs-primary: #0032A0;
+  --bs-secondary: #E8EBEE;
+  /* --bs-success: #28a745;
+  --bs-danger: #dc3545;
+  --bs-warning: #ffc107;
+  --bs-info: #17a2b8; */
+  --bs-light: #FFFFFF;
+  --bs-dark: #212529;
+}
+
+* {
+  font-family: 'Raleway', sans-serif;
+}
+
+p, span {
+  font-size: 16px;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 66px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 32px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 24px;
+}
+
