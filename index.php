@@ -3,7 +3,7 @@ include_once 'controller/ProductoController.php';
 
 if (isset($_GET['controller'])) {
   $nombre_controller = $_GET['controller']. 'Controller';
-  var_dump($nombre_controller); 
+  // var_dump($nombre_controller); 
   if (class_exists($nombre_controller)) {
     $controller = new $nombre_controller();
     $action = $_GET['action'];
