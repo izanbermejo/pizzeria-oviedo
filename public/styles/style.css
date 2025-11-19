@@ -1,14 +1,3 @@
-:root {
-  --bs-primary: #0032A0;
-  --bs-secondary: #E8EBEE;
-  /* --bs-success: #28a745;
-  --bs-danger: #dc3545;
-  --bs-warning: #ffc107;
-  --bs-info: #17a2b8; */
-  --bs-light: #FFFFFF;
-  --bs-dark: #212529;
-}
-
 * {
   font-family: 'Raleway', sans-serif;
 }
@@ -54,11 +43,11 @@ h3 {
 }
 
 .bg-primary {
-  background-color: var(--bs-primary) !important;
+  background-color: #0032A0 !important;
 }
 
 .bg-secondary {
-  background-color: var(--bs-secondary) !important;
+  background-color: #E8EBEE !important;
 }
 
 .btn-secondary {
