@@ -8,6 +8,8 @@ class Producto {
   private $descripcion;
   private $precio_producto;
   private $imagen_producto;
+  private $activo;
+  private $porcentaje_descuento;
 
   public function getIdProducto() {
     return $this->id_producto;
@@ -63,6 +65,22 @@ class Producto {
 
   public function setImagenProducto($imagen_producto) {
     $this->imagen_producto = $imagen_producto;
+  }
+
+  public function getPorcentajeDescuento() {
+    return $this->porcentaje_descuento;
+  }
+
+  public function setPorcentajeDescuento($porcentaje_descuento) {
+    $this->porcentaje_descuento = $porcentaje_descuento;
+  }
+
+  public function getActivo() {
+    return $this->activo;
+  }
+
+  public function setActivo($activo) {
+    $this->activo = $activo;
   }
 }
 ?>

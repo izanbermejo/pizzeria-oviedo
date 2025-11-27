@@ -15,5 +15,11 @@ class ProductoController{
     $listaProductos = ProductoDAO::getProductos();
     include_once 'view/main.php';
   }
+
+  public function ofertados(){
+    $view = 'view/home.php';
+    include_once 'index.php';
+    return $listaProductosEnOferta = ProductoDAO::getProductosEnOferta();
+  }
 }
 ?>
