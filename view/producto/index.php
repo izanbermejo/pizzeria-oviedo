@@ -7,6 +7,8 @@
     <td>Descripcion</td>
     <td>PrecioProducto</td>
     <td>ImagenProducto</td>
+    <td>Link producto</td>
+    <td>Link ingredientes producto</td>
   </tr>
 <?php foreach ($listaProductos as $producto) {?>
   <tr>
@@ -18,6 +20,7 @@
     <td><?=$producto->getPrecioProducto() ; ?></td>
     <td><?=$producto->getImagenProducto(); ?></td>
     <td><a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>">link</a></td>
+    <td><a href="?controller=Ingrediente&action=indexByProducto&idproducto=<?=$producto->getIdProducto() ; ?>">link</a></td>
   </tr>
 <?php } ?>
 
