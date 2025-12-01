@@ -17,8 +17,9 @@ if (isset($_GET['controller'])) {
 
   $controller = new ProductoController();
   $listaProductosEnOferta = $controller -> ofertados();
-  if (method_exists($controller,'ofertados')) {
-    // var_dump($controller->ofertados());
+  $listaProductosActivos = $controller -> indexActivos();
+  if (method_exists($controller,'index')) {
+    //  var_dump($controller -> index());
     // echo "Ejecutando la acción ofertados";
   } else {
     echo header('Location:404.php');
@@ -144,28 +145,42 @@ if (isset($_GET['controller'])) {
   </section>
 
   <!-- Seccion de productos -->
-  <section class="productos">
+  <section class="productos d-flex flex-column align-items-center justify-content-between">
     <div class="titulo-ofertas-productos d-flex flex-row justify-content-between align-items-center">
       <h2>Productos</h2>
-      <button class="btn btn-secondary">Todas las ofertas</button>
+      <button class="btn btn-secondary">Ir a Carta</button>
     </div>
-    <div class="card-producto card shadow" style="width: 18rem;">
-      <div class="img-container-producto">
-        <img src="assets/imagen_producto_pizzas_margarita.png" class="img-producto card-img-top" alt="imagen pizza">
-      </div>
-      <div class="card-body-producto card-body">
-        <div>
-          <h3 class="titulo-producto card-title">PIZZA MARGARITA</h3>
-          <p class="ingredientes-producto card-text">Salsa de tomate, mozzarela, albahaca.</p>
-        </div>
-        <div class="d-flex flex-row justify-content-between">
-          <span class="precio-producto">12,99 €</span>
-          <div class="alergias-producto">
-            <img src="assets/iconos_Mesa-de-trabajo-1-copia-6.png" alt="">
-            <img src="assets/iconos_Mesa-de-trabajo-1-copia-3.png" alt="">
+    <div class="cards-productos d-flex flex-nowrap flex-md-wrap justify-content-center">
+      <?php 
+      shuffle($listaProductosActivos);
+      $objetosAleatorios = array_slice($listaProductosActivos, 0, 8);
+      foreach ($objetosAleatorios as $producto) {?>
+        <div class="card-producto card shadow" style="width: 18rem;">
+          <div class="img-container-producto">
+            <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen pizza">
+          </div>
+          <div class="card-body-producto card-body">
+            <div>
+              <h3 class="titulo-producto card-title"><?= $producto->getNombreProducto(); ?></h3>
+              <p class="ingredientes-producto card-text">Salsa de tomate, mozzarela, albahaca.</p>
+            </div>
+            <div class="d-flex flex-row justify-content-between">
+              <?php if ($producto->getIdDescuento() == NULL) { ?>
+                <span class="precio-producto"><?= $producto->getPrecioProducto(); ?></span>
+              <?php } else { ?>
+                <div>
+                  <span class="precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                  <span class="precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
+                </div>
+              <?php } ?>
+              <div class="alergias-producto">
+                <img src="assets/iconos_Mesa-de-trabajo-1-copia-6.png" alt="">
+                <img src="assets/iconos_Mesa-de-trabajo-1-copia-3.png" alt="">
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      <?php } ?>
     </div>
 
   </section>
@@ -252,6 +267,10 @@ if (isset($_GET['controller'])) {
     padding-right: 184px !important;
   }
 
+  .titulo-ofertas-productos {
+    width: -webkit-fill-available;
+  }
+
   @media (max-width: 768px) {
     .section-ofertas-productos {
       height: 941px;
@@ -265,11 +284,6 @@ if (isset($_GET['controller'])) {
   .ofertas {
     height: 450px;
     padding-top: 100px;
-  }
-
-  .productos {
-    height: 992px;
-    padding-top: 106px;
   }
 
   .img-container-oferta{
@@ -356,6 +370,12 @@ if (isset($_GET['controller'])) {
   }
 
   @media (max-width: 768px) {
+
+    .ofertas {
+      height: 375px;
+      padding-top: 42px;
+    }
+
     .carousel-control-prev-ofertas {
       left: -40px !important;  
     }
@@ -372,6 +392,16 @@ if (isset($_GET['controller'])) {
 
   
   /* productos */
+  .productos {
+    height: 992px;
+    padding-top: 106px;
+  }
+
+  .cards-productos {
+    width: 1300px;
+    gap: 46px;
+  }
+
   .card-producto {
     width: 300px;
     height: 380px;
@@ -392,7 +422,8 @@ if (isset($_GET['controller'])) {
   }
 
   .img-producto {
-    width: 70%;
+    width: auto;
+    height: 80%;
   }
 
   .card-body-producto {
@@ -406,7 +437,26 @@ if (isset($_GET['controller'])) {
     width: 30px;
   }
 
+  .precio-producto-oferta {
+    font-weight: bold;
+    color: red;
+  }
+
+  .precio-producto-original {
+    color: #939393;
+    text-decoration: line-through;
+  }
+
   @media (max-width: 768px) {
+    .productos {
+      height: 432px;
+      padding-top: 60px;
+    }
+
+    .cards-productos {
+      width: fit-content;
+    }
+
     .card-producto {
       width: 270px;
       height: 340px;
@@ -420,7 +470,7 @@ if (isset($_GET['controller'])) {
       font-size: 24px !important;
     }
 
-    .ingredientes-producto, .precio-producto {
+    .ingredientes-producto, .precio-producto, .precio-producto-oferta, .precio-producto-original {
       font-size: 16px !important;
     }
   }
