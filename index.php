@@ -110,7 +110,7 @@ if (isset($_GET['controller'])) {
                   <div class="img-precio-oferta d-flex flex-row">
                     <div class="d-flex flex-column align-items-center">
                       <div class="img-container-oferta">
-                        <img class="img-producto-oferta" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="Imagen del producto en oferta">
+                        <img class="img-producto-oferta" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="Imagen de <?= $producto->getNombreProducto(); ?>">
                       </div>
                     </div>
                     <div class="d-flex flex-column align-items-center justify-content-center">
