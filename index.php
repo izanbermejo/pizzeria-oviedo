@@ -162,6 +162,7 @@ if (isset($_GET['controller'])) {
 
 <style>
 
+  /* header */
   .carousel-header {
     height: 660px;
   }
@@ -182,6 +183,8 @@ if (isset($_GET['controller'])) {
     width: 100px;
   }
 
+
+  /* ofertas y productos */
   .section-ofertas-productos {
     height: 1550px;
     background-image: url('public/assets/fondo_productos_home.png');
@@ -193,6 +196,16 @@ if (isset($_GET['controller'])) {
     padding-right: 184px !important;
   }
 
+  @media (max-width: 768px) {
+    .section-ofertas-productos {
+      height: 941px;
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+    }
+  }
+
+
+  /* ofertas */
   .ofertas {
     height: 450px;
     padding-top: 100px;
@@ -201,14 +214,6 @@ if (isset($_GET['controller'])) {
   .productos {
     height: 992px;
     padding-top: 106px;
-  }
-
-  @media (max-width: 768px) {
-    .section-ofertas-productos {
-      height: 941px;
-      padding-left: 32px !important;
-      padding-right: 32px !important;
-    }
   }
 
   .img-container-oferta{
@@ -308,6 +313,13 @@ if (isset($_GET['controller'])) {
       width: 100%; 
     }
   }
+
+
+  /* productos */
+
+
+
+  /* contacto */
 
 </style>
 
