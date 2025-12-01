@@ -16,6 +16,12 @@ class ProductoController{
     include_once 'view/main.php';
   }
 
+  public function indexActivos() {
+    $view = 'view/home.php';
+    include_once 'index.php';
+    return $listaProductosActivos = ProductoDAO::getProductosActivos();
+  }
+
   public function ofertados(){
     $view = 'view/home.php';
     include_once 'index.php';
