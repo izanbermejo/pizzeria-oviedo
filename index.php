@@ -148,6 +148,24 @@ if (isset($_GET['controller'])) {
       <h2>Productos</h2>
       <button class="btn btn-secondary">Todas las ofertas</button>
     </div>
+    <div class="card-producto card shadow" style="width: 18rem;">
+      <div class="img-container-producto">
+        <img src="assets/imagen_producto_pizzas_margarita.png" class="img-producto card-img-top" alt="imagen pizza">
+      </div>
+      <div class="card-body-producto card-body">
+        <div>
+          <h3 class="titulo-producto card-title">PIZZA MARGARITA</h3>
+          <p class="ingredientes-producto card-text">Salsa de tomate, mozzarela, albahaca.</p>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+          <span class="precio-producto">12,99 €</span>
+          <div class="alergias-producto">
+            <img src="assets/iconos_Mesa-de-trabajo-1-copia-6.png" alt="">
+            <img src="assets/iconos_Mesa-de-trabajo-1-copia-3.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
 
   </section>
 
@@ -353,7 +371,58 @@ if (isset($_GET['controller'])) {
 
   
   /* productos */
-  
+  .card-producto {
+    width: 300px;
+    height: 380px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: none;
+  }
+
+  .img-container-producto {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-image: url(public/assets/fondo_tarjeta_producto_home.png);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .img-producto {
+    width: 70%;
+  }
+
+  .card-body-producto {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .alergias-producto img{
+    width: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .card-producto {
+      width: 270px;
+      height: 340px;
+    }
+
+    .alergias-producto img{
+      width: 25px;
+    }
+
+    .titulo-producto {
+      font-size: 24px !important;
+    }
+
+    .ingredientes-producto, .precio-producto {
+      font-size: 16px !important;
+    }
+  }
   
   
   /* contacto */
