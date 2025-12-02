@@ -4,4 +4,6 @@
 <?=$producto->getNombreProducto(); ?>
 <?=$producto->getDescripcion(); ?>
 <?=$producto->getPrecioProducto(); ?>
-<?=$producto->getImagenProducto(); ?>    
+<?=$producto->getImagenProducto(); ?> 
+
+<img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="Imagen <?= $producto->getNombreProducto() ?>">

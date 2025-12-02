@@ -163,31 +163,33 @@ if (isset($_GET['controller'])) {
           }
           $ingredientesProducto = rtrim($ingredientesProducto, ", ");
         ?>
-        <div class="card-producto card shadow" style="width: 18rem;">
-          <div class="img-container-producto">
-            <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
-          </div>
-          <div class="card-body-producto card-body">
-            <div>
-              <h3 class="titulo-producto card-title"><?= $producto->getNombreProducto(); ?></h3>
-              <p class="ingredientes-producto card-text"> <?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
+        <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>">
+          <div class="card-producto card shadow" style="width: 18rem;">
+            <div class="img-container-producto">
+              <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
             </div>
-            <div class="d-flex flex-row justify-content-between">
-              <?php if ($producto->getIdDescuento() == NULL) { ?>
-                <span class="precio-producto"><?= $producto->getPrecioProducto(); ?></span>
-              <?php } else { ?>
-                <div>
-                  <span class="precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
-                  <span class="precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
+            <div class="card-body-producto card-body">
+              <div>
+                <h3 class="titulo-producto card-title"><?= $producto->getNombreProducto(); ?></h3>
+                <p class="ingredientes-producto card-text"> <?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
+              </div>
+              <div class="d-flex flex-row justify-content-between">
+                <?php if ($producto->getIdDescuento() == NULL) { ?>
+                  <span class="precio-producto"><?= $producto->getPrecioProducto(); ?></span>
+                <?php } else { ?>
+                  <div>
+                    <span class="precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                    <span class="precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
+                  </div>
+                <?php } ?>
+                <div class="alergias-producto">
+                  <img src="assets/iconos_Mesa-de-trabajo-1-copia-6.png" alt="">
+                  <img src="assets/iconos_Mesa-de-trabajo-1-copia-3.png" alt="">
                 </div>
-              <?php } ?>
-              <div class="alergias-producto">
-                <img src="assets/iconos_Mesa-de-trabajo-1-copia-6.png" alt="">
-                <img src="assets/iconos_Mesa-de-trabajo-1-copia-3.png" alt="">
               </div>
             </div>
           </div>
-        </div>
+        </a>
       <?php } ?>
     </div>
 
@@ -410,12 +412,22 @@ if (isset($_GET['controller'])) {
     gap: 46px;
   }
 
+  .cards-productos a {
+    text-decoration: none ;
+  }
+
   .card-producto {
     width: 300px;
     height: 380px;
     border-radius: 16px;
     overflow: hidden;
     border: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .card-producto:hover {
+    transform: scale(1.1);
   }
 
   .img-container-producto {
