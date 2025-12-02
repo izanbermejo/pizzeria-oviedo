@@ -33,7 +33,7 @@ class IngredienteDAO {
     return $ingrediente;
   }
 
-  public static function getIngredientesByIdProducto($idProducto) {
+  public static function getIngredientesByProducto($idProducto) {
     $con = DataBase::connect();
     $stmt = $con->prepare("SELECT i.* FROM ingredientes i
       JOIN ingredientes_productos ip ON ip.id_ingrediente = i.id_ingrediente

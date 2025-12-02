@@ -10,6 +10,7 @@ class Producto {
   private $imagen_producto;
   private $activo;
   private $porcentaje_descuento;
+  private array $ingredientes;
 
   public function getIdProducto() {
     return $this->id_producto;
@@ -81,6 +82,14 @@ class Producto {
 
   public function setActivo($activo) {
     $this->activo = $activo;
+  }
+
+  public function getIngredientes() {
+    return $this->ingredientes;
+  }
+
+  public function setIngredientes($ingredientes) {
+    $this->ingredientes = $ingredientes;
   }
 }
 ?>

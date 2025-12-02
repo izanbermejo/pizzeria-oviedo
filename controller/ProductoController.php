@@ -18,8 +18,12 @@ class ProductoController{
 
   public function indexActivos() {
     $view = 'view/home.php';
+    $listaProductosActivos = ProductoDAO::getProductosActivos();
+    foreach ($listaProductosActivos as $producto) {
+      $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+    }
     include_once 'index.php';
-    return $listaProductosActivos = ProductoDAO::getProductosActivos();
+    return $listaProductosActivos;
   }
 
   public function ofertados(){
