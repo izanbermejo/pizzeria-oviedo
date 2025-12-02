@@ -1,6 +1,7 @@
 <?php 
 include_once 'controller/ProductoController.php';
 include_once 'controller/IngredienteController.php';
+include_once 'controller/CaracteristicaNutricionalController.php';
 
 if (isset($_GET['controller'])) {
   $nombre_controller = $_GET['controller']. 'Controller';
