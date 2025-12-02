@@ -154,8 +154,15 @@ if (isset($_GET['controller'])) {
     <div class="cards-productos d-flex flex-nowrap flex-md-wrap justify-content-center">
       <?php 
       shuffle($listaProductosActivos);
-      $objetosAleatorios = array_slice($listaProductosActivos, 0, 8);
-      foreach ($objetosAleatorios as $producto) {?>
+      $productosMostrados = array_slice($listaProductosActivos, 0, 8);
+      foreach ($productosMostrados as $producto) {?>
+        <?php 
+          $ingredientesProducto = "";
+          foreach ($producto->getIngredientes() as $ingredientes) {
+            $ingredientesProducto .= $ingredientes->getNombreIngrediente() . ", ";
+          }
+          $ingredientesProducto = rtrim($ingredientesProducto, ", ");
+        ?>
         <div class="card-producto card shadow" style="width: 18rem;">
           <div class="img-container-producto">
             <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
@@ -163,7 +170,7 @@ if (isset($_GET['controller'])) {
           <div class="card-body-producto card-body">
             <div>
               <h3 class="titulo-producto card-title"><?= $producto->getNombreProducto(); ?></h3>
-              <p class="ingredientes-producto card-text">Salsa de tomate, mozzarela, albahaca.</p>
+              <p class="ingredientes-producto card-text"> <?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
             </div>
             <div class="d-flex flex-row justify-content-between">
               <?php if ($producto->getIdDescuento() == NULL) { ?>
