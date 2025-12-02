@@ -87,7 +87,7 @@ if (isset($_GET['controller'])) {
   <!-- Titulo y boton Ofertas -->
     <div class="titulo-ofertas-productos d-flex flex-row justify-content-between align-items-center">
       <h2>Ofertas</h2>
-      <button class="btn btn-secondary">Todas las ofertas</button>
+      <a href="#" class="btn btn-secondary">Todas las ofertas</a>
     </div>
 
     <!-- Carrusel productos en oferta -->
@@ -121,7 +121,7 @@ if (isset($_GET['controller'])) {
                       <p class="precio-original"><?= $producto->getPrecioProducto(); ?></p>
                     </div>
                   </div>
-                  <button class="btn-producto-oferta btn btn-secondary">Ver más</button>
+                  <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>" class="btn-producto-oferta btn btn-secondary">Ver más</a>
                 </div>
               </div>
              
@@ -149,7 +149,7 @@ if (isset($_GET['controller'])) {
   <section class="productos d-flex flex-column align-items-center justify-content-between">
     <div class="titulo-ofertas-productos d-flex flex-row justify-content-between align-items-center">
       <h2>Productos</h2>
-      <button class="btn btn-secondary">Ir a Carta</button>
+      <a href="#" class="btn btn-secondary">Ir a Carta</a>
     </div>
     <div class="cards-productos d-flex flex-nowrap flex-md-wrap justify-content-center">
       <?php 
@@ -225,7 +225,7 @@ if (isset($_GET['controller'])) {
           </div>
 
         </div>
-        <button class="btn btn-primary align-self-center">Ir a Contacto</button>
+        <a href="#" class="btn btn-primary align-self-center">Ir a Contacto</a>
       </div>
       <div class="cuadro-eslogan d-flex align-items-center justify-content-center bg-secondary rounded-4 text-center shadow">
         <h3>Aquí jugamos en casa. Con sabor local, alma azul y la magia de Cazorla en cada detalle.</h3>
