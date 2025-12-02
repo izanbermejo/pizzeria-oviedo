@@ -158,7 +158,7 @@ if (isset($_GET['controller'])) {
       foreach ($objetosAleatorios as $producto) {?>
         <div class="card-producto card shadow" style="width: 18rem;">
           <div class="img-container-producto">
-            <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen pizza">
+            <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
           </div>
           <div class="card-body-producto card-body">
             <div>
