@@ -91,8 +91,8 @@ if (isset($_GET['controller'])) {
       <a href="#" class="btn btn-secondary">Todas las ofertas</a>
     </div>
 
-    <!-- Carrusel productos en oferta -->
-    <div id="carouselExample" class="carousel slide position-relative">
+    <!-- Carrusel productos en oferta ordenador -->
+    <div id="carouselOfertas3items" class="carousel slide position-relative">
       <div class="carousel-inner">
         <?php 
           $chunks = array_chunk($listaProductosEnOferta, 3); 
@@ -135,11 +135,66 @@ if (isset($_GET['controller'])) {
       </div>
 
       <!-- Botones para pasar productos en el carrusel -->
-      <button class="carousel-control-prev carousel-control-prev-ofertas" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <button class="carousel-control-prev carousel-control-prev-ofertas" type="button" data-bs-target="#carouselOfertas3items" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next carousel-control-next-ofertas" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <button class="carousel-control-next carousel-control-next-ofertas" type="button" data-bs-target="#carouselOfertas3items" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+
+    <!-- Carrusel productos en oferta movil -->
+    <div id="carouselOfertas1item" class="carousel slide position-relative">
+      <div class="carousel-inner">
+        <?php 
+          $chunks = array_chunk($listaProductosEnOferta, 1); 
+          $active = true;
+
+          foreach ($chunks as $grupo) { 
+        ?>
+          <div class="carousel-item <?= $active ? 'active' : '' ?>">
+            <div class="d-flex flex-row justify-content-center gap-4">
+          
+            <!-- Muestra los productos en oferta uno a uno -->
+            <?php foreach ($grupo as $producto) { ?>
+              <div class="card-ofertas card position-relative">
+                <div class="porcentaje-oferta position-absolute">
+                  <span class="texto-porcentaje-oferta"><?= $producto->getPorcentajeDescuento(); ?>%</span>
+                </div>
+                <div class="card-body d-flex flex-column align-items-center justify-content-evenly">
+                  <h3 class="titulo-oferta"><?= $producto->getNombreProducto(); ?></h3>
+                  <div class="img-precio-oferta d-flex flex-row">
+                    <div class="d-flex flex-column align-items-center">
+                      <div class="img-container-oferta">
+                        <img class="img-producto-oferta" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="Imagen de <?= $producto->getNombreProducto(); ?>">
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                      <span class="precio-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                      <p class="precio-original"><?= $producto->getPrecioProducto(); ?></p>
+                    </div>
+                  </div>
+                  <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>" class="btn-producto-oferta btn btn-secondary">Ver más</a>
+                </div>
+              </div>
+             
+            <?php } ?>
+            </div>
+          </div>
+        <?php 
+          $active = false;
+        } ?>
+      </div>
+
+      <!-- Botones para pasar productos en el carrusel -->
+      <button class="carousel-control-prev carousel-control-prev-ofertas" type="button" data-bs-target="#carouselOfertas1item" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next carousel-control-next-ofertas" type="button" data-bs-target="#carouselOfertas1item" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
@@ -297,6 +352,14 @@ if (isset($_GET['controller'])) {
     padding-top: 100px;
   }
 
+  #carouselOfertas3items {
+    display: block;
+  }
+
+  #carouselOfertas1item {
+    display: none;
+  }
+
   .img-container-oferta{
     width: 124px;
     height: 124px;
@@ -385,6 +448,14 @@ if (isset($_GET['controller'])) {
     .ofertas {
       height: 375px;
       padding-top: 42px;
+    }
+
+    #carouselOfertas3items {
+      display: none;
+    }
+
+    #carouselOfertas1item {
+      display: block;
     }
 
     .carousel-control-prev-ofertas {
