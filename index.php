@@ -548,7 +548,7 @@ if (isset($_GET['controller'])) {
   }
 
   .cards-productos-ordenador {
-    width: 1300px;
+    width: 1400px;
     gap: 46px;
   }
 
