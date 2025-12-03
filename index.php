@@ -198,12 +198,14 @@ if (isset($_GET['controller'])) {
       <h2>Productos</h2>
       <a href="#" class="btn btn-secondary">Ir a Carta</a>
     </div>
-    <div class="cards-productos d-flex flex-nowrap flex-md-wrap justify-content-center">
+
+    <!-- productos ordenador  -->
+    <div class="cards-productos-ordenador flex-nowrap flex-md-wrap justify-content-center">
       <?php 
       shuffle($listaProductosActivos);
       $productosMostrados = array_slice($listaProductosActivos, 0, 8);
-      foreach ($productosMostrados as $producto) {?>
-        <?php 
+      foreach ($productosMostrados as $producto) {
+
           $ingredientesProducto = "";
           foreach ($producto->getIngredientes() as $ingredientes) {
             $ingredientesProducto .= $ingredientes->getNombreIngrediente() . ", ";
@@ -211,7 +213,7 @@ if (isset($_GET['controller'])) {
           $ingredientesProducto = rtrim($ingredientesProducto, ", ");
         ?>
         <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>">
-          <div class="card-producto card shadow" style="width: 18rem;">
+          <div class="card-producto card shadow">
             <div class="img-container-producto">
               <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
             </div>
@@ -238,6 +240,69 @@ if (isset($_GET['controller'])) {
           </div>
         </a>
       <?php } ?>
+    </div>
+
+
+    <!-- productos movil carousel -->
+    <div id="carouselProductosMovil" class="carousel slide position-relative">
+      <div class="carousel-inner">
+        <?php 
+        
+        shuffle($listaProductosActivos);
+        $productosMostrados = array_slice($listaProductosActivos, 0, 8);
+          $active = true;
+          foreach ($productosMostrados as $producto) {
+        
+          $ingredientesProducto = "";
+          foreach ($producto->getIngredientes() as $ingredientes) {
+            $ingredientesProducto .= $ingredientes->getNombreIngrediente() . ", ";
+          }
+          $ingredientesProducto = rtrim($ingredientesProducto, ", ");
+        
+        ?>
+          <div class="carousel-item <?= $active ? 'active' : '' ?>">
+            <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>">
+              <div class="card-producto card shadow" >
+                <div class="img-container-producto">
+                  <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
+                </div>
+                <div class="card-body-producto card-body">
+                  <div>
+                    <h3 class="titulo-producto card-title"><?= $producto->getNombreProducto(); ?></h3>
+                    <p class="ingredientes-producto card-text"> <?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
+                  </div>
+                  <div class="d-flex flex-row justify-content-between">
+                    <?php if ($producto->getIdDescuento() == NULL) { ?>
+                      <span class="precio-producto"><?= $producto->getPrecioProducto(); ?></span>
+                    <?php } else { ?>
+                      <div>
+                        <span class="precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                        <span class="precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
+                      </div>
+                    <?php } ?>
+                    <div class="alergias-producto">
+                      <img src="assets/iconos_Mesa-de-trabajo-1-copia-6.png" alt="">
+                      <img src="assets/iconos_Mesa-de-trabajo-1-copia-3.png" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        <?php 
+          $active = false;
+        } ?>
+      </div>
+
+      <!-- Botones para pasar productos en el carrusel -->
+      <button class="carousel-control-prev carousel-control-prev-productos" type="button" data-bs-target="#carouselProductosMovil" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next carousel-control-next-productos" type="button" data-bs-target="#carouselProductosMovil" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
 
   </section>
@@ -470,12 +535,24 @@ if (isset($_GET['controller'])) {
     padding-top: 106px;
   }
 
-  .cards-productos {
+  .cards-productos-ordenador {
+    display: flex;
+  }
+
+  #carouselProductosMovil {
+    display: none;
+  }
+
+  #carouselProductosMovil a {
+    text-decoration: none;
+  }
+
+  .cards-productos-ordenador {
     width: 1300px;
     gap: 46px;
   }
 
-  .cards-productos a {
+  .cards-productos-ordenador a {
     text-decoration: none ;
   }
 
@@ -536,13 +613,22 @@ if (isset($_GET['controller'])) {
       padding-top: 60px;
     }
 
-    .cards-productos {
-      width: fit-content;
+    .cards-productos-ordenador {
+      display: none;
+    }
+
+    #carouselProductosMovil {
+      display: block;
+      padding-top: 40px;
+      width: 100%;
     }
 
     .card-producto {
-      width: 270px;
-      height: 340px;
+      width: 100%;
+    }
+
+    .card-producto:hover {
+      transform: none;
     }
 
     .alergias-producto img{
@@ -555,6 +641,14 @@ if (isset($_GET['controller'])) {
 
     .ingredientes-producto, .precio-producto, .precio-producto-oferta, .precio-producto-original {
       font-size: 16px !important;
+    }
+
+    .carousel-control-prev-productos {
+      left: -40px !important;  
+    }
+
+    .carousel-control-next-productos {
+      right: -40px; 
     }
   }
   
