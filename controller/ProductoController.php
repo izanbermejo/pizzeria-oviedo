@@ -21,6 +21,7 @@ class ProductoController{
     $listaProductosActivos = ProductoDAO::getProductosActivos();
     foreach ($listaProductosActivos as $producto) {
       $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+      $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     }
     include_once 'index.php';
     return $listaProductosActivos;
