@@ -80,7 +80,7 @@ if (isset($_GET['controller'])) {
   </div>
 </header>
 
-<section class="section-ofertas-productos">
+<section class="section-ofertas-productos bg-primary">
 
   <!-- sección de ofertas -->
   <section class="ofertas d-flex flex-column justify-content-between">
