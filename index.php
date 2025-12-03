@@ -150,38 +150,29 @@ if (isset($_GET['controller'])) {
     <div id="carouselOfertas1item" class="carousel slide position-relative">
       <div class="carousel-inner">
         <?php 
-          $chunks = array_chunk($listaProductosEnOferta, 1); 
           $active = true;
-
-          foreach ($chunks as $grupo) { 
+          foreach ($listaProductosEnOferta as $producto) { 
         ?>
           <div class="carousel-item <?= $active ? 'active' : '' ?>">
-            <div class="d-flex flex-row justify-content-center gap-4">
-          
-            <!-- Muestra los productos en oferta uno a uno -->
-            <?php foreach ($grupo as $producto) { ?>
-              <div class="card-ofertas card position-relative">
-                <div class="porcentaje-oferta position-absolute">
-                  <span class="texto-porcentaje-oferta"><?= $producto->getPorcentajeDescuento(); ?>%</span>
-                </div>
-                <div class="card-body d-flex flex-column align-items-center justify-content-evenly">
-                  <h3 class="titulo-oferta"><?= $producto->getNombreProducto(); ?></h3>
-                  <div class="img-precio-oferta d-flex flex-row">
-                    <div class="d-flex flex-column align-items-center">
-                      <div class="img-container-oferta">
-                        <img class="img-producto-oferta" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="Imagen de <?= $producto->getNombreProducto(); ?>">
-                      </div>
-                    </div>
-                    <div class="d-flex flex-column align-items-center justify-content-center">
-                      <span class="precio-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
-                      <p class="precio-original"><?= $producto->getPrecioProducto(); ?></p>
+            <div class="card-ofertas card position-relative">
+              <div class="porcentaje-oferta position-absolute">
+                <span class="texto-porcentaje-oferta"><?= $producto->getPorcentajeDescuento(); ?>%</span>
+              </div>
+              <div class="card-body d-flex flex-column align-items-center justify-content-evenly">
+                <h3 class="titulo-oferta"><?= $producto->getNombreProducto(); ?></h3>
+                <div class="img-precio-oferta d-flex flex-row">
+                  <div class="d-flex flex-column align-items-center">
+                    <div class="img-container-oferta">
+                      <img class="img-producto-oferta" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="Imagen de <?= $producto->getNombreProducto(); ?>">
                     </div>
                   </div>
-                  <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>" class="btn-producto-oferta btn btn-secondary">Ver más</a>
+                  <div class="d-flex flex-column align-items-center justify-content-center">
+                    <span class="precio-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                    <p class="precio-original"><?= $producto->getPrecioProducto(); ?></p>
+                  </div>
                 </div>
+                <a href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>" class="btn-producto-oferta btn btn-secondary">Ver más</a>
               </div>
-             
-            <?php } ?>
             </div>
           </div>
         <?php 
