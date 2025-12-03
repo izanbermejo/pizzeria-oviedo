@@ -11,6 +11,7 @@ class Producto {
   private $activo;
   private $porcentaje_descuento;
   private array $ingredientes;
+  private array $caracteristicasNutricionales;
 
   public function getIdProducto() {
     return $this->id_producto;
@@ -90,6 +91,14 @@ class Producto {
 
   public function setIngredientes($ingredientes) {
     $this->ingredientes = $ingredientes;
+  }
+
+  public function getCaracteristicasNutricionales() {
+    return $this->caracteristicasNutricionales;
+  }
+
+  public function setCaracteristicasNutricionales($caracteristicasNutricionales) {
+    $this->caracteristicasNutricionales = $caracteristicasNutricionales;
   }
 }
 ?>

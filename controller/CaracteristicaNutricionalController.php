@@ -16,6 +16,13 @@ class CaracteristicaNutricionalController{
     include_once 'view/main.php';
   }
 
+  public function indexByProducto(){
+    $view = 'view/caracteristicaNutricional/indexByProducto.php';
+    $idProducto = $_GET['idproducto'];
+    $listaCaracteristicasNutricionales = CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($idProducto);
+    include_once 'view/main.php';
+  }
+
 
 }
 ?>
