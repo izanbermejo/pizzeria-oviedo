@@ -233,7 +233,7 @@ if (isset($_GET['controller'])) {
                 <?php } ?>
                 <div class="alergias-producto">
                   <?php foreach ($producto->getCaracteristicasNutricionales() as $caracteristicaNutricional) {?>
-                    <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="">
+                    <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
                   <?php } ?>
                 </div>
               </div>
@@ -283,7 +283,7 @@ if (isset($_GET['controller'])) {
                     <?php } ?>
                     <div class="alergias-producto">
                       <?php foreach ($producto->getCaracteristicasNutricionales() as $caracteristicaNutricional) {?>
-                        <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="">
+                        <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
                       <?php } ?>
                     </div>
                   </div>
