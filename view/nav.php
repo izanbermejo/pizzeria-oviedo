@@ -123,6 +123,7 @@
 nav {
   background-color: #0032A0 !important;
   height: 68px;
+  border-bottom: solid 2px #8A9DDE;
 }
 
 .offcanvas a {

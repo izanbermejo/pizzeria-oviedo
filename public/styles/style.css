@@ -114,3 +114,20 @@ h3 {
   border-radius: 16px;
   border: none;
 }
+
+.titulo-pagina {
+  padding-left: 184px !important;
+  padding-right: 184px !important;
+  color: black;
+  height: 194px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .titulo-pagina {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  
+}
