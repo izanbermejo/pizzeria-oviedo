@@ -14,6 +14,22 @@
   </ul>
 </section>
 
+<section class="productos">
+  <div class="filtros-productos d-flex flex-row">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Dropdown button
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Precio ascendente</a></li>
+        <li><a class="dropdown-item" href="#">Precio descendente</a></li>
+        <li><a class="dropdown-item" href="#">Nombre ascendente</a></li>
+        <li><a class="dropdown-item" href="#">Nombre descendente</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <style>
 
 .selector-categoria {
