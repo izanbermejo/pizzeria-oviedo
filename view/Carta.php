@@ -15,10 +15,13 @@
 </section>
 
 <section class="productos">
-  <div class="filtros-productos d-flex flex-row">
+
+  <!-- Filtros -->
+  <div class="filtros-productos d-flex flex-row align-items-end">
+    <!-- Ordenar -->
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Dropdown button
+        Ordenar por...
       </button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="#">Precio ascendente</a></li>
@@ -27,7 +30,32 @@
         <li><a class="dropdown-item" href="#">Nombre descendente</a></li>
       </ul>
     </div>
+
+    <!-- Filtro subcategoria -->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Subcategoria
+      </button>
+      <ul class="dropdown-menu">
+        <?php foreach ($listaSubcategorias as $subcategoria) { ?>
+          <li><a class="dropdown-item" href="#"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
+        <?php } ?>
+      </ul>
+    </div>
   </div>
+
+  <!-- Lista productos -->
+  <div>
+    <?php foreach ($listaSubcategorias as $subcategoria) { ?>
+      <div class="productos-subcategoria">
+        <div class="titulo-subcategoria">
+          <h2><?= $subcategoria->getNombreSubcategoria() ?></h2>
+        </div>
+      </div>
+      
+    <?php } ?>
+  </div>
+
 </section>
 
 <style>
@@ -57,11 +85,27 @@
 
 .activo {
   border-bottom: solid 2px var(--bs-primary);
+  font-weight: bold;
 }
 
 .productos {
   background-color: #F7F9F9;
   border-top: solid 2px var(--bs-secondary);
+  padding-left: 184px !important;
+  padding-right: 184px !important;
+}
+
+.filtros-productos {
+  height: 100px;
+  gap: 50px;
+}
+
+.productos-subcategoria {
+  padding-top: 45px;
+}
+
+.titulo-subcategoria {
+  color: black;
 }
 
 </style>

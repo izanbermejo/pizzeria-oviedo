@@ -32,5 +32,22 @@ class SubcategoriaDAO {
     $con->close();
     return $subcategoria;
   }
+
+  public static function getSubcategoriasByCategoria($id) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT * FROM subcategorias WHERE id_categoria = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+
+    $listaSubcategorias = [];
+
+    while ($subcategoria = $results->fetch_object('Subcategoria')) {
+      $listaSubcategorias[]=$subcategoria;
+    }
+
+    $con->close();
+    return $listaSubcategorias;
+  }
 }
 ?>

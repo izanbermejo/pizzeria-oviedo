@@ -16,8 +16,9 @@ class SubcategoriaController{
     include_once 'view/main.php';
   }
 
-  public function indexSubcategoria(){
-    $listaSubcategorias = SubcategoriaDAO::getSubcategorias();
+  public function indexSubcategoriaByCategoria(){
+    $idCategoria = $_GET['idcategoria'];
+    $listaSubcategorias = SubcategoriaDAO::getSubcategoriasByCategoria($idCategoria);
     return $listaSubcategorias;
   }
 }
