@@ -1,4 +1,5 @@
 <?php 
+include_once 'model/CategoriaDAO.php';
 include_once 'ProductoController.php';
 
 class CartaController{
@@ -6,7 +7,7 @@ class CartaController{
   public function index() {
     $view = 'view/carta.php';
     $productoController = new ProductoController();
-    $listaProductosEnOferta = $productoController -> ofertados();
+    $listaCategorias = CategoriaDAO::getCategorias();
     $listaProductosActivos = $productoController -> indexActivos();
     include_once 'view/main.php';
   }

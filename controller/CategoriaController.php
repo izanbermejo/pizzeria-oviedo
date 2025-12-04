@@ -15,5 +15,10 @@ class CategoriaController{
     $listaCategorias = CategoriaDAO::getCategorias();
     include_once 'view/main.php';
   }
+
+  public function indexCategorias(){
+    $listaCategorias = CategoriaDAO::getCategorias();
+    return $listaCategorias;
+  }
 }
 ?>

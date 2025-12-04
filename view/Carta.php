@@ -4,9 +4,13 @@
 
 <section class="selector-categoria">
   <ul class="lista-categorias d-flex flex-row align-content-center">
-    <li class="categoria">
-      <span>Pizzas</span>
-    </li>
+    <?php foreach ($listaCategorias as $categoria) { ?>
+      <a href="?controller=Carta&action=index&idcategoria=<?=$categoria->getIdCategoria() ; ?>">
+        <li class="categoria <?= $_GET['idcategoria'] == $categoria->getIdCategoria() ? 'activo' : ''?>">
+          <span><?= $categoria->getNombreCategoria() ?></span>
+        </li>
+      </a>
+    <?php } ?>
   </ul>
 </section>
 
@@ -28,6 +32,11 @@
 
 .categoria {
   padding: 18px 25px;
+}
+
+.activo {
+  border-bottom: solid 1px var(--bs-primary);
+  background-color: red;
 }
 
 </style>
