@@ -18,7 +18,6 @@
 
 .selector-categoria {
   height: 55px;
-  color: black;
   padding-left: 184px !important;
   padding-right: 184px !important;
 }
@@ -30,13 +29,23 @@
   height: 55px;
 }
 
+.lista-categorias a {
+  text-decoration: none;
+  color: black;
+}
+
 .categoria {
   padding: 18px 25px;
+  height: -webkit-fill-available;
 }
 
 .activo {
-  border-bottom: solid 1px var(--bs-primary);
-  background-color: red;
+  border-bottom: solid 2px var(--bs-primary);
+}
+
+.productos {
+  background-color: #F7F9F9;
+  border-top: solid 2px var(--bs-secondary);
 }
 
 </style>
