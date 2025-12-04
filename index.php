@@ -2,6 +2,7 @@
 include_once 'controller/ProductoController.php';
 include_once 'controller/IngredienteController.php';
 include_once 'controller/CaracteristicaNutricionalController.php';
+include_once 'controller/CategoriaController.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/CartaController.php';
 

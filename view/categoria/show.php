@@ -1,0 +1,2 @@
+<?=$categoria->getIdCategoria() ; ?>
+<?=$categoria->getNombreCategoria() ; ?>
