@@ -62,47 +62,54 @@
           <h2><?= $subcategoria->getNombreSubcategoria() ?></h2>
         </div>
         <div class="cards-productos d-flex flex-row justify-content-center flex-wrap">
-        <?php foreach ($listaProductosByCategoria as $producto) {  
-          $ingredientesProducto = "";
-          foreach ($producto->getIngredientes() as $ingredientes) {
-            $ingredientesProducto .= $ingredientes->getNombreIngrediente() . ", ";
-          }
-          $ingredientesProducto = rtrim($ingredientesProducto, ", ");
-          ?>
-          <!-- Cards productos -->
-            <div class="card-producto card overflow-hidden">
-              <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
-                <h3><?= $producto->getNombreProducto(); ?></h3>
-              </div>
-              <div class="img-producto-container d-flex justify-content-center">
-                <img class="img-producto" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="imagen <?= $producto->getNombreProducto(); ?>">
-              </div>
-              <div class="card-ingrediente-body card-body d-flex flex-column justify-content-between">
-                <div class="ingredientes-caracteristicas d-flex flex-row flex-nowrap justify-content-between">
-                  <p class="card-producto-text card-text overflow-hidden"><?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
-                  <div class="caracteristicas-producto d-flex flex-row align-items-center">
-                    <?php foreach ($producto->getCaracteristicasNutricionales() as $caracteristicaNutricional) {?>
-                      <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
-                    <?php } ?>
+          <?php foreach ($listaProductosByCategoria as $producto) {  
+            // comprueba si el producto pertenece a la subcategoria que esta iterando
+            if ($producto->getIdSubcategoria() == $subcategoria->getIdSubcategoria()) {
+              
+              // Crea un string de los ingredientes que tiene ese producto en base al array de ingredientes del producto iterado
+              $ingredientesProducto = "";
+              foreach ($producto->getIngredientes() as $ingredientes) {
+                $ingredientesProducto .= $ingredientes->getNombreIngrediente() . ", ";
+              }
+              $ingredientesProducto = rtrim($ingredientesProducto, ", ");
+              ?>
+              <!-- Cards productos -->
+                <div class="card-producto card overflow-hidden">
+                  <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
+                    <h3><?= $producto->getNombreProducto(); ?></h3>
+                  </div>
+                  <div class="img-producto-container d-flex justify-content-center">
+                    <img class="img-producto" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="imagen <?= $producto->getNombreProducto(); ?>">
+                  </div>
+                  <div class="card-ingrediente-body card-body d-flex flex-column justify-content-between">
+                    <div class="ingredientes-caracteristicas d-flex flex-row flex-nowrap justify-content-between">
+                      <p class="card-producto-text card-text overflow-hidden"><?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
+                      <div class="caracteristicas-producto d-flex flex-row align-items-center">
+                        <?php foreach ($producto->getCaracteristicasNutricionales() as $caracteristicaNutricional) {?>
+                          <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
+                        <?php } ?>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between">
+                      <?php if ($producto->getIdDescuento() == NULL) { ?>
+                        <span class="precio"><?= $producto->getPrecioProducto(); ?></span>
+                      <?php } else { ?>
+                        <div>
+                          <span class="precio precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                          <span class="precio precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
+                        </div>
+                      <?php } ?>
+                      <button class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
+                    </div>
                   </div>
                 </div>
-                <div class="d-flex flex-row justify-content-between">
-                  <?php if ($producto->getIdDescuento() == NULL) { ?>
-                    <span class="precio"><?= $producto->getPrecioProducto(); ?></span>
-                  <?php } else { ?>
-                    <div>
-                      <span class="precio precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
-                      <span class="precio precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
-                    </div>
-                  <?php } ?>
-                  <button class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
-                </div>
-              </div>
-            </div>
-            <?php } ?>
+              <?php }
+            } ?>
           </div>
         </div>
-    <?php } ?>
+    <?php }
+  
+   ?>
   </div>
 
 </section>
