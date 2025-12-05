@@ -34,10 +34,10 @@
         Ordenar por...
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Precio ascendente</a></li>
-        <li><a class="dropdown-item" href="#">Precio descendente</a></li>
-        <li><a class="dropdown-item" href="#">Nombre ascendente</a></li>
-        <li><a class="dropdown-item" href="#">Nombre descendente</a></li>
+        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pasc">Precio ascendente</a></li>
+        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pdesc">Precio descendente</a></li>
+        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=nasc">Nombre ascendente</a></li>
+        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=ndesc">Nombre descendente</a></li>
       </ul>
     </div>
 
@@ -56,7 +56,32 @@
 
   <!-- Lista productos -->
   <div>
-    <?php foreach ($listaSubcategorias as $subcategoria) { 
+    <?php if (isset($_GET['orden'])) {
+      switch ($_GET['orden']) {
+        case 'pasc':
+          uasort($listaProductosByCategoria, function ($a, $b) {
+            return $a->getPrecioProducto() <=> $b->getPrecioProducto();
+          });
+          break;
+        case 'pdesc':
+          uasort($listaProductosByCategoria, function ($a, $b) {
+            return $b->getPrecioProducto() <=> $a->getPrecioProducto();
+          });
+          break;
+        case 'nasc':
+          uasort($listaProductosByCategoria, function ($a, $b) {
+            return strcmp($a->getNombreProducto(), $b->getNombreProducto());
+          });
+          break;
+        case 'ndesc':
+          uasort($listaProductosByCategoria, function ($a, $b) {
+            return strcmp($b->getNombreProducto(), $a->getNombreProducto());
+          });
+          break;
+      }
+    }  
+
+    foreach ($listaSubcategorias as $subcategoria) { 
       // muestra los productos de la subcategoria seleccionada o todos los productos si no hay ninguna seleccionada
       if ((isset($_GET['idsubcategoria']) && $_GET['idsubcategoria'] == $subcategoria->getIdSubcategoria()) || !isset($_GET['idsubcategoria'])) {
       ?>
