@@ -8,7 +8,6 @@
   <title>Document</title>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark align-content-center"  padding:12px 20px;">
   <div class="container-fluid mx-152">
   <!-- parte izquierda -->
@@ -31,10 +30,10 @@
         <li class="nav-item dropdown px-lg-3">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Carta</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Pizzas</a></li>
-            <li><a class="dropdown-item" href="#">Bebidas</a></li>
-            <li><a class="dropdown-item" href="#">Complementos</a></li>
-            <li><a class="dropdown-item" href="#">Postres</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=1">Pizzas</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=2">Bebidas</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=3">Complementos</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=4">Postres</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Ofertas</a></li>
           </ul>
