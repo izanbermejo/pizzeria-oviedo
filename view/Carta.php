@@ -6,7 +6,17 @@
   <ul class="lista-categorias d-flex flex-row align-content-center">
     <?php foreach ($listaCategorias as $categoria) { ?>
       <a href="?controller=Carta&action=index&idcategoria=<?=$categoria->getIdCategoria() ; ?>">
-        <li class="categoria <?= $_GET['idcategoria'] == $categoria->getIdCategoria() ? 'activo' : ''?>">
+        <li class="categoria <?php 
+        if (isset($_GET['idcategoria'])) {
+          if ($_GET['idcategoria'] == $categoria->getIdCategoria()) {
+            echo 'activo';
+          }
+        } else {
+          if ($categoria->getIdCategoria() == 1) {
+            echo 'activo';
+          }
+        }
+        ?>">
           <span><?= $categoria->getNombreCategoria() ?></span>
         </li>
       </a>

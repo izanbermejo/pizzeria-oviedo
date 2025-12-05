@@ -17,7 +17,11 @@ class SubcategoriaController{
   }
 
   public function indexSubcategoriaByCategoria(){
-    $idCategoria = $_GET['idcategoria'];
+    if (isset($_GET['idcategoria'])) {
+      $idCategoria = $_GET['idcategoria'];
+    } else {
+      $idCategoria = 1;
+    }
     $listaSubcategorias = SubcategoriaDAO::getSubcategoriasByCategoria($idCategoria);
     return $listaSubcategorias;
   }
