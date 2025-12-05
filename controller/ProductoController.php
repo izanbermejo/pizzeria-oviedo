@@ -29,5 +29,15 @@ class ProductoController{
     $listaProductosEnOferta = ProductoDAO::getProductosEnOferta();
     return $listaProductosEnOferta;
   }
+
+  public function indexByCategoria() {
+    $idCategoria = isset($_GET['idcategoria']) ? $_GET['idcategoria'] : 1;
+    $listaProductosByCategoria = ProductoDAO::getProductosByCategoria($idCategoria);
+    foreach ($listaProductosByCategoria as $producto) {
+      $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+      $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
+    }
+    return $listaProductosByCategoria;
+  }
 }
 ?>

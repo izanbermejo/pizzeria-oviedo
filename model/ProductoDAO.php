@@ -71,5 +71,23 @@ class ProductoDAO {
     $con->close();
     return $listaProductosEnOferta;
   }
+
+  public static function getProductosByCategoria($id) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT p.* FROM productos p
+      JOIN subcategorias s ON s.id_subcategoria = p.id_subcategoria
+      WHERE s.id_categoria = ? AND p.activo = 1");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $results = $stmt->get_result();
+
+    $listaProductosByCategoria = [];
+
+    while ($producto = $results->fetch_object('Producto')) {
+      $listaProductosByCategoria[]=$producto;
+    }
+    $con->close();
+    return $listaProductosByCategoria;
+  }
 }
 ?>

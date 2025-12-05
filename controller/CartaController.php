@@ -10,7 +10,7 @@ class CartaController{
     $subcategoriaController = new SubcategoriaController();
     $listaCategorias = CategoriaDAO::getCategorias();
     $listaSubcategorias = $subcategoriaController -> indexSubcategoriaByCategoria();
-    $listaProductosActivos = $productoController -> indexActivos();
+    $listaProductosByCategoria = $productoController -> indexByCategoria();
     include_once 'view/main.php';
   }
 }
