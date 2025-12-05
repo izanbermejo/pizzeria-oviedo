@@ -1,4 +1,5 @@
 <?php 
+require_once "config/config.php";
 include_once 'controller/ProductoController.php';
 include_once 'controller/IngredienteController.php';
 include_once 'controller/CaracteristicaNutricionalController.php';

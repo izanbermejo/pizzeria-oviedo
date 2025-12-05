@@ -17,7 +17,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- logo -->
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="<?= BASE_URL ?>">
       <img src="public/assets/imagen_LOGO.png" alt="imagen_LOGO" id="logo_principal">
     </a>
    </div>
@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse justify-content-center">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-lg-5">
         <li class="nav-item px-lg-3">
-          <a class="nav-link" aria-current="page" href="#">Inicio</a>
+          <a class="nav-link" aria-current="page" href="<?= BASE_URL ?>">Inicio</a>
         </li>
         <li class="nav-item dropdown px-lg-3">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Carta</a>
