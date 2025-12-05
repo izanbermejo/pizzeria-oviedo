@@ -79,7 +79,9 @@
                     <h3><?= $producto->getNombreProducto(); ?></h3>
                   </div>
                   <div class="img-producto-container d-flex justify-content-center">
-                    <img class="img-producto" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="imagen <?= $producto->getNombreProducto(); ?>">
+                    <a class="link-producto" href="?controller=Producto&action=show&idproducto=<?=$producto->getIdProducto() ; ?>">
+                      <img class="img-producto" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="imagen <?= $producto->getNombreProducto(); ?>">
+                    </a>
                   </div>
                   <div class="card-ingrediente-body card-body d-flex flex-column justify-content-between">
                     <div class="ingredientes-caracteristicas d-flex flex-row flex-nowrap justify-content-between">
@@ -191,6 +193,13 @@
 .img-producto {
   max-height: 260px;
   width: fit-content;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.img-producto:hover {
+  transform: scale(1.1);
 }
 
 .card-ingrediente-body {
