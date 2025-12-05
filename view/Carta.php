@@ -48,7 +48,7 @@
       </button>
       <ul class="dropdown-menu">
         <?php foreach ($listaSubcategorias as $subcategoria) { ?>
-          <li><a class="dropdown-item" href="#"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&idsubcategoria=<?= $subcategoria->getIdSubcategoria() ?>"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
         <?php } ?>
       </ul>
     </div>
@@ -56,7 +56,10 @@
 
   <!-- Lista productos -->
   <div>
-    <?php foreach ($listaSubcategorias as $subcategoria) { ?>
+    <?php foreach ($listaSubcategorias as $subcategoria) { 
+      // muestra los productos de la subcategoria seleccionada o todos los productos si no hay ninguna seleccionada
+      if ((isset($_GET['idsubcategoria']) && $_GET['idsubcategoria'] == $subcategoria->getIdSubcategoria()) || !isset($_GET['idsubcategoria'])) {
+      ?>
       <div class="productos-subcategoria">
         <div class="titulo-subcategoria">
           <h2><?= $subcategoria->getNombreSubcategoria() ?></h2>
@@ -109,11 +112,9 @@
             } ?>
           </div>
         </div>
-    <?php }
-  
-   ?>
+      <?php }
+    } ?>
   </div>
-
 </section>
 
 <style>
