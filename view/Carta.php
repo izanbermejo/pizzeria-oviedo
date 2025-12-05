@@ -61,31 +61,47 @@
         <div class="titulo-subcategoria">
           <h2><?= $subcategoria->getNombreSubcategoria() ?></h2>
         </div>
+        <div class="cards-productos d-flex flex-row justify-content-center flex-wrap">
+        <?php foreach ($listaProductosByCategoria as $producto) {  
+          $ingredientesProducto = "";
+          foreach ($producto->getIngredientes() as $ingredientes) {
+            $ingredientesProducto .= $ingredientes->getNombreIngrediente() . ", ";
+          }
+          $ingredientesProducto = rtrim($ingredientesProducto, ", ");
+          ?>
           <!-- Cards productos -->
-        <div class="cards-productos d-flex flex-row justify-content-center">
-          <div class="card-producto card overflow-hidden">
-            <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
-              <h3>Pizza Margarita</h3>
-            </div>
-              <img class="img-producto" src="public/assets/productos/imagen_producto_pizzas_margarita.png" alt="">
+            <div class="card-producto card overflow-hidden">
+              <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
+                <h3><?= $producto->getNombreProducto(); ?></h3>
+              </div>
+              <div class="img-producto-container d-flex justify-content-center">
+                <img class="img-producto" src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" alt="imagen <?= $producto->getNombreProducto(); ?>">
+              </div>
               <div class="card-ingrediente-body card-body d-flex flex-column justify-content-between">
-                <div class="ingredientes-caracteristicas d-flex flex-row flex-nowrap">
-                  <p class="card-producto-text card-text overflow-hidden">Salsa de tomate, mozzarela, albahaca.</p>
+                <div class="ingredientes-caracteristicas d-flex flex-row flex-nowrap justify-content-between">
+                  <p class="card-producto-text card-text overflow-hidden"><?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
                   <div class="caracteristicas-producto d-flex flex-row align-items-center">
-                    <img src="public/assets/caracteristicasNutricionales/icono_caracteristica_nutricional_gluten.png" alt="">
-                    <img src="public/assets/caracteristicasNutricionales/icono_caracteristica_nutricional_lacteos.png" alt="">
+                    <?php foreach ($producto->getCaracteristicasNutricionales() as $caracteristicaNutricional) {?>
+                      <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
+                    <?php } ?>
                   </div>
                 </div>
                 <div class="d-flex flex-row justify-content-between">
+                  <?php if ($producto->getIdDescuento() == NULL) { ?>
+                    <span class="precio"><?= $producto->getPrecioProducto(); ?></span>
+                  <?php } else { ?>
+                    <div>
+                      <span class="precio precio-producto-oferta"><?= number_format(($producto->getPrecioProducto() - ($producto->getPrecioProducto() * $producto->getPorcentajeDescuento() / 100)), 2, ',', '.'); ?></span>
+                      <span class="precio precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
+                    </div>
+                  <?php } ?>
                   <button class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
-                  <span class="precio">12,99</span>
                 </div>
               </div>
             </div>
+            <?php } ?>
           </div>
-
         </div>
-      
     <?php } ?>
   </div>
 
@@ -144,6 +160,8 @@
 
 .cards-productos {
   gap: 16px;
+  padding-top: 45px;
+  padding-bottom: 15px;
 }
 
 .card-producto {
@@ -155,6 +173,17 @@
   height: 100px;
   padding-left: 26px !important;
   border: 0px !important;
+}
+
+.img-producto-container {
+  height: 300px;
+  width: 300px;
+  padding: 20px 0px;
+}
+
+.img-producto {
+  max-height: 260px;
+  width: fit-content;
 }
 
 .card-ingrediente-body {
@@ -172,7 +201,8 @@
 }
 
 .card-producto-text {
-  max-height: 50px;
+  max-height: 45px;
+  font-size: 14px;
 }
 
 .ingredientes-caracteristicas {
@@ -180,12 +210,23 @@
 }
 
 .btn-anadir-carrito {
-  padding: 10px 15px !important;
+  padding: 8px 10px !important;
 }
 
 .precio {
   font-size: 26px;
   font-weight: bold;
+}
+
+.precio-producto-oferta {
+  font-weight: bold;
+  color: red;
+}
+
+.precio-producto-original {
+  font-size: 18px;
+  color: #939393;
+  text-decoration: line-through;
 }
 
 </style>
