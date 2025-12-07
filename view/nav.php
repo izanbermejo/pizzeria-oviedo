@@ -35,7 +35,7 @@
             <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=3">Complementos</a></li>
             <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=4">Postres</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Ofertas</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas">Ofertas</a></li>
           </ul>
         </li>
         <li class="nav-item px-lg-3">
