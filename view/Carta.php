@@ -76,18 +76,6 @@
           <?php } ?>
         </ul>
       </div>
-    <?php } else if ($_GET['action'] == 'indexOfertas') { ?>
-      <!-- Filtro categoria para ofertas -->
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Categoria
-        </button>
-        <ul class="dropdown-menu">
-          <?php foreach ($listaCategorias as $categoria) { ?>
-            <li><a class="dropdown-item" href="?controller=Carta&action=indexOferta&idcategoria=<?= $categoria->getIdCategoria() ?>"><?= $categoria->getNombreCategoria() ?></a></li>
-          <?php } ?>
-        </ul>
-      </div>
     <?php } ?>
   </div>
 
