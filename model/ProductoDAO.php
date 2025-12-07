@@ -74,8 +74,9 @@ class ProductoDAO {
 
   public static function getProductosByCategoria($id) {
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT p.* FROM productos p
+    $stmt = $con->prepare("SELECT p.*, d.porcentaje_descuento FROM productos p
       JOIN subcategorias s ON s.id_subcategoria = p.id_subcategoria
+      LEFT JOIN descuentos d ON p.id_descuento = d.id_descuento
       WHERE s.id_categoria = ? AND p.activo = 1");
     $stmt->bind_param('i', $id);
     $stmt->execute();
