@@ -44,24 +44,47 @@
         Ordenar por...
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pasc">Precio ascendente</a></li>
-        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pdesc">Precio descendente</a></li>
-        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=nasc">Nombre ascendente</a></li>
-        <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=ndesc">Nombre descendente</a></li>
+        <!-- Filtro orden ofertas -->
+        <?php if ($_GET['action'] == 'indexOfertas') { ?>
+          <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas&orden=pasc">Precio ascendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas&orden=pdesc">Precio descendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas&orden=nasc">Nombre ascendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas&orden=ndesc">Nombre descendente</a></li>
+        <!-- Filtro orden productos por categoria -->
+        <?php } else if ($_GET['action'] == 'index') {?>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pasc">Precio ascendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pdesc">Precio descendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=nasc">Nombre ascendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=ndesc">Nombre descendente</a></li>
+        <?php } ?>
       </ul>
     </div>
 
     <!-- Filtro subcategoria -->
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Subcategoria
-      </button>
-      <ul class="dropdown-menu">
-        <?php foreach ($listaSubcategorias as $subcategoria) { ?>
-          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&idsubcategoria=<?= $subcategoria->getIdSubcategoria() ?>"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
-        <?php } ?>
-      </ul>
-    </div>
+    <?php if ($_GET['action'] == 'index') { ?>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Subcategoria
+        </button>
+        <ul class="dropdown-menu">
+          <?php foreach ($listaSubcategorias as $subcategoria) { ?>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&idsubcategoria=<?= $subcategoria->getIdSubcategoria() ?>"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
+          <?php } ?>
+        </ul>
+      </div>
+    <?php } else if ($_GET['action'] == 'indexOfertas') { ?>
+      <!-- Filtro categoria para ofertas -->
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Categoria
+        </button>
+        <ul class="dropdown-menu">
+          <?php foreach ($listaCategorias as $categoria) { ?>
+            <li><a class="dropdown-item" href="?controller=Carta&action=indexOferta&idcategoria=<?= $categoria->getIdCategoria() ?>"><?= $categoria->getNombreCategoria() ?></a></li>
+          <?php } ?>
+        </ul>
+      </div>
+    <?php } ?>
   </div>
 
   <!-- Lista productos -->
