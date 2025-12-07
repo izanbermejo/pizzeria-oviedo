@@ -11,7 +11,7 @@
           if ($_GET['idcategoria'] == $categoria->getIdCategoria()) {
             echo 'activo';
           }
-        } else {
+        } else if ($_GET['action'] != "indexOfertas"){
           if ($categoria->getIdCategoria() == 1) {
             echo 'activo';
           }
@@ -21,6 +21,16 @@
         </li>
       </a>
     <?php } ?>
+    <a href="?controller=Carta&action=indexOfertas">
+      <li class="categoria <?php 
+      if (isset($_GET['action'])) {
+        if ($_GET['action'] == "indexOfertas") {
+          echo 'activo';
+        }
+      } ?>">
+        <span>Ofertas</span>
+      </li>
+    </a>
   </ul>
 </section>
 

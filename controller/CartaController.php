@@ -13,5 +13,14 @@ class CartaController{
     $listaProductosByCategoria = $productoController -> indexByCategoria();
     include_once 'view/main.php';
   }
+
+  public function indexOfertas() {
+    $view = 'view/carta.php';
+    $productoController = new ProductoController();
+    $listaCategorias = CategoriaDAO::getCategorias();
+    $listaProductosEnOferta = $productoController -> ofertados();
+    include_once 'view/main.php';
+  }
+
 }
 ?>
