@@ -27,6 +27,10 @@ class ProductoController{
 
   public function ofertados(){
     $listaProductosEnOferta = ProductoDAO::getProductosEnOferta();
+    foreach ($listaProductosEnOferta as $producto) {
+      $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+      $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
+    }
     return $listaProductosEnOferta;
   }
 
