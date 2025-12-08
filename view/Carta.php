@@ -56,10 +56,11 @@
           <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas&orden=ndesc">Nombre descendente</a></li>
         <!-- Filtro orden productos por categoria -->
         <?php } else if ($_GET['action'] == 'index') {?>
-          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pasc">Precio ascendente</a></li>
-          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=pdesc">Precio descendente</a></li>
-          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=nasc">Nombre ascendente</a></li>
-          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&orden=ndesc">Nombre descendente</a></li>
+          <?php isset($_GET['idcategoria']) ? $idcategoria = $_GET['idcategoria'] : $idcategoria = 1; ?>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $idcategoria ?>&orden=pasc">Precio ascendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $idcategoria ?>&orden=pdesc">Precio descendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $idcategoria ?>&orden=nasc">Nombre ascendente</a></li>
+          <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $idcategoria ?>&orden=ndesc">Nombre descendente</a></li>
         <?php } ?>
       </ul>
     </div>
@@ -71,8 +72,9 @@
           Subcategoria
         </button>
         <ul class="dropdown-menu">
+          <?php isset($_GET['idcategoria']) ? $idcategoria = $_GET['idcategoria'] : $idcategoria = 1; ?>
           <?php foreach ($listaSubcategorias as $subcategoria) { ?>
-            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $_GET['idcategoria'] ?>&idsubcategoria=<?= $subcategoria->getIdSubcategoria() ?>"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=<?= $idcategoria ?>&idsubcategoria=<?= $subcategoria->getIdSubcategoria() ?>"><?= $subcategoria->getNombreSubcategoria() ?></a></li>
           <?php } ?>
         </ul>
       </div>
