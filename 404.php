@@ -15,7 +15,7 @@
       <h1 class="display-1 fw-bold">404</h1>
       <p class="fs-2 fw-medium mt-4">¡Ups! Página no encontrada</p>
       <p class="mt-4 mb-5">La página que estás buscando no existe o ha sido movida.</p>
-      <a href="/pizzeriaOviedo" class="btn btn-secondary">
+      <a href="<?= BASE_URL ?>" class="btn btn-secondary">
         Home
       </a>
     </div>
