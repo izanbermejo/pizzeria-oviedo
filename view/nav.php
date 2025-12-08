@@ -39,7 +39,7 @@
           </ul>
         </li>
         <li class="nav-item px-lg-3">
-          <a class="nav-link" aria-current="page" href="#"> Contacto </a>
+          <a class="nav-link" aria-current="page" href="?controller=Contacto&action=index"> Contacto </a>
         </li>
       </ul>
     </div>

@@ -295,7 +295,7 @@
           </div>
 
         </div>
-        <a href="#" class="btn btn-primary align-self-center">Ir a Contacto</a>
+        <a href="?controller=Contacto&action=index" class="btn btn-primary align-self-center">Ir a Contacto</a>
       </div>
       <div class="cuadro-eslogan d-flex align-items-center justify-content-center bg-secondary rounded-4 text-center shadow">
         <h3>Aquí jugamos en casa. Con sabor local, alma azul y la magia de Cazorla en cada detalle.</h3>
