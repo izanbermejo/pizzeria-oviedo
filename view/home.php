@@ -44,7 +44,7 @@
   <!-- Titulo y boton Ofertas -->
     <div class="titulo-ofertas-productos d-flex flex-row justify-content-between align-items-center">
       <h2>Ofertas</h2>
-      <a href="#" class="btn btn-secondary">Todas las ofertas</a>
+      <a href="?controller=Carta&action=indexOfertas" class="btn btn-secondary">Todas las ofertas</a>
     </div>
 
     <!-- Carrusel productos en oferta ordenador -->
@@ -152,7 +152,7 @@
   <section class="productos d-flex flex-column align-items-center justify-content-between">
     <div class="titulo-ofertas-productos d-flex flex-row justify-content-between align-items-center">
       <h2>Productos</h2>
-      <a href="#" class="btn btn-secondary">Ir a Carta</a>
+      <a href="?controller=Carta&action=index" class="btn btn-secondary">Ir a Carta</a>
     </div>
 
     <!-- productos ordenador  -->
