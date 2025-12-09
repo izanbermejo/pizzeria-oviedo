@@ -5,6 +5,7 @@ class Subcategoria {
   private $id_subcategoria;
   private $id_categoria;
   private $nombre_subcategoria;
+  private $nombre_categoria;
   private $descripcion_subcategoria;
 
   public function getIdSubcategoria() {
@@ -29,6 +30,14 @@ class Subcategoria {
 
   public function setNombreSubcategoria($nombre_subcategoria) {
     $this->nombre_subcategoria = $nombre_subcategoria;
+  }
+
+  public function getNombreCategoria() {
+    return $this->nombre_categoria;
+  }
+
+  public function setNombreCategoria($nombre_categoria) {
+    $this->nombre_categoria = $nombre_categoria;
   }
 
   public function getDescripcionSubcategoria() {
