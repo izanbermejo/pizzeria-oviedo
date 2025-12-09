@@ -23,7 +23,10 @@ class ProductoDAO {
   
   public static function getProductoById($id) {
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT * FROM productos WHERE id_producto = ?");
+    $stmt = $con->prepare("SELECT p.*, d.porcentaje_descuento 
+    FROM productos p 
+    LEFT JOIN descuentos d ON p.id_descuento = d.id_descuento
+    WHERE id_producto = ?");
     $stmt->bind_param('i', $id);
     $stmt->execute();
     $results = $stmt->get_result();

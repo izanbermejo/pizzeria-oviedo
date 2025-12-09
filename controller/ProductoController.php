@@ -7,6 +7,8 @@ class ProductoController{
     $view = 'view/producto/show.php';
     $idProducto = $_GET['idproducto'];
     $producto = ProductoDAO::getProductoById($idProducto);
+    $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+    $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     include_once 'view/main.php';
   }
 
