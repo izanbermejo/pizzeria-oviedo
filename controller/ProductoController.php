@@ -1,5 +1,6 @@
 <?php 
 include_once 'model/ProductoDAO.php';
+include_once 'model/SubcategoriaDAO.php';
 
 class ProductoController{
 
@@ -7,6 +8,7 @@ class ProductoController{
     $view = 'view/producto/show.php';
     $idProducto = $_GET['idproducto'];
     $producto = ProductoDAO::getProductoById($idProducto);
+    $subcategoria = SubcategoriaDAO::getSubcategoriaById($producto->getIdSubcategoria());
     $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
     $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     include_once 'view/main.php';
