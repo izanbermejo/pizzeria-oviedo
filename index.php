@@ -8,7 +8,7 @@ include_once 'controller/SubcategoriaController.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/CartaController.php';
 include_once 'controller/ContactoController.php';
-include_once 'controller/LoginController.php';
+include_once 'controller/InicioSesionController.php';
 
 if (isset($_GET['controller'])) {
   $nombre_controller = $_GET['controller']. 'Controller';
