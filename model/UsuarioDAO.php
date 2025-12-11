@@ -51,5 +51,32 @@ class UsuarioDAO {
     $con->close();
     return $existe;
   }
+
+  public static function getUsuarioByEmail($email) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT * FROM usuarios
+    WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if (!$row) {
+      return null; // no existe
+    }
+
+    $usuario = new Usuario(
+        $row['id_usuario'],
+        $row['nombre_usuario'],
+        $row['apellidos_usuario'],
+        $row['email'],
+        $row['contrasena'],
+        $row['direccion'],
+        $row['ciudad'],
+        $row['tipo_usuario']
+    );
+    $con->close();
+    return $usuario;
+  }
 }
 ?>

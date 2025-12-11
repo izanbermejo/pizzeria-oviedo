@@ -1,14 +1,14 @@
 <section class="section-login d-flex justify-content-center align-items-center bg-secondary">
   <div class="card-formulario d-flex flex-column card shadow gap-4">
     <h2>Iniciar sesión</h2>
-    <form class="d-flex flex-column gap-3">
+    <form action="?controller=InicioSesion&action=loginUsuario" method="POST" class="d-flex flex-column gap-3">
       <div class="form-group">
-        <label for="inputEmail">Email</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="ejemplo@email.com">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com" name="email">
       </div>
       <div class="form-group">
-        <label for="inputPassword4">Contraseña</label>
-        <input type="password" class="form-control" id="inputPassword">
+        <label for="password">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password">
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center">
         <button type="submit" class="btn btn-primary">Iniciar sesión</button>

@@ -41,6 +41,19 @@ class InicioSesionController{
     $view = 'view/register.php';
     include_once 'view/main.php';
   }
+
+  public function loginUsuario() {
+    $usuario = UsuarioDAO::getUsuarioByEmail($_POST['email']);
+
+    if ($usuario && password_verify($_POST['password'], $usuario->getContrasena())) {
+      $_SESSION['usuario'] = $usuario;
+      header("Location: ?");
+    } else {
+      $view = 'view/login.php';
+      include_once 'view/main.php';
+    }
+  }
+  
 }
 
 ?>

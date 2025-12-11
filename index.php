@@ -10,6 +10,10 @@ include_once 'controller/CartaController.php';
 include_once 'controller/ContactoController.php';
 include_once 'controller/InicioSesionController.php';
 
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+
 if (isset($_GET['controller'])) {
   $nombre_controller = $_GET['controller']. 'Controller';
   if (class_exists($nombre_controller)) {
