@@ -5,34 +5,34 @@
       <div class="form-row d-flex flex-row gap-3">
         <div class="form-group">
           <label for="inputNombre">Nombre</label>
-          <input type="text" class="form-control" id="inputNombre">
+          <input type="text" class="form-control" id="inputNombre" required>
         </div>
         <div class="form-group">
           <label for="inputApellidos">Apellidos</label>
-          <input type="text" class="form-control" id="inputApellidos">
+          <input type="text" class="form-control" id="inputApellidos" required>
         </div>
       </div>
       <div class="form-row d-flex flex-row gap-3">
         <div class="form-group">
           <label for="inputCiudad">Ciudad</label>
-          <input type="text" class="form-control" id="inputCiudad">
+          <input type="text" class="form-control" id="inputCiudad" required>
         </div>
         <div class="form-group">
           <label for="inputCP">C.P.</label>
-          <input type="number" class="form-control" id="inputCP" placeholder="00000">
+          <input type="number" class="form-control" id="inputCP" placeholder="00000" required>
         </div>
       </div>
       <div class="form-group">
         <label for="inputDireccion">Dirección</label>
-        <input type="text" class="form-control" id="inputDireccion">
+        <input type="text" class="form-control" id="inputDireccion" required>
       </div>
       <div class="form-group">
         <label for="inputEmail">Email</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="ejemplo@email.com">
+        <input type="email" class="form-control" id="inputEmail" placeholder="ejemplo@email.com" required>
       </div>
       <div class="form-group">
         <label for="inputPassword4">Contraseña</label>
-        <input type="password" class="form-control" id="inputPassword">
+        <input type="password" class="form-control" id="inputPassword" required>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center">
         <button type="submit" class="btn btn-primary">Registrar</button>
