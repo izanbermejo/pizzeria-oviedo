@@ -45,6 +45,9 @@
     </div>
     <!-- Iconos derecha -->
     <div class="d-flex gap-4 align-items-center iconos-derecha">
+      <?php if (isset($_SESSION['usuario']) ) { ?>
+        <a class="btn" style="color: red; font-weight: bold;" href="?controller=InicioSesion&action=logoutUsuario">Logout</a>
+      <?php } ?>
       <!-- Icono carrito -->
       <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getTipoUsuario() == 'admin') { ?>
         <a class="btn-admin btn" href="#">Admin</a>

@@ -53,6 +53,11 @@ class InicioSesionController{
       include_once 'view/main.php';
     }
   }
+
+  public function logoutUsuario() {
+    session_destroy();
+    header("Location: ?");
+  }
   
 }
 
