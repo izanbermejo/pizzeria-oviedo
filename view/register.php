@@ -1,21 +1,26 @@
-<section class="section-login d-flex justify-content-center align-items-center bg-secondary">
+<section class="section-login d-flex flex-column gap-2 justify-content-center align-items-center bg-secondary">
+  <?php if (isset($emailDuplicado) && $emailDuplicado) : ?>
+    <div class="alert alert-danger" role="alert">
+      El email introducido ya está registrado. Por favor, utiliza otro email.
+    </div>
+  <?php endif; ?>
   <div class="card-formulario d-flex flex-column card shadow gap-4">
     <h2>Registrarse</h2>
     <form action="?controller=InicioSesion&action=registrarUsuario" method="POST" class="d-flex flex-column gap-3">
       <div class="form-row d-flex flex-row gap-3">
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre" name="nombre" required>
+          <input type="text" class="form-control" id="nombre" name="nombre" value="<?= htmlspecialchars($nombre ?? '') ?>" required>
         </div>
         <div class="form-group">
           <label for="apellidos">Apellidos</label>
-          <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+          <input type="text" class="form-control" id="apellidos" name="apellidos" value="<?= htmlspecialchars($apellidos ?? '') ?>" required>
         </div>
       </div>
       <div class="form-row d-flex flex-row gap-3">
         <div class="form-group">
           <label for="ciudad">Ciudad</label>
-          <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+          <input type="text" class="form-control" id="ciudad" name="ciudad" value="<?= htmlspecialchars($ciudad ?? '') ?>" required>
         </div>
         <div class="form-group">
           <label for="inputCP">C.P.</label>
@@ -24,11 +29,11 @@
       </div>
       <div class="form-group">
         <label for="direccion">Dirección</label>
-        <input type="text" class="form-control" id="direccion" name="direccion" required>
+        <input type="text" class="form-control" id="direccion" name="direccion" value="<?= htmlspecialchars($direccion ?? '') ?>" required>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@email.com" required>
+        <input type="email" class="form-control <?php if (isset($emailDuplicado) && $emailDuplicado) echo 'is-invalid'; ?>" id="email" name="email" placeholder="ejemplo@email.com" value="<?= htmlspecialchars($email ?? '') ?>" required>
       </div>
       <div class="form-group">
         <label for="password">Contraseña</label>

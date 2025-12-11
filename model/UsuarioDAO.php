@@ -39,5 +39,17 @@ class UsuarioDAO {
 
     $con->close();
   }
+
+  public static function emailExiste($email) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT id_usuario FROM usuarios WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    $existe = $stmt->num_rows > 0;
+    $stmt->close();
+    $con->close();
+    return $existe;
+  }
 }
 ?>
