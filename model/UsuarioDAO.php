@@ -13,8 +13,18 @@ class UsuarioDAO {
 
     $listaUsuarios = [];
 
-    while ($usuario = $results->fetch_object('Usuario')) {
-      $listaUsuarios[]=$usuario;
+     while ($row = $results->fetch_assoc()) {
+      $usuario = new Usuario(
+        $row['id_usuario'],
+        $row['nombre_usuario'],
+        $row['apellidos_usuario'],
+        $row['email'],
+        $row['contrasena'],
+        $row['direccion'],
+        $row['ciudad'],
+        $row['tipo_usuario']
+      );
+      $listaUsuarios[] = $usuario;
     }
 
     $con->close();

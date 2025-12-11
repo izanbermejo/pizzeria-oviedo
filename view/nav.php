@@ -50,7 +50,7 @@
       <?php } ?>
       <!-- Icono carrito -->
       <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getTipoUsuario() == 'admin') { ?>
-        <a class="btn-admin btn" href="#">Admin</a>
+        <a class="btn-admin btn" href="?controller=Admin&action=index">Admin</a>
       <?php } ?>
       <a href="#" class="text-decoration-none">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 23px;">

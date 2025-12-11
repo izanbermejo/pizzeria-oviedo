@@ -93,5 +93,18 @@ class Usuario {
   public function setTipoUsuario($tipo_usuario) {
     $this->tipo_usuario = $tipo_usuario;
   }  
+
+  public function toArray() {
+    return [
+      'id_usuario' => $this->id_usuario,
+      'nombre_usuario' => $this->nombre_usuario,
+      'apellidos_usuario' => $this->apellidos_usuario,
+      'email' => $this->email,
+      'contrasena' => $this->contrasena,
+      'direccion' => $this->direccion,
+      'ciudad' => $this->ciudad,
+      'tipo_usuario' => $this->tipo_usuario
+    ];
+  }
 }
 ?>
