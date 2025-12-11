@@ -21,6 +21,23 @@ class UsuarioDAO {
     return $listaUsuarios;
   }
 
-  
+  public static function addUsuario(Usuario $usuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("INSERT INTO usuarios (nombre_usuario, apellidos_usuario, email, contrasena, direccion, ciudad)
+    VALUES (?, ?, ?, ?, ?, ?)");
+
+    $nombre    = $usuario->getNombreUsuario();
+    $apellidos = $usuario->getApellidosUsuario();
+    $email     = $usuario->getEmail();
+    $contrasena= $usuario->getContrasena();
+    $direccion = $usuario->getDireccion();
+    $ciudad    = $usuario->getCiudad();
+
+    $stmt->bind_param('ssssss', $nombre, $apellidos, $email, $contrasena, $direccion, $ciudad);
+
+    $stmt->execute();
+
+    $con->close();
+  }
 }
 ?>
