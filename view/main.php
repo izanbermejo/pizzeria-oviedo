@@ -11,11 +11,18 @@
   <title>Document</title>
 </head>
 <body>
-  <?php if (isset($_GET['controller']) && $_GET['controller'] == 'Admin') {
-    // include_once 'view/sidebar.php';
-    include_once $view;
-    include_once 'footerAdmin.php';
-  } else {
+  <?php if (isset($_GET['controller']) && $_GET['controller'] == 'Admin') { ?>
+    <main class="d-flex flex-column min-vh-100">
+      <div class="d-flex" style="flex: 1">
+        <?php 
+          include_once 'view/sidebar.php';
+          include_once $view; 
+         ?>
+      </div>
+      <?php include_once 'footerAdmin.php'; ?>
+
+    </main>
+  <?php } else {
     include_once 'nav.php';
     include_once $view;
     include_once 'footer.php';
