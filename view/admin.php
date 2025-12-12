@@ -56,12 +56,39 @@
   </div>
 </div>
 
+<section id="productos" class="content-section">
+  <div>
+    <h1>Gestión de productos</h1>
+  </div>
+</section>
 
-<?php echo "hola" ?>
+<section id="ingredientes" class="content-section" style="display: none;">
+  <div>
+    <h1>Gestión de ingredientes</h1>
+  </div>
+</section>
 
-<section>
-  <div id="usuarios">
+<section id="pedidos" class="content-section" style="display: none;">
+  <div>
+    <h1>Gestión de pedidos</h1>
+  </div>
+</section>
 
+<section id="descuentos" class="content-section" style="display: none;">
+  <div>
+    <h1>Gestión de descuentos</h1>
+  </div>
+</section>
+
+<section id="categorias" class="content-section" style="display: none;">
+  <div>
+    <h1>Gestión de categorías</h1>
+  </div>
+</section>
+
+<section id="usuarios" class="content-section" style="display: none;">
+  <div>
+    <h1>Gestión de usuarios</h1>
   </div>
 </section>
 
@@ -71,6 +98,32 @@
   .then(data => {
     console.log(data);
   });
+
+  const botonesMenu = document.querySelectorAll('.menu-btn');
+
+  const secciones = document.querySelectorAll('.content-section');
+
+  botonesMenu.forEach((boton, index) => {
+    boton.addEventListener("click", () => {
+      secciones.forEach((seccion, indexSec) => {
+        if (index === indexSec) {
+          seccion.style.display = 'block';
+        } else {
+          seccion.style.display = 'none';
+        }
+      });
+      botonesMenu.forEach((btn, indexBtn) => {
+        if (index === indexBtn) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    })
+  });
+
+
+  
 </script>
 
 <style>
@@ -78,6 +131,7 @@
 .nav-link {
   width: 100%;
   text-align: start;
+  color: white !important;
 }
 
 
