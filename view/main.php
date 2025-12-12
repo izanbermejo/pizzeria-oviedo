@@ -19,7 +19,6 @@
           include_once $view; 
          ?>
       </div>
-      <?php include_once 'footerAdmin.php'; ?>
 
     </main>
   <?php } else {
