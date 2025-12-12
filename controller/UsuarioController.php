@@ -10,8 +10,6 @@ class UsuarioController{
     $listaUsuarios = UsuarioDAO::getUsuarios();
     $data = [];
 
-    var_dump($listaUsuarios);
-
     foreach ($listaUsuarios as $usuario) {
       $data[] = $usuario->toArray();
     }
