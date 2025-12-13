@@ -107,6 +107,11 @@
 
       const seccionUsuarios = document.getElementById('usuarios');
 
+      const divsExistentes = seccionUsuarios.querySelectorAll('div');
+      if (divsExistentes.length > 0) {
+        divsExistentes.forEach(div => div.remove());
+      }
+
       usuarios.forEach(u => {
         const divUsuario = document.createElement('div');
         divUsuario.classList.add('usuario-item');
@@ -135,11 +140,32 @@
 
       seccionUsuarios.appendChild(anadirUsuario);
       
+      const botonesEliminar = document.querySelectorAll('.eliminar-usuario');
       
+      botonesEliminar.forEach(boton => {
+        console.log(boton.innerHTML);
+        boton.addEventListener("click", () => {
+          const idUsuario = boton.dataset.id;
+          eliminarUsuario(idUsuario);
+        });
+      });
       
     });
   }
+
   const botonesMenu = document.querySelectorAll('.menu-btn');
+
+  const eliminarUsuario = (idUsuario) => {
+    console.log("Eliminando usuario con id: " + idUsuario);
+    fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=eliminarUsuario&idUsuario=${idUsuario}`, { method: 'DELETE' })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      if(data.success) cargarUsuarios();
+      else alert(data.message);
+    });
+  }
+
 
   const secciones = document.querySelectorAll('.content-section');
 

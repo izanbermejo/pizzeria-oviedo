@@ -88,5 +88,15 @@ class UsuarioDAO {
     $con->close();
     return $usuario;
   }
+
+  public static function eliminarUsuario($idUsuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("DELETE FROM usuarios WHERE id_usuario = ?");
+    $stmt->bind_param("i", $idUsuario);
+    $resultado = $stmt->execute();
+    $stmt->close();
+    $con->close();
+    return $resultado;
+  }
 }
 ?>
