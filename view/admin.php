@@ -57,39 +57,27 @@
 </div>
 
 <section id="productos" class="content-section">
-  <div>
-    <h1>Gestión de productos</h1>
-  </div>
+  <h1 class="section-title">Gestión de productos</h1>
 </section>
 
 <section id="ingredientes" class="content-section" style="display: none;">
-  <div>
-    <h1>Gestión de ingredientes</h1>
-  </div>
+  <h1 class="section-title">Gestión de ingredientes</h1>
 </section>
 
 <section id="pedidos" class="content-section" style="display: none;">
-  <div>
-    <h1>Gestión de pedidos</h1>
-  </div>
+  <h1 class="section-title">Gestión de pedidos</h1>
 </section>
 
 <section id="descuentos" class="content-section" style="display: none;">
-  <div>
-    <h1>Gestión de descuentos</h1>
-  </div>
+  <h1 class="section-title">Gestión de descuentos</h1>
 </section>
 
 <section id="categorias" class="content-section" style="display: none;">
-  <div>
-    <h1>Gestión de categorías</h1>
-  </div>
+  <h1 class="section-title">Gestión de categorías</h1>
 </section>
 
 <section id="usuarios" class="content-section" style="display: none;">
-  <div>
-    <h1>Gestión de usuarios</h1>
-  </div>
+  <h1 class="section-title">Gestión de usuarios</h1>
 </section>
 
 <script>
