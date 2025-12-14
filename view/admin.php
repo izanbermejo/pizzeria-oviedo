@@ -180,5 +180,19 @@ button.usuario-item {
   cursor: pointer;
 }
 
+.formulario-edicion {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 15px 20px;
+  background-color: var(--bs-secondary);
+  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.24);
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.formulario-edicion label {
+  padding-left: 10px;
+}
 
 </style>

@@ -31,6 +31,33 @@ class UsuarioDAO {
     return $listaUsuarios;
   }
 
+  public static function getUsuarioById($idUsuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT * FROM usuarios
+    WHERE id_usuario = ?");
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if (!$row) {
+      return null; // no existe
+    }
+
+    $usuario = new Usuario(
+        $row['id_usuario'],
+        $row['nombre_usuario'],
+        $row['apellidos_usuario'],
+        $row['email'],
+        $row['contrasena'],
+        $row['direccion'],
+        $row['ciudad'],
+        $row['tipo_usuario']
+    );
+    $con->close();
+    return $usuario;
+  }
+
   public static function addUsuario(Usuario $usuario) {
     $con = DataBase::connect();
     $stmt = $con->prepare("INSERT INTO usuarios (nombre_usuario, apellidos_usuario, email, contrasena, direccion, ciudad)

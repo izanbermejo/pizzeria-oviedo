@@ -17,6 +17,24 @@ class UsuarioController{
     echo json_encode($data);
   }
 
+  public function getUsuarioById() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    if (!isset($_GET['idUsuario'])) {
+      echo json_encode(['success' => false, 'message' => 'ID de usuario no proporcionado.']);
+      return;
+    }
+
+    $idUsuario = $_GET['idUsuario'];
+    $usuario = UsuarioDAO::getUsuarioById($idUsuario);
+
+    if ($usuario) {
+      echo json_encode(['success' => true, 'data' => $usuario->toArray()]);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Usuario no encontrado.']);
+    }
+  }
+
   public function eliminarUsuario() {
     header('Content-Type: application/json; charset-utf-8');
 
