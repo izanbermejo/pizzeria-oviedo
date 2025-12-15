@@ -70,12 +70,38 @@ class UsuarioController{
       $data['tipoUsuario']
     );
 
-    $eliminado = UsuarioDAO::updateUsuario($usuario);
+    $actualizado = UsuarioDAO::updateUsuario($usuario);
 
-    if ($eliminado) {
+    if ($actualizado) {
       echo json_encode(['success' => true, 'message' => 'Usuario editado correctamente.']);
     } else {
       echo json_encode(['success' => false, 'message' => 'Error al editar el usuario.']);
+    }
+
+  }
+
+  public function guardarNuevoUsuario() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $usuario = new Usuario(
+      $data['idUsuario'],
+      $data['nombreUsuario'],
+      $data['apellidosUsuario'],
+      $data['email'],
+      password_hash($data['contrasena'], PASSWORD_DEFAULT),
+      $data['direccion'],
+      $data['ciudad'],
+      $data['tipoUsuario']
+    );
+
+    $anadido = UsuarioDAO::addNewUsuario($usuario);
+
+    if ($anadido) {
+      echo json_encode(['success' => true, 'message' => 'Usuario añadido correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al añadir el usuario.']);
     }
 
   }

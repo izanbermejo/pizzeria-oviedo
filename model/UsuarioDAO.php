@@ -144,5 +144,27 @@ class UsuarioDAO {
     $con->close();
     return $resultado;
   }
+
+  public static function addNewUsuario(Usuario $usuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("INSERT INTO usuarios (nombre_usuario, apellidos_usuario, email, contrasena, direccion, ciudad, tipo_usuario)
+    VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+    $nombre    = $usuario->getNombreUsuario();
+    $apellidos = $usuario->getApellidosUsuario();
+    $email     = $usuario->getEmail();
+    $contrasena= $usuario->getContrasena();
+    $direccion = $usuario->getDireccion();
+    $ciudad    = $usuario->getCiudad();
+    $tipoUsuario = $usuario->getTipoUsuario();
+
+    $stmt->bind_param('sssssss', $nombre, $apellidos, $email, $contrasena, $direccion, $ciudad, $tipoUsuario);
+
+    $resultado = $stmt->execute();
+
+    $con->close();
+
+    return $resultado;
+  }
 }
 ?>

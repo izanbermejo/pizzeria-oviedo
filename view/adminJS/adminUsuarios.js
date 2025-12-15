@@ -135,7 +135,7 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
       </div>
       <div class='d-flex justify-content-end gap-2'>
         <button class="cancelarEdicion btn btn-secondary" type="button" id="cancelarBtn">Cancelar</button>
-        <button class="${isEditar ? 'guardarCambios' : 'guardarNuevoUsuario'} btn btn-primary" type="submit">${isEditar ? 'Guardar Cambios' : 'Añadir Usuario'}</button>
+        <button class="btn btn-primary" type="submit">${isEditar ? 'Guardar Cambios' : 'Añadir Usuario'}</button>
       </div>
     </form>
   `;
@@ -151,14 +151,7 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
       if (isEditar) {
         guardarCambiosUsuario(usuario.data.id_usuario);
       } else {
-        const nombre = document.getElementById('nombreUsuario').value;
-        const apellidos = document.getElementById('apellidosUsuario').value;
-        const email = document.getElementById('email').value;
-        const contrasena = document.getElementById('contrasena').value;
-        const direccion = document.getElementById('direccion').value;
-        const ciudad = document.getElementById('ciudad').value;
-        const tipoUsuario = document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario';
-        guardarNuevoUsuario(nombre, apellidos, email, contrasena, direccion, ciudad, tipoUsuario);
+        guardarNuevoUsuario();
       }
     });
   });
@@ -194,6 +187,34 @@ const guardarCambiosUsuario = (idUsuario) => {
   fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=guardarCambiosUsuario&idUsuario=${idUsuario}`, { method: 'PUT',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datosUsuario) })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    if(data.success) cargarUsuarios();
+    else alert(data.message);
+  });
+
+}
+
+const guardarNuevoUsuario = () => {
+  // console.log("Guardando cambios del usuario con id: " + idUsuario);
+
+  nuevoUsuario = new Usuario(
+    null,
+    document.getElementById('nombreUsuario').value,
+    document.getElementById('apellidosUsuario').value,
+    document.getElementById('ciudad').value,
+    document.getElementById('direccion').value,
+    document.getElementById('email').value,
+    document.getElementById('contrasena').value,
+    document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario'
+  );
+
+  console.log(nuevoUsuario);
+
+  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=guardarNuevoUsuario`, { method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(nuevoUsuario) })
   .then(response => response.json())
   .then(data => {
     console.log(data);
