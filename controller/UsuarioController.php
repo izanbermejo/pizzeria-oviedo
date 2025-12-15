@@ -54,5 +54,31 @@ class UsuarioController{
 
   }
 
+  public function guardarCambiosUsuario() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $usuario = new Usuario(
+      $_GET['idUsuario'],
+      $data['nombre'],
+      $data['apellidos'],
+      $data['email'],
+      null, 
+      $data['direccion'],
+      $data['ciudad'],
+      $data['tipoUsuario']
+    );
+
+    $eliminado = UsuarioDAO::updateUsuario($usuario);
+
+    if ($eliminado) {
+      echo json_encode(['success' => true, 'message' => 'Usuario editado correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al editar el usuario.']);
+    }
+
+  }
+
 }
 ?>

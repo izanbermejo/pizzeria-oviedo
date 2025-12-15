@@ -99,7 +99,7 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
   const formulario = document.createElement('div');
   formulario.classList.add('usuario-formulario');
 
-  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=getUsuarioById&idUsuario=${idUsuario}`)
+  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=getUsuarioById&idUsuario=${idUsuario}`, { method: 'GET' })
   .then(response => response.json())
   .then(usuario => {
     formulario.innerHTML = `
@@ -144,13 +144,23 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
       cargarUsuarios();
     });
 
-    const botonGuardarCambios = document.querySelector('.guardarCambios');
-    botonGuardarCambios?.addEventListener("click", () => {});
-
-    const botonGuardarNuevoUsuario = document.querySelector('.guardarNuevoUsuario');
-    botonGuardarNuevoUsuario?.addEventListener("click", () => {});
-
-
+    const formEdicion = document.querySelector('.formulario-edicion');
+    formEdicion?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      if (isEditar) {
+        guardarCambiosUsuario(usuario.data.id_usuario);
+      } else {
+        const nombre = document.getElementById('nombreUsuario').value;
+        const apellidos = document.getElementById('apellidosUsuario').value;
+        const email = document.getElementById('email').value;
+        const contrasena = document.getElementById('contrasena').value;
+        const direccion = document.getElementById('direccion').value;
+        const ciudad = document.getElementById('ciudad').value;
+        const tipoUsuario = document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario';
+        guardarNuevoUsuario(nombre, apellidos, email, contrasena, direccion, ciudad, tipoUsuario);
+      }
+    });
   });
 
   seccionUsuarios.appendChild(formulario);
@@ -165,4 +175,30 @@ const eliminarUsuario = (idUsuario) => {
     if(data.success) cargarUsuarios();
     else alert(data.message);
   });
+}
+
+const guardarCambiosUsuario = (idUsuario) => {
+  console.log("Guardando cambios del usuario con id: " + idUsuario);
+
+  const datosUsuario = {
+    nombre: document.getElementById('nombreUsuario').value,
+    apellidos: document.getElementById('apellidosUsuario').value,
+    email: document.getElementById('email').value,
+    direccion: document.getElementById('direccion').value,
+    ciudad: document.getElementById('ciudad').value,
+    tipoUsuario: document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario'
+  };
+
+  console.log(datosUsuario);
+
+  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=guardarCambiosUsuario&idUsuario=${idUsuario}`, { method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(datosUsuario) })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    if(data.success) cargarUsuarios();
+    else alert(data.message);
+  });
+
 }

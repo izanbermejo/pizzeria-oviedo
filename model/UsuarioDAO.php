@@ -125,5 +125,24 @@ class UsuarioDAO {
     $con->close();
     return $resultado;
   }
+
+  public static function updateUsuario($usuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("UPDATE usuarios SET nombre_usuario = ?, apellidos_usuario = ?, email = ?, direccion = ?, ciudad = ?, tipo_usuario = ? WHERE id_usuario = ?");
+    
+    $nombreUsuario = $usuario->getNombreUsuario();
+    $apellidosUsuario = $usuario->getApellidosUsuario();
+    $email = $usuario->getEmail();
+    $direccion = $usuario->getDireccion();
+    $ciudad = $usuario->getCiudad();
+    $tipoUsuario = $usuario->getTipoUsuario();
+    $idUsuario = $usuario->getIdUsuario();
+
+    $stmt->bind_param("ssssssi", $nombreUsuario, $apellidosUsuario, $email, $direccion, $ciudad, $tipoUsuario, $idUsuario);
+    $resultado = $stmt->execute();
+    $stmt->close();
+    $con->close();
+    return $resultado;
+  }
 }
 ?>
