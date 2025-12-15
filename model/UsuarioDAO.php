@@ -31,6 +31,33 @@ class UsuarioDAO {
     return $listaUsuarios;
   }
 
+  public static function getUsuarioById($idUsuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT * FROM usuarios
+    WHERE id_usuario = ?");
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if (!$row) {
+      return null; // no existe
+    }
+
+    $usuario = new Usuario(
+        $row['id_usuario'],
+        $row['nombre_usuario'],
+        $row['apellidos_usuario'],
+        $row['email'],
+        $row['contrasena'],
+        $row['direccion'],
+        $row['ciudad'],
+        $row['tipo_usuario']
+    );
+    $con->close();
+    return $usuario;
+  }
+
   public static function addUsuario(Usuario $usuario) {
     $con = DataBase::connect();
     $stmt = $con->prepare("INSERT INTO usuarios (nombre_usuario, apellidos_usuario, email, contrasena, direccion, ciudad)
@@ -87,6 +114,57 @@ class UsuarioDAO {
     );
     $con->close();
     return $usuario;
+  }
+
+  public static function eliminarUsuario($idUsuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("DELETE FROM usuarios WHERE id_usuario = ?");
+    $stmt->bind_param("i", $idUsuario);
+    $resultado = $stmt->execute();
+    $stmt->close();
+    $con->close();
+    return $resultado;
+  }
+
+  public static function updateUsuario($usuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("UPDATE usuarios SET nombre_usuario = ?, apellidos_usuario = ?, email = ?, direccion = ?, ciudad = ?, tipo_usuario = ? WHERE id_usuario = ?");
+    
+    $nombreUsuario = $usuario->getNombreUsuario();
+    $apellidosUsuario = $usuario->getApellidosUsuario();
+    $email = $usuario->getEmail();
+    $direccion = $usuario->getDireccion();
+    $ciudad = $usuario->getCiudad();
+    $tipoUsuario = $usuario->getTipoUsuario();
+    $idUsuario = $usuario->getIdUsuario();
+
+    $stmt->bind_param("ssssssi", $nombreUsuario, $apellidosUsuario, $email, $direccion, $ciudad, $tipoUsuario, $idUsuario);
+    $resultado = $stmt->execute();
+    $stmt->close();
+    $con->close();
+    return $resultado;
+  }
+
+  public static function addNewUsuario(Usuario $usuario) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("INSERT INTO usuarios (nombre_usuario, apellidos_usuario, email, contrasena, direccion, ciudad, tipo_usuario)
+    VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+    $nombre    = $usuario->getNombreUsuario();
+    $apellidos = $usuario->getApellidosUsuario();
+    $email     = $usuario->getEmail();
+    $contrasena= $usuario->getContrasena();
+    $direccion = $usuario->getDireccion();
+    $ciudad    = $usuario->getCiudad();
+    $tipoUsuario = $usuario->getTipoUsuario();
+
+    $stmt->bind_param('sssssss', $nombre, $apellidos, $email, $contrasena, $direccion, $ciudad, $tipoUsuario);
+
+    $resultado = $stmt->execute();
+
+    $con->close();
+
+    return $resultado;
   }
 }
 ?>
