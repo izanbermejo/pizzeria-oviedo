@@ -12,7 +12,7 @@ class Usuario {
 }
 
 const cargarUsuarios = () => {
-  fetch('http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=getUsuarios')
+  fetch('api.php/?controller=Usuario&action=getUsuarios')
   .then(response => response.json())
   .then(data => {
     const usuarios = data.map(u => new Usuario(u.id_usuario, u.nombre_usuario, u.apellidos_usuario, u.ciudad, u.direccion, u.email, u.contrasena, u.tipo_usuario));
@@ -99,7 +99,7 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
   const formulario = document.createElement('div');
   formulario.classList.add('usuario-formulario');
 
-  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=getUsuarioById&idUsuario=${idUsuario}`, { method: 'GET' })
+  fetch(`api.php/?controller=Usuario&action=getUsuarioById&idUsuario=${idUsuario}`, { method: 'GET' })
   .then(response => response.json())
   .then(usuario => {
     formulario.innerHTML = `
@@ -161,7 +161,7 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
 
 const eliminarUsuario = (idUsuario) => {
   console.log("Eliminando usuario con id: " + idUsuario);
-  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=eliminarUsuario&idUsuario=${idUsuario}`, { method: 'DELETE' })
+  fetch(`api.php/?controller=Usuario&action=eliminarUsuario&idUsuario=${idUsuario}`, { method: 'DELETE' })
   .then(response => response.json())
   .then(data => {
     console.log(data);
@@ -184,7 +184,7 @@ const guardarCambiosUsuario = (idUsuario) => {
 
   console.log(datosUsuario);
 
-  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=guardarCambiosUsuario&idUsuario=${idUsuario}`, { method: 'PUT',
+  fetch(`api.php/?controller=Usuario&action=guardarCambiosUsuario&idUsuario=${idUsuario}`, { method: 'PUT',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datosUsuario) })
   .then(response => response.json())
@@ -212,7 +212,7 @@ const guardarNuevoUsuario = () => {
 
   console.log(nuevoUsuario);
 
-  fetch(`http://localhost/pizzeriaOviedo/api.php/?controller=Usuario&action=guardarNuevoUsuario`, { method: 'POST',
+  fetch(`api.php/?controller=Usuario&action=guardarNuevoUsuario`, { method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(nuevoUsuario) })
   .then(response => response.json())
