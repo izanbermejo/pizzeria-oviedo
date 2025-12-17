@@ -52,7 +52,7 @@
     <div class="producto d-flex flex-row justify-content-between align-items-center">
       <div class="img-nombre-producto d-flex flex-row align-items-center gap-4">
         <img class="img-producto" src="public/assets/productos/imagen_producto_pizzas_margarita.png" alt="imagen pizza margarita">
-        <div>
+        <div class="nombre-producto d-flex flex-column">
           <h2>Pizza Margarita</h2>
           <p>Salsa de tomate, mozzarela, albahaca.</p>
         </div>
@@ -81,7 +81,7 @@
     <!-- cuadro del total y boton de pagar -->
     <div class="pagar d-flex flex-row justify-content-between align-items-center gap-4 shadow">
       <h2>Total: 25,50 €</h2>
-      <button class="btn btn-primary">Proceder al pago</button>
+      <a href="#" class="btn btn-primary">Proceder al pago</a>
     </div>
   </div>
 </section>
@@ -113,13 +113,17 @@
   justify-self: center;
 }
 
-.img-nombre-producto, .precio-cantidad-producto {
+.precio-cantidad-producto {
   width: 30%;
   justify-content: space-around;
 }
 
 .img-producto {
   width: 130px;
+}
+
+.img-nombre-producto, {
+  width: 35%;
 }
 
 .precio-producto {
@@ -161,16 +165,16 @@
 }
 
 .codigo {
-  width: 40%;
+  width: 45%;
 }
 
 .pagar {
-  width: 35%;
+  width: 40%;
 }
 
 .input-codigo {
   border: solid 2px var(--bs-secondary);
-  width: 60%;
+  width: 55%;
   height: -webkit-fill-available;
   font-size: 18px;
   border-radius: 16px;
@@ -178,7 +182,7 @@
 }
 
 .aplicar-descuento {
-  width: 40%;
+  width: 45%;
   font-size: 18px;
   font-weight: bold;
 }
