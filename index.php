@@ -1,5 +1,5 @@
 <?php 
-require_once "config/config.php";
+require_once 'config/config.php';
 include_once 'controller/ProductoController.php';
 include_once 'controller/IngredienteController.php';
 include_once 'controller/CaracteristicaNutricionalController.php';
@@ -12,6 +12,7 @@ include_once 'controller/InicioSesionController.php';
 include_once 'controller/AdminController.php';
 include_once 'controller/UsuarioController.php';
 include_once 'controller/CarritoController.php';
+include_once 'controller/CompraController.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();

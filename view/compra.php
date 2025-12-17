@@ -1,5 +1,5 @@
 <header class="titulo-pagina">
-  <h1>Carrito</h1>
+  <h1>Proceso de compra</h1>
 </header>
 
 <section class="carrito d-flex flex-column justify-content-between gap-5">
@@ -81,7 +81,7 @@
     <!-- cuadro del total y boton de pagar -->
     <div class="pagar d-flex flex-row justify-content-between align-items-center gap-4 shadow">
       <h2>Total: 25,50 €</h2>
-      <a href="?controller=Compra&action=index" class="btn btn-primary">Proceder al pago</a>
+      <a href="#" class="btn btn-primary">Proceder al pago</a>
     </div>
   </div>
 </section>
