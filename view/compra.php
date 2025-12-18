@@ -2,93 +2,108 @@
   <h1>Proceso de compra</h1>
 </header>
 
-<section class="carrito d-flex flex-column justify-content-between gap-5">
-  <!-- cuadro donde sale la lista de productos -->
-  <div class="lista-productos shadow">
-    <!-- Producto en el carrito -->
-    <div class="producto d-flex flex-row justify-content-between align-items-center">
-      <div class="img-nombre-producto d-flex flex-row align-items-center gap-4">
-        <img class="img-producto" src="public/assets/productos/imagen_producto_pizzas_margarita.png" alt="imagen pizza margarita">
-        <div>
-          <h2>Pizza Margarita</h2>
-          <p>Salsa de tomate, mozzarela, albahaca.</p>
+<section class="compra d-flex flex-row justify-content-between gap-5">
+
+  <!-- Parte izquierda de la pagina de pago -->
+  <div class="col-izquierda d-flex flex-column gap-5 w-50">
+    <!-- formulario datos envio -->
+    <div class="datos-envio shadow">
+      <h2>Datos de envío</h2>
+      <form class="form-envio">
+        <div class="form-group">
+          <label for="nombre-apellidos">Nombre y Apellidos:</label>
+          <input type="text" class="form-control" id="nombre-apellidos" name="nombre-apellidos" required>
         </div>
-      </div>
-      <div class="precio-cantidad-producto d-flex flex-row align-items-center gap-4">
-        <span class="precio-producto">8,50 €</span>
-        <div class="cantidad-producto d-flex flex-row align-items-center justify-content-between">
-          <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg></button>
-          <span>1</span>
-          <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"/></svg></button>
+        <div class="form-group">
+          <label for="telf">Número de teléfono:</label>
+          <input type="tel" class="form-control" id="telf" name="telf" required>
         </div>
-        <svg class="eliminar-producto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#d62424" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/></svg>
-      </div>
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Nombre y Número de la calle" required>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <div class="form-group w-50">
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+          </div>
+          <div class="form-group w-50">
+            <label for="codigo-postal">Código Postal:</label>
+            <input type="text" class="form-control" id="codigo-postal" name="codigo-postal" required>
+          </div>
+        </div>
+      </form>
     </div>
 
-    <!-- Separador entre productos -->
-    <hr class="divisor">
-
-    <div class="producto d-flex flex-row justify-content-between align-items-center">
-      <div class="img-nombre-producto d-flex flex-row align-items-center gap-4">
-        <img class="img-producto" src="public/assets/productos/imagen_producto_pizzas_margarita.png" alt="imagen pizza margarita">
-        <div>
-          <h2>Pizza Margarita</h2>
-          <p>Salsa de tomate, mozzarela, albahaca.</p>
+    <!-- formulario datos pago -->
+    <div class="datos-pago shadow">
+      <h2>Datos de pago</h2>
+      <form class="form-pago">
+        <div class="form-group">
+          <label for="numero-tarjeta">Número de tarjeta:</label>
+          <input type="text" class="form-control" id="numero-tarjeta" name="numero-tarjeta" placeholder="XXXX - XXXX - XXXX - XXXX" required>
         </div>
-      </div>
-      <div class="precio-cantidad-producto d-flex flex-row align-items-center gap-4">
-        <span class="precio-producto">8,50 €</span>
-        <div class="cantidad-producto d-flex flex-row align-items-center justify-content-between">
-          <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg></button>
-          <span>1</span>
-          <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"/></svg></button>
+        <div class="d-flex flex-row gap-3">
+          <div class="form-group w-50">
+            <label for="fecha-caducidad">Fecha de caducidad:</label>
+            <input type="text" class="form-control" id="fecha-caducidad" name="fecha-caducidad" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group w-50">
+            <label for="codigo-seguridad">Código de seguridad:</label>
+            <input type="text" class="form-control" id="codigo-seguridad" name="codigo-seguridad" placeholder="CVV" required>
+          </div>
         </div>
-        <svg class="eliminar-producto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#d62424" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/></svg>
-      </div>
-    </div>
-
-    <hr class="divisor">
-
-    <div class="producto d-flex flex-row justify-content-between align-items-center">
-      <div class="img-nombre-producto d-flex flex-row align-items-center gap-4">
-        <img class="img-producto" src="public/assets/productos/imagen_producto_pizzas_margarita.png" alt="imagen pizza margarita">
-        <div class="nombre-producto d-flex flex-column">
-          <h2>Pizza Margarita</h2>
-          <p>Salsa de tomate, mozzarela, albahaca.</p>
+        <div class="form-group">
+          <label for="nombre-tarjeta">Nombre de la tarjeta:</label>
+          <input type="text" class="form-control" id="nombre-tarjeta" name="nombre-tarjeta" required>
         </div>
-      </div>
-      <div class="precio-cantidad-producto d-flex flex-row align-items-center gap-4">
-        <span class="precio-producto">8,50 €</span>
-        <div class="cantidad-producto d-flex flex-row align-items-center justify-content-between">
-          <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg></button>
-          <span>1</span>
-          <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"/></svg></button>
-        </div>
-        <svg class="eliminar-producto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#d62424" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/></svg>
+      </form>
+      <div class="logos-bancos d-flex flex-row justify-content-center">
+        <img src="public/assets/Mastercard_Logo.png" alt="">
+        <img src="public/assets/Visa_Logo.png" alt="">
       </div>
     </div>
   </div>
 
-  <!-- seccion debajo de la lista de productos -->
-  <div class="total-carrito d-flex flex-row justify-content-between align-items-center">
+  <!-- Parte derecha de la pagina de pago -->
+  <div class="col-derecha d-flex flex-column gap-5 w-50">
+    <!-- Resumen de compra -->
+    <div class="resumen-compra shadow">
+      <h2>Resumen del pedido</h2>
+      <table>
+        <tr>
+          <th class="col-2">Cant.</th>
+          <th class="col-6">Producto</th>
+          <th class="col-2">P. unidad</th>
+          <th class="col-2">PvP</th>
+        </tr>
+      </table>
 
-    <!-- Cuadro para aplicar codigo de descuento -->
-    <div class="codigo d-flex flex-row justify-content-between align-items-center gap-4 shadow">
-      <input class="input-codigo" type="text" placeholder="Código de descuento">
-      <button class="aplicar-descuento btn btn-secondary">Aplicar descuento</button>
-    </div>
 
-    <!-- cuadro del total y boton de pagar -->
-    <div class="pagar d-flex flex-row justify-content-between align-items-center gap-4 shadow">
-      <h2>Total: 25,50 €</h2>
-      <a href="#" class="btn btn-primary">Proceder al pago</a>
+      <div class="d-flex flex-column gap-3 mt-3">
+        
+        <div class="d-flex flex-row justify-content-between">
+          <span>Subtotal:</span>
+          <span>€120.00</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+          <span>Gastos de envío:</span>
+          <span>€5.00</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between fw-bold">
+          <span>Total:</span>
+          <span>€125.00</span>
+        </div>
+      </div>
+      <button class="btn btn-primary w-100 mt-4" type="submit">Realizar compra</button>
     </div>
   </div>
+  
 </section>
 
 <style>
 
-.carrito {
+.compra {
   background-color: #F7F9F9;
   border-top: solid 2px var(--bs-secondary);
   padding-left: 184px !important;
@@ -98,93 +113,33 @@
   color: black;
 }
 
-.lista-productos {
-  width: 100%;
+.datos-envio, .datos-pago, .resumen-compra {
   background-color: white;
-  padding: 30px;
+  padding: 35px;
   border-radius: 16px;
 }
 
-.divisor {
-  margin-top: 24px;
-  margin-bottom: 24px;
-  border: solid 1px #cececeff;
-  width: 60%;
-  justify-self: center;
+label {
+  padding-left: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
-.precio-cantidad-producto {
-  width: 30%;
-  justify-content: space-around;
+.form-control {
+  border-radius: 16px !important;
+  border: solid 2px var(--bs-secondary) !important;
+  font-size: 16px !important;
+  height: 50px !important;
 }
 
-.img-producto {
-  width: 130px;
+.form-control::placeholder {
+  font-weight: bold !important;
+  color: #9B9B9B !important;
 }
 
-.img-nombre-producto, {
-  width: 35%;
-}
-
-.precio-producto {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.cantidad-producto {
-  background-color: var(--bs-secondary);
-  border-radius: 16px;
-  width: 165px;
-  height: 46px;
-  overflow: hidden;
-  border: solid 3px var(--bs-secondary);
-}
-
-.cantidad-producto button {
-  background-color: var(--bs-primary);
-  border: none;
-  cursor: pointer;
-  height: 100%;
-  width: 40px;
-}
-
-.cantidad-producto span {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.eliminar-producto {
-  height: 28px;
-  cursor: pointer;
-}
-
-.total-carrito > div {
-  background-color: white;
-  padding: 18px;
-  border-radius: 16px;
-}
-
-.codigo {
-  width: 45%;
-}
-
-.pagar {
-  width: 40%;
-}
-
-.input-codigo {
-  border: solid 2px var(--bs-secondary);
-  width: 55%;
-  height: -webkit-fill-available;
-  font-size: 18px;
-  border-radius: 16px;
-  text-align: center;
-}
-
-.aplicar-descuento {
-  width: 45%;
-  font-size: 18px;
-  font-weight: bold;
+.logos-bancos {
+  margin-top: 35px;
+  gap: 40px;
 }
 
 </style>
