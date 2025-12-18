@@ -1,13 +1,13 @@
 class Usuario {
-  constructor(idUsuario, nombreUsuario, apellidosUsuario, ciudad, direccion, email, contrasena, tipoUsuario) {
-    this.idUsuario = idUsuario;
-    this.nombreUsuario = nombreUsuario;
-    this.apellidosUsuario = apellidosUsuario;
+  constructor(id_usuario, nombre_usuario, apellidos_usuario, ciudad, direccion, email, contrasena, tipo_usuario) {
+    this.id_usuario = id_usuario;
+    this.nombre_usuario = nombre_usuario;
+    this.apellidos_usuario = apellidos_usuario;
     this.ciudad = ciudad;
     this.direccion = direccion;
     this.email = email;
     this.contrasena = contrasena;
-    this.tipoUsuario = tipoUsuario;
+    this.tipo_usuario = tipo_usuario;
   }
 }
 
@@ -33,12 +33,12 @@ const cargarUsuarios = () => {
       divUsuario.classList.add('usuario-item');
 
       divUsuario.innerHTML = `
-        <div style="width: 40%;"><h3>${u.nombreUsuario} ${u.apellidosUsuario}</h3></div>
+        <div style="width: 40%;"><h3>${u.nombre_usuario} ${u.apellidos_usuario}</h3></div>
         <div style="width: 40%;"><p>Email: ${u.email}</p></div>
-        <div style="width: 10%; text-align: right"><p>${u.tipoUsuario}</p></div>
+        <div style="width: 10%; text-align: right"><p>${u.tipo_usuario}</p></div>
         <div style="width: 10%; text-align: right" class="acciones-usuario d-flex flex-row justify-content-end gap-3">
-          <button class="editar-usuario" data-id="${u.idUsuario}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#285db8" d="M416.9 85.2L372 130.1L509.9 268L554.8 223.1C568.4 209.6 576 191.2 576 172C576 152.8 568.4 134.4 554.8 120.9L519.1 85.2C505.6 71.6 487.2 64 468 64C448.8 64 430.4 71.6 416.9 85.2zM338.1 164L122.9 379.1C112.2 389.8 104.4 403.2 100.3 417.8L64.9 545.6C62.6 553.9 64.9 562.9 71.1 569C77.3 575.1 86.2 577.5 94.5 575.2L222.3 539.7C236.9 535.6 250.2 527.9 261 517.1L476 301.9L338.1 164z"/></svg></button>
-          <button class="eliminar-usuario" data-id="${u.idUsuario}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#d62424" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/></svg></button>
+          <button class="editar-usuario" data-id="${u.id_usuario}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#285db8" d="M416.9 85.2L372 130.1L509.9 268L554.8 223.1C568.4 209.6 576 191.2 576 172C576 152.8 568.4 134.4 554.8 120.9L519.1 85.2C505.6 71.6 487.2 64 468 64C448.8 64 430.4 71.6 416.9 85.2zM338.1 164L122.9 379.1C112.2 389.8 104.4 403.2 100.3 417.8L64.9 545.6C62.6 553.9 64.9 562.9 71.1 569C77.3 575.1 86.2 577.5 94.5 575.2L222.3 539.7C236.9 535.6 250.2 527.9 261 517.1L476 301.9L338.1 164z"/></svg></button>
+          <button class="eliminar-usuario" data-id="${u.id_usuario}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#d62424" d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/></svg></button>
         </div>
       `;
 
@@ -173,20 +173,20 @@ const eliminarUsuario = (idUsuario) => {
 const guardarCambiosUsuario = (idUsuario) => {
   console.log("Guardando cambios del usuario con id: " + idUsuario);
 
-  const datosUsuario = {
-    nombre: document.getElementById('nombreUsuario').value,
-    apellidos: document.getElementById('apellidosUsuario').value,
-    email: document.getElementById('email').value,
-    direccion: document.getElementById('direccion').value,
-    ciudad: document.getElementById('ciudad').value,
-    tipoUsuario: document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario'
-  };
-
-  console.log(datosUsuario);
+  usuarioEditado = new Usuario(
+    idUsuario,
+    document.getElementById('nombreUsuario').value,
+    document.getElementById('apellidosUsuario').value,
+    document.getElementById('ciudad').value,
+    document.getElementById('direccion').value,
+    document.getElementById('email').value,
+    null,
+    document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario'
+  );
 
   fetch(`api.php/?controller=Usuario&action=guardarCambiosUsuario&idUsuario=${idUsuario}`, { method: 'PUT',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(datosUsuario) })
+    body: JSON.stringify(usuarioEditado) })
   .then(response => response.json())
   .then(data => {
     console.log(data);
@@ -209,8 +209,6 @@ const guardarNuevoUsuario = () => {
     document.getElementById('contrasena').value,
     document.getElementById('tipoUsuario').checked ? 'admin' : 'usuario'
   );
-
-  console.log(nuevoUsuario);
 
   fetch(`api.php/?controller=Usuario&action=guardarNuevoUsuario`, { method: 'POST',
     headers: {'Content-Type': 'application/json'},
