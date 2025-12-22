@@ -95,5 +95,15 @@ class ProductoDAO {
     $con->close();
     return $listaProductosByCategoria;
   }
+
+  public static function eliminarProducto($idProducto) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("DELETE FROM productos WHERE id_producto = ?");
+    $stmt->bind_param("i", $idProducto);
+    $resultado = $stmt->execute();
+    $stmt->close();
+    $con->close();
+    return $resultado;
+  }
 }
 ?>

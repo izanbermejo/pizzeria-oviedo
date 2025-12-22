@@ -58,7 +58,7 @@ class ProductoController{
     foreach ($listaProductos as $producto) {
       $ingredientesArray = [];
       $caracteristicasArray = [];
-      
+
       $listaIngredientes = IngredienteDAO::getIngredientesByProducto($producto->getIdProducto());
       $listaCaracteristicasNutricionales = CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto());
 
@@ -76,6 +76,25 @@ class ProductoController{
     }
     
     echo json_encode($data);
+  }
+
+  public function eliminarProducto() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    if (!isset($_GET['idProducto'])) {
+      echo json_encode(['success' => false, 'message' => 'ID de producto no proporcionado.']);
+      return;
+    }
+
+    $idProducto = $_GET['idProducto'];
+    $eliminado = ProductoDAO::eliminarProducto($idProducto);
+
+    if ($eliminado) {
+      echo json_encode(['success' => true, 'message' => 'Producto eliminado correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al eliminar el producto.']);
+    }
+
   }
 }
 ?>
