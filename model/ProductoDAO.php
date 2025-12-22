@@ -7,7 +7,9 @@ class ProductoDAO {
 
   public static function getProductos() {
     $con = DataBase::connect();
-    $stmt = $con->prepare("SELECT * FROM productos");
+    $stmt = $con->prepare("SELECT p.*, d.porcentaje_descuento 
+    FROM productos p 
+    LEFT JOIN descuentos d ON p.id_descuento = d.id_descuento");
     $stmt->execute();
     $results = $stmt->get_result();
 

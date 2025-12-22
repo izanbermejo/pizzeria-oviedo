@@ -8,7 +8,7 @@
 
   <!-- Menú de navegación lateral -->
   <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item" id="productos">
+    <li>
       <button class="nav-link menu-btn active" aria-current="page">
         <span>Productos</span>
       </button>
@@ -84,10 +84,14 @@
 </section>
 
 <!-- Scripts -->
+<script src="view/adminJS/adminProductos.js"></script>
 <script src="view/adminJS/adminUsuarios.js"></script>
 
 <!-- Script para gestionar que sección se muestra -->
 <script>
+
+  // Al cargar la página, muestra la sección de productos por defecto
+  cargarProductos();
 
   const botonesMenu = document.querySelectorAll('.menu-btn');
 
@@ -105,6 +109,9 @@
 
           //dependiendo del id de la seccion cargada ejecuta el metodo de carga de datos
           switch(seccion.id) {
+            case 'productos':
+              cargarProductos();
+              break;
             case 'usuarios':
               cargarUsuarios();
               break;
@@ -145,7 +152,7 @@
 }
 
 /* Estilos para los elementos de usuario */
-.usuario-item {
+.item-lista {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -157,24 +164,24 @@
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.24);
 }
 
-.usuario-item:last-of-type {
+.item-lista:last-of-type {
   padding: 0px;
 }
 
-button.usuario-item {
+button.item-lista {
   justify-content: center;
   align-items: center;
   width: 100%;
   border: none;
 }
 
-.acciones-usuario button {
+.acciones-item-lista button {
   background: none;
   border: none;
   padding: 0;
 }
 
-.acciones-usuario svg {
+.acciones-item-lista svg {
   width: 30px;
   height: 30px;
   cursor: pointer;

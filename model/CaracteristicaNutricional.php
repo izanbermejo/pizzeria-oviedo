@@ -29,6 +29,14 @@ class CaracteristicaNutricional {
   public function setIcono($icono) {
     $this->icono = $icono;
   }
+
+  public function toArray() {
+    return [
+      'id_caracteristica' => $this->id_caracteristica,
+      'nombre_caracteristica' => $this->nombre_caracteristica,
+      'icono' => $this->icono
+    ];
+  }
   
 }
 ?>

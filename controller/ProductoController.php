@@ -47,5 +47,35 @@ class ProductoController{
     }
     return $listaProductosByCategoria;
   }
+
+  public function getProductos() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $listaProductos = ProductoDAO::getProductos();
+    $data = [];
+    
+    
+    foreach ($listaProductos as $producto) {
+      $ingredientesArray = [];
+      $caracteristicasArray = [];
+      
+      $listaIngredientes = IngredienteDAO::getIngredientesByProducto($producto->getIdProducto());
+      $listaCaracteristicasNutricionales = CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto());
+
+      foreach ($listaIngredientes as $ingrediente) {
+        $ingredientesArray[] = $ingrediente->toArray();
+      }
+      foreach ($listaCaracteristicasNutricionales as $caracteristica) {
+        $caracteristicasArray[] = $caracteristica->toArray();
+      }
+
+      $producto->setIngredientes($ingredientesArray);
+      $producto->setCaracteristicasNutricionales($caracteristicasArray);
+
+      $data[] = $producto->toArray();
+    }
+    
+    echo json_encode($data);
+  }
 }
 ?>
