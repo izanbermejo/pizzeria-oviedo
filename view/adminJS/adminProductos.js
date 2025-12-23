@@ -38,7 +38,8 @@ const cargarProductos = () => {
 
       divProducto.innerHTML = `
       <div style="width: 10%;"><img width="100%" src="public/assets/productos/${p.imagen_producto}" alt="imagen ${p.nombre_producto}"></div>
-      <div style="width: 70%;"><h3>${p.nombre_producto}</h3></div>
+      <div style="width: 65%;"><h3>${p.nombre_producto}</h3></div>
+      <div style="width: 5%; text-align: right; color: red"><p><b>${p.porcentaje_descuento ? p.porcentaje_descuento + "%" : ""}</b></p></div>
       <div style="width: 5%; text-align: right"><p><b>${p.precio_producto}€</b></p></div>
       <div style="width: 5%; text-align: right; ${p.activo ? "" : "color: red; font-weight: bold"}"><p>${p.activo ? 'activo' : 'inactivo'}</p></div>
       <div style="width: 10%; text-align: right" class="acciones-item-lista d-flex flex-row justify-content-end gap-3">
