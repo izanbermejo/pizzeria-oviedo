@@ -12,6 +12,13 @@ class Usuario {
 }
 
 const cargarUsuarios = () => {
+  const seccionUsuarios = document.getElementById('usuarios');
+
+  const divsExistentes = seccionUsuarios.querySelectorAll('div');
+  if (divsExistentes.length > 0) {
+    divsExistentes.forEach(div => div.remove());
+  }
+
   fetch('api.php/?controller=Usuario&action=getUsuarios')
   .then(response => response.json())
   .then(data => {
@@ -20,13 +27,6 @@ const cargarUsuarios = () => {
     usuarios.forEach(usuario => {
       console.log(usuario);
     });
-
-    const seccionUsuarios = document.getElementById('usuarios');
-
-    const divsExistentes = seccionUsuarios.querySelectorAll('div');
-    if (divsExistentes.length > 0) {
-      divsExistentes.forEach(div => div.remove());
-    }
 
     usuarios.forEach(u => {
       const divUsuario = document.createElement('div');

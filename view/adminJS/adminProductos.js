@@ -15,6 +15,13 @@ class Producto {
 }
 
 const cargarProductos = () => {
+  const seccionProductos = document.getElementById('productos');
+
+  const divsExistentes = seccionProductos.querySelectorAll('div');
+  if (divsExistentes.length > 0) {
+    divsExistentes.forEach(div => div.remove());
+  }
+
   fetch('api.php/?controller=Producto&action=getProductos')
   .then(response => response.json())
   .then(data => {
@@ -24,13 +31,6 @@ const cargarProductos = () => {
     productos.forEach(producto => {
       console.log(producto);
     });
-
-    const seccionProductos = document.getElementById('productos');
-
-    const divsExistentes = seccionProductos.querySelectorAll('div');
-    if (divsExistentes.length > 0) {
-      divsExistentes.forEach(div => div.remove());
-    }
 
     productos.forEach(p => {
       const divProducto = document.createElement('div');
