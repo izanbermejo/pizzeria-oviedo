@@ -9,7 +9,7 @@ class ProductoController{
     $idProducto = $_GET['idproducto'];
     $producto = ProductoDAO::getProductoById($idProducto);
     $subcategoria = SubcategoriaDAO::getSubcategoriaById($producto->getIdSubcategoria());
-    $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+    $producto -> setIngredientes(IngredienteDAO::getIngredientesDefectoByProducto($producto->getIdProducto()));
     $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     include_once 'view/main.php';
   }
@@ -23,7 +23,7 @@ class ProductoController{
   public function indexActivos() {
     $listaProductosActivos = ProductoDAO::getProductosActivos();
     foreach ($listaProductosActivos as $producto) {
-      $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+      $producto -> setIngredientes(IngredienteDAO::getIngredientesDefectoByProducto($producto->getIdProducto()));
       $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     }
     return $listaProductosActivos;
@@ -32,7 +32,7 @@ class ProductoController{
   public function ofertados(){
     $listaProductosEnOferta = ProductoDAO::getProductosEnOferta();
     foreach ($listaProductosEnOferta as $producto) {
-      $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+      $producto -> setIngredientes(IngredienteDAO::getIngredientesDefectoByProducto($producto->getIdProducto()));
       $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     }
     return $listaProductosEnOferta;
@@ -42,7 +42,7 @@ class ProductoController{
     $idCategoria = isset($_GET['idcategoria']) ? $_GET['idcategoria'] : 1;
     $listaProductosByCategoria = ProductoDAO::getProductosByCategoria($idCategoria);
     foreach ($listaProductosByCategoria as $producto) {
-      $producto -> setIngredientes(IngredienteDAO::getIngredientesByProducto($producto->getIdProducto()));
+      $producto -> setIngredientes(IngredienteDAO::getIngredientesDefectoByProducto($producto->getIdProducto()));
       $producto -> setCaracteristicasNutricionales(CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto()));
     }
     return $listaProductosByCategoria;
@@ -59,7 +59,7 @@ class ProductoController{
       $ingredientesArray = [];
       $caracteristicasArray = [];
 
-      $listaIngredientes = IngredienteDAO::getIngredientesByProducto($producto->getIdProducto());
+      $listaIngredientes = IngredienteDAO::getIngredientesDefectoByProducto($producto->getIdProducto());
       $listaCaracteristicasNutricionales = CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto());
 
       foreach ($listaIngredientes as $ingrediente) {
@@ -111,7 +111,7 @@ class ProductoController{
     $ingredientesArray = [];
     $caracteristicasArray = [];
 
-    $listaIngredientes = IngredienteDAO::getIngredientesByProducto($producto->getIdProducto());
+    $listaIngredientes = IngredienteDAO::getIngredientesDefectoByProducto($producto->getIdProducto());
     $listaCaracteristicasNutricionales = CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto());
 
     foreach ($listaIngredientes as $ingrediente) {

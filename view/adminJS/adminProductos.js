@@ -28,10 +28,6 @@ const cargarProductos = () => {
     console.log(data);
     const productos = data.map(p => new Producto(p.id_producto, p.id_subcategoria, p.id_descuento, p.nombre_producto, p.descripcion, p.precio_producto, p.imagen_producto, p.activo, p.porcentaje_descuento, p.ingredientes, p.caracteristicasNutricionales));
 
-    productos.forEach(producto => {
-      console.log(producto);
-    });
-
     productos.forEach(p => {
       const divProducto = document.createElement('div');
       divProducto.classList.add('item-lista');
@@ -67,7 +63,6 @@ const cargarProductos = () => {
     const botonesEliminar = document.querySelectorAll('.eliminar-producto');
     
     botonesEliminar.forEach(boton => {
-      console.log(boton.innerHTML);
       boton.addEventListener("click", () => {
         const idProducto = boton.dataset.id;
         eliminarProducto(idProducto);
@@ -78,7 +73,6 @@ const cargarProductos = () => {
     const botonesEditar = document.querySelectorAll('.editar-producto');
     
     botonesEditar.forEach(boton => {
-      console.log(boton.innerHTML);
       boton.addEventListener("click", () => {
         const idProducto = boton.dataset.id;
         idEditar = true;
@@ -189,7 +183,7 @@ construirFormularioProducto = async (isEditar, producto) => {
     <div class='form-group'>
       <label for="ingredientesProducto">Ingredientes</label>
       <input type="text" class="form-control" id="ingredientesProducto" value="${isEditar ? ingredientesProducto : ''}" disabled>
-      <button type="button" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;" id="editarIngredientesBtn">Editar Ingredientes</button>
+      <button type="button" id="editarIngredientesBtn" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;">Editar Ingredientes</button>
     </div>
     <div class='form-group'>
       <label for="imagenProducto" class="form-label">Imagen del producto</label>
@@ -213,12 +207,10 @@ construirFormularioProducto = async (isEditar, producto) => {
 
   console.log(subcategorias);
   subcategorias.forEach(s => {
-    console.log(s);
     const option = document.createElement('option');
     option.value = s.id_subcategoria;
     option.selected = isEditar && producto.id_subcategoria == s.id_subcategoria ? true : false;
     option.textContent = `${s.nombre_categoria} - ${s.nombre_subcategoria}`;
-    console.log(option);
     selectSubcategoria.appendChild(option);
   });
 
@@ -228,14 +220,17 @@ construirFormularioProducto = async (isEditar, producto) => {
   selectDescuento.innerHTML = '<option value="" selected disabled>Selecciona un descuento</option>';
 
   console.log(descuentos);
-  descuentos.forEach(s => {
-    console.log(s);
+  descuentos.forEach(d => {
     const option = document.createElement('option');
-    option.value = s.id_descuento;
-    option.selected = isEditar && producto.id_descuento == s.id_descuento ? true : false;
-    option.textContent = `${s.porcentaje_descuento}%`;
-    console.log(option);
+    option.value = d.id_descuento;
+    option.selected = isEditar && producto.id_descuento == d.id_descuento ? true : false;
+    option.textContent = `${d.porcentaje_descuento}%`;
     selectDescuento.appendChild(option);
+  });
+
+  const botonEditarIngredientes = formulario.querySelector('#editarIngredientesBtn');
+  botonEditarIngredientes.addEventListener("click", () => {
+    modalEditarIngredientesProducto(isEditar ? producto.id_producto : null);
   });
 
   const botonCancelar = formulario.querySelector('.cancelarEdicion');
@@ -256,6 +251,11 @@ construirFormularioProducto = async (isEditar, producto) => {
 
   seccionProductos.appendChild(formulario);
 }
+
+const modalEditarIngredientesProducto = (idProducto=null) => {
+  console.log("Abrir modal editar ingredientes para producto id: " + idProducto);
+  alert("Funcionalidad editar ingredientes en desarrollo.");
+};
 
 const guardarCambiosProducto = (idProducto) => {
   console.log("Guardando cambios del producto con id: " + idProducto);
