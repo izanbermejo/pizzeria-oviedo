@@ -96,26 +96,37 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
     divsExistentes.forEach(div => div.remove());
   }
 
+  if (isEditar) {
+    fetch(`api.php/?controller=Usuario&action=getUsuarioById&idUsuario=${idUsuario}`, { method: 'GET' })
+    .then(response => response.json())
+    .then(usuario => {
+      construirFormularioUsuario(isEditar, usuario.data);      
+    });
+  } else {
+    construirFormularioUsuario(isEditar, null);
+  }
+}
+
+const construirFormularioUsuario = (isEditar, usuario) => {
+  const seccionUsuarios = document.getElementById('usuarios');
+
   const formulario = document.createElement('div');
   formulario.classList.add('usuario-formulario');
 
-  fetch(`api.php/?controller=Usuario&action=getUsuarioById&idUsuario=${idUsuario}`, { method: 'GET' })
-  .then(response => response.json())
-  .then(usuario => {
-    formulario.innerHTML = `
+  formulario.innerHTML = `
     <form class='formulario-edicion'>
-      <h2>${isEditar ? 'Editar Usuario (ID: ' + usuario.data.id_usuario + ')' : 'Añadir Nuevo Usuario'}</h2>
+      <h2>${isEditar ? 'Editar Usuario (ID: ' + usuario.id_usuario + ')' : 'Añadir Nuevo Usuario'}</h2>
       <div class='form-group'>
         <label for="nombreUsuario">Nombre</label>
-        <input type="text" class="form-control" id="nombreUsuario" value="${isEditar ? usuario.data.nombre_usuario : ''}">
+        <input type="text" class="form-control" id="nombreUsuario" value="${isEditar ? usuario.nombre_usuario : ''}">
       </div>
       <div class='form-group'>
         <label for="apellidosUsuario">Apellidos</label>
-        <input type="text" class="form-control" id="apellidosUsuario" value="${isEditar ? usuario.data.apellidos_usuario : ''}">
+        <input type="text" class="form-control" id="apellidosUsuario" value="${isEditar ? usuario.apellidos_usuario : ''}">
       </div>
       <div class='form-group'>
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com" value="${isEditar ? usuario.data.email : ''}">
+        <input type="email" class="form-control" id="email" placeholder="ejemplo@email.com" value="${isEditar ? usuario.email : ''}">
       </div>
       ${isEditar ? '' : '<div class="form-group">'}
       ${isEditar ? '' : '<label for="contrasena">Contraseña</label>'}
@@ -123,15 +134,15 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
       ${isEditar ? '' : '</div>'}
       <div class='form-group'>
         <label for="ciudad">Ciudad</label>
-        <input type="text" class="form-control" id="ciudad" value="${isEditar ? usuario.data.ciudad : ''}">
+        <input type="text" class="form-control" id="ciudad" value="${isEditar ? usuario.ciudad : ''}">
       </div>
       <div class='form-group'>
         <label for="direccion">Dirección</label>
-        <input type="text" class="form-control" id="direccion" value="${isEditar ? usuario.data.direccion : ''}">
+        <input type="text" class="form-control" id="direccion" value="${isEditar ? usuario.direccion : ''}">
       </div>
       <div class='form-group'>
         <label for="tipoUsuario">Administrador</label>
-        <input type="checkbox" class="form-check-input" id="tipoUsuario" ${isEditar && usuario.data.tipo_usuario === 'admin' ? 'checked' : ''}>
+        <input type="checkbox" class="form-check-input" id="tipoUsuario" ${isEditar && usuario.tipo_usuario === 'admin' ? 'checked' : ''}>
       </div>
       <div class='d-flex justify-content-end gap-2'>
         <button class="cancelarEdicion btn btn-secondary" type="button" id="cancelarBtn">Cancelar</button>
@@ -139,21 +150,21 @@ const anadirEditarUsuario = (isEditar, idUsuario=null) => {
       </div>
     </form>
   `;
-    const botonCancelar = document.querySelector('.cancelarEdicion');
-    botonCancelar.addEventListener("click", () => {
-      cargarUsuarios();
-    });
 
-    const formEdicion = document.querySelector('.formulario-edicion');
-    formEdicion?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      
-      if (isEditar) {
-        guardarCambiosUsuario(usuario.data.id_usuario);
-      } else {
-        guardarNuevoUsuario();
-      }
-    });
+  const botonCancelar = formulario.querySelector('.cancelarEdicion');
+  botonCancelar.addEventListener("click", () => {
+    cargarUsuarios();
+  });
+
+  const formEdicion = formulario.querySelector('.formulario-edicion');
+  formEdicion?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    if (isEditar) {
+      guardarCambiosUsuario(usuario.id_usuario);
+    } else {
+      guardarNuevoUsuario();
+    }
   });
 
   seccionUsuarios.appendChild(formulario);
