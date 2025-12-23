@@ -141,6 +141,16 @@ construirFormularioProducto = async (isEditar, producto) => {
     })
   });
 
+  const descuentos = [];
+
+  await fetch('api.php/?controller=Descuento&action=getDescuentos')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(s => {
+      descuentos.push(s);
+    })
+  });
+
   let ingredientesProducto = "";
 
   if (producto && Array.isArray(producto.ingredientes) && producto.ingredientes.length > 0) {
@@ -172,12 +182,7 @@ construirFormularioProducto = async (isEditar, producto) => {
       </div>
       <div class="form-group w-50">
         <label for="descuentoProducto">Descuento</label>
-        <select class="form-select" id="descuentoProducto">
-          <option selected disabled>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+        <select class="form-select" id="descuentoProducto"></select>
       </div>
     </div>
     <div class='form-group'>
@@ -200,6 +205,7 @@ construirFormularioProducto = async (isEditar, producto) => {
   </form>
   `;
 
+  // Rellenar select subcategorias
   const selectSubcategoria = formulario.querySelector('#subcategoriaProducto');
 
   selectSubcategoria.innerHTML = '<option value="" selected disabled>Selecciona una subcategoría</option>';
@@ -213,6 +219,22 @@ construirFormularioProducto = async (isEditar, producto) => {
     option.textContent = `${s.nombre_categoria} - ${s.nombre_subcategoria}`;
     console.log(option);
     selectSubcategoria.appendChild(option);
+  });
+
+  // Rellenar select descuentos
+  const selectDescuento = formulario.querySelector('#descuentoProducto');
+
+  selectDescuento.innerHTML = '<option value="" selected disabled>Selecciona un descuento</option>';
+
+  console.log(descuentos);
+  descuentos.forEach(s => {
+    console.log(s);
+    const option = document.createElement('option');
+    option.value = s.id_descuento;
+    option.selected = isEditar && producto.id_descuento == s.id_descuento ? true : false;
+    option.textContent = `${s.porcentaje_descuento}%`;
+    console.log(option);
+    selectDescuento.appendChild(option);
   });
 
   const botonCancelar = formulario.querySelector('.cancelarEdicion');
