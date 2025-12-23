@@ -154,7 +154,7 @@ construirFormularioProducto = (isEditar, producto) => {
     <div class="d-flex flex-row gap-3">
       <div class="form-group w-50">
         <label for="precioProducto">Precio</label>
-        <input type="text" class="form-control" id="precioProducto" value="${isEditar ? producto.precio_producto : ''}" required>
+        <input type="number" step="0.01" min="0" placeholder="0,00" class="form-control" id="precioProducto" value="${isEditar ? producto.precio_producto : ''}" required>
       </div>
       <div class="form-group w-50">
         <label for="subcategoriaProducto">Subcategoria</label>
