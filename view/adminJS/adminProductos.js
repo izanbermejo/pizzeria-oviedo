@@ -127,13 +127,13 @@ const anadirEditarProducto = (isEditar, idProducto=null) => {
 
 construirFormularioProducto = (isEditar, producto) => {
   const seccionProductos = document.getElementById('productos');
-  
+
   const formulario = document.createElement('div');
   formulario.classList.add('producto-formulario');
 
   let ingredientesProducto = "";
 
-  if (producto.ingredientes && producto.ingredientes.length > 0) {
+  if (producto && Array.isArray(producto.ingredientes) && producto.ingredientes.length > 0) {
     producto.ingredientes.forEach(i => {
       ingredientesProducto += i.nombre_ingrediente + ", ";
     });
