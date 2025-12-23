@@ -114,91 +114,101 @@ const anadirEditarProducto = (isEditar, idProducto=null) => {
     divsExistentes.forEach(div => div.remove());
   }
 
+  if (isEditar) {
+    fetch(`api.php/?controller=Producto&action=getProductoById&idProducto=${idProducto}`, { method: 'GET' })
+    .then(response => response.json())
+    .then(producto => {
+      construirFormularioProducto(isEditar, producto.data);
+    });
+  } else {
+    construirFormularioProducto(isEditar, null);
+  }
+}
+
+construirFormularioProducto = (isEditar, producto) => {
+  const seccionProductos = document.getElementById('productos');
+  
   const formulario = document.createElement('div');
   formulario.classList.add('producto-formulario');
 
-  fetch(`api.php/?controller=Producto&action=getProductoById&idProducto=${idProducto}`, { method: 'GET' })
-  .then(response => response.json())
-  .then(producto => {
+  let ingredientesProducto = "";
 
-    let ingredientesProducto = "";
+  if (producto.ingredientes && producto.ingredientes.length > 0) {
+    producto.ingredientes.forEach(i => {
+      ingredientesProducto += i.nombre_ingrediente + ", ";
+    });
+    ingredientesProducto = ingredientesProducto.slice(0, -2);
+  }
 
-    if (producto.data.ingredientes && producto.data.ingredientes.length > 0) {
-      producto.data.ingredientes.forEach(i => {
-        ingredientesProducto += i.nombre_ingrediente + ", ";
-      });
-      ingredientesProducto = ingredientesProducto.slice(0, -2);
-    }
-
-    formulario.innerHTML = `
-    <form class='formulario-edicion'>
-      <h2>${isEditar ? 'Editar Producto (ID: ' + producto.data.id_producto + ')' : 'Añadir Nuevo Producto'}</h2>
-      <div class='form-group'>
-        <label for="nombreProducto">Nombre de producto</label>
-        <input type="text" class="form-control" id="nombreProducto" value="${isEditar ? producto.data.nombre_producto : ''}">
+  formulario.innerHTML = `
+  <form class='formulario-edicion'>
+    <h2>${isEditar ? 'Editar Producto (ID: ' + producto.id_producto + ')' : 'Añadir Nuevo Producto'}</h2>
+    <div class='form-group'>
+      <label for="nombreProducto">Nombre de producto</label>
+      <input type="text" class="form-control" id="nombreProducto" value="${isEditar ? producto.nombre_producto : ''}">
+    </div>
+    <div class='form-group'>
+      <label for="descripcionProducto">Descripción</label>
+      <input type="text" class="form-control" id="descripcionProducto" value="${isEditar ? producto.descripcion : ''}">
+    </div>
+    <div class="d-flex flex-row gap-3">
+      <div class="form-group w-50">
+        <label for="precioProducto">Precio</label>
+        <input type="text" class="form-control" id="precioProducto" value="${isEditar ? producto.precio_producto : ''}" required>
       </div>
-      <div class='form-group'>
-        <label for="descripcionProducto">Descripción</label>
-        <input type="text" class="form-control" id="descripcionProducto" value="${isEditar ? producto.data.descripcion : ''}">
+      <div class="form-group w-50">
+        <label for="subcategoriaProducto">Subcategoria</label>
+        <select class="form-select" id="subcategoriaProducto" required>
+          <option selected disabled>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
       </div>
-      <div class="d-flex flex-row gap-3">
-        <div class="form-group w-50">
-          <label for="precioProducto">Precio</label>
-          <input type="text" class="form-control" id="precioProducto" value="${isEditar ? producto.data.precio_producto : ''}" required>
-        </div>
-        <div class="form-group w-50">
-          <label for="subcategoriaProducto">Subcategoria</label>
-          <select class="form-select" id="subcategoriaProducto" required>
-            <option selected disabled>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-        <div class="form-group w-50">
-          <label for="descuentoProducto">Descuento</label>
-          <select class="form-select" id="descuentoProducto">
-            <option selected disabled>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
+      <div class="form-group w-50">
+        <label for="descuentoProducto">Descuento</label>
+        <select class="form-select" id="descuentoProducto">
+          <option selected disabled>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
       </div>
-      <div class='form-group'>
-        <label for="ingredientesProducto">Ingredientes</label>
-        <input type="text" class="form-control" id="ingredientesProducto" value="${isEditar ? ingredientesProducto : ''}" disabled>
-        <button type="button" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;" id="editarIngredientesBtn">Editar Ingredientes</button>
-      </div>
-      <div class='form-group'>
-        <label for="imagenProducto" class="form-label">Imagen del producto</label>
-        <input class="form-control" type="file" id="imagenProducto" name="imagenProducto">
-      </div>
-      <div class='form-group'>
-        <label for="activoProducto">Activo:</label>
-        <input type="checkbox" class="form-check-input" id="activoProducto" ${isEditar && producto.data.activo ? 'checked' : ''}>
-      </div>
-      <div class='d-flex justify-content-end gap-2'>
-        <button class="cancelarEdicion btn btn-secondary" type="button" id="cancelarBtn">Cancelar</button>
-        <button class="btn btn-primary" type="submit">${isEditar ? 'Guardar Cambios' : 'Añadir Producto'}</button>
-      </div>
-    </form>
+    </div>
+    <div class='form-group'>
+      <label for="ingredientesProducto">Ingredientes</label>
+      <input type="text" class="form-control" id="ingredientesProducto" value="${isEditar ? ingredientesProducto : ''}" disabled>
+      <button type="button" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;" id="editarIngredientesBtn">Editar Ingredientes</button>
+    </div>
+    <div class='form-group'>
+      <label for="imagenProducto" class="form-label">Imagen del producto</label>
+      <input class="form-control" type="file" id="imagenProducto" name="imagenProducto">
+    </div>
+    <div class='form-group'>
+      <label for="activoProducto">Activo:</label>
+      <input type="checkbox" class="form-check-input" id="activoProducto" ${isEditar && producto.activo ? 'checked' : ''}>
+    </div>
+    <div class='d-flex justify-content-end gap-2'>
+      <button class="cancelarEdicion btn btn-secondary" type="button" id="cancelarBtn">Cancelar</button>
+      <button class="btn btn-primary" type="submit">${isEditar ? 'Guardar Cambios' : 'Añadir Producto'}</button>
+    </div>
+  </form>
   `;
-    const botonCancelar = document.querySelector('.cancelarEdicion');
-    botonCancelar.addEventListener("click", () => {
-      cargarProductos();
-    });
 
-    const formEdicion = document.querySelector('.formulario-edicion');
-    formEdicion?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      
-      if (isEditar) {
-        guardarCambiosProducto(producto.data.id_producto);
-      } else {
-        guardarNuevoProducto();
-      }
-    });
+  const botonCancelar = formulario.querySelector('.cancelarEdicion');
+  botonCancelar.addEventListener("click", () => {
+    cargarProductos();
+  });
+
+  const formEdicion = formulario.querySelector('.formulario-edicion');
+  formEdicion?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    if (isEditar) {
+      guardarCambiosProducto(producto.id_producto);
+    } else {
+      guardarNuevoProducto();
+    }
   });
 
   seccionProductos.appendChild(formulario);
