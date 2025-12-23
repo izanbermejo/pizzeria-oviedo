@@ -149,7 +149,7 @@
                 $ingredientesProducto = rtrim($ingredientesProducto, ", ");
                 ?>
                 <!-- Cards productos -->
-                  <div class="card-producto card overflow-hidden">
+                  <div class="card-producto card overflow-hidden shadow">
                     <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
                       <h3><?= $producto->getNombreProducto(); ?></h3>
                     </div>
@@ -198,7 +198,7 @@
           $ingredientesProducto = rtrim($ingredientesProducto, ", ");
           ?>
           <!-- Cards productos -->
-          <div class="card-producto card overflow-hidden">
+          <div class="card-producto card overflow-hidden shadow">
             <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
               <h3><?= $producto->getNombreProducto(); ?></h3>
             </div>
