@@ -96,5 +96,39 @@ class ProductoController{
     }
 
   }
+
+  public function getProductoById() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    if (!isset($_GET['idProducto'])) {
+      echo json_encode(['success' => false, 'message' => 'ID de producto no proporcionado.']);
+      return;
+    }
+
+    $idProducto = $_GET['idProducto'];
+    $producto = ProductoDAO::getProductoById($idProducto);
+
+    $ingredientesArray = [];
+    $caracteristicasArray = [];
+
+    $listaIngredientes = IngredienteDAO::getIngredientesByProducto($producto->getIdProducto());
+    $listaCaracteristicasNutricionales = CaracteristicaNutricionalDAO::getCaracteristicaNutricionalByProducto($producto->getIdProducto());
+
+    foreach ($listaIngredientes as $ingrediente) {
+      $ingredientesArray[] = $ingrediente->toArray();
+    }
+    foreach ($listaCaracteristicasNutricionales as $caracteristica) {
+      $caracteristicasArray[] = $caracteristica->toArray();
+    }
+
+    $producto->setIngredientes($ingredientesArray);
+    $producto->setCaracteristicasNutricionales($caracteristicasArray);
+
+    if ($producto) {
+      echo json_encode(['success' => true, 'data' => $producto->toArray()]);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Producto no encontrado.']);
+    }
+  }
 }
 ?>

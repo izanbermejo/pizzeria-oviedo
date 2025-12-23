@@ -85,6 +85,7 @@ const cargarProductos = () => {
       });
     });
 
+    // evento añadir producto
     const botonAnadir = document.querySelectorAll('.anadir-producto');
     
     botonAnadir[0].addEventListener("click", () => {
@@ -103,4 +104,162 @@ const eliminarProducto = (idProducto) => {
     if(data.success) cargarProductos();
     else alert(data.message);
   });
+}
+
+const anadirEditarProducto = (isEditar, idProducto=null) => { 
+  const seccionProductos = document.getElementById('productos');
+
+  const divsExistentes = seccionProductos.querySelectorAll('div');
+  if (divsExistentes.length > 0) {
+    divsExistentes.forEach(div => div.remove());
+  }
+
+  const formulario = document.createElement('div');
+  formulario.classList.add('producto-formulario');
+
+  fetch(`api.php/?controller=Producto&action=getProductoById&idProducto=${idProducto}`, { method: 'GET' })
+  .then(response => response.json())
+  .then(producto => {
+
+    let ingredientesProducto = "";
+
+    if (producto.data.ingredientes && producto.data.ingredientes.length > 0) {
+      producto.data.ingredientes.forEach(i => {
+        ingredientesProducto += i.nombre_ingrediente + ", ";
+      });
+      ingredientesProducto = ingredientesProducto.slice(0, -2);
+    }
+
+    formulario.innerHTML = `
+    <form class='formulario-edicion'>
+      <h2>${isEditar ? 'Editar Producto (ID: ' + producto.data.id_producto + ')' : 'Añadir Nuevo Producto'}</h2>
+      <div class='form-group'>
+        <label for="nombreProducto">Nombre de producto</label>
+        <input type="text" class="form-control" id="nombreProducto" value="${isEditar ? producto.data.nombre_producto : ''}">
+      </div>
+      <div class='form-group'>
+        <label for="descripcionProducto">Descripción</label>
+        <input type="text" class="form-control" id="descripcionProducto" value="${isEditar ? producto.data.descripcion : ''}">
+      </div>
+      <div class="d-flex flex-row gap-3">
+        <div class="form-group w-50">
+          <label for="precioProducto">Precio</label>
+          <input type="text" class="form-control" id="precioProducto" value="${isEditar ? producto.data.precio_producto : ''}" required>
+        </div>
+        <div class="form-group w-50">
+          <label for="subcategoriaProducto">Subcategoria</label>
+          <select class="form-select" id="subcategoriaProducto" required>
+            <option selected disabled>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div class="form-group w-50">
+          <label for="descuentoProducto">Descuento</label>
+          <select class="form-select" id="descuentoProducto">
+            <option selected disabled>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+      <div class='form-group'>
+        <label for="ingredientesProducto">Ingredientes</label>
+        <input type="text" class="form-control" id="ingredientesProducto" value="${isEditar ? ingredientesProducto : ''}" disabled>
+        <button type="button" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;" id="editarIngredientesBtn">Editar Ingredientes</button>
+      </div>
+      <div class='form-group'>
+        <label for="imagenProducto" class="form-label">Imagen del producto</label>
+        <input class="form-control" type="file" id="imagenProducto" name="imagenProducto">
+      </div>
+      <div class='form-group'>
+        <label for="activoProducto">Activo:</label>
+        <input type="checkbox" class="form-check-input" id="activoProducto" ${isEditar && producto.data.activo ? 'checked' : ''}>
+      </div>
+      <div class='d-flex justify-content-end gap-2'>
+        <button class="cancelarEdicion btn btn-secondary" type="button" id="cancelarBtn">Cancelar</button>
+        <button class="btn btn-primary" type="submit">${isEditar ? 'Guardar Cambios' : 'Añadir Producto'}</button>
+      </div>
+    </form>
+  `;
+    const botonCancelar = document.querySelector('.cancelarEdicion');
+    botonCancelar.addEventListener("click", () => {
+      cargarProductos();
+    });
+
+    const formEdicion = document.querySelector('.formulario-edicion');
+    formEdicion?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      if (isEditar) {
+        guardarCambiosProducto(producto.data.id_producto);
+      } else {
+        guardarNuevoProducto();
+      }
+    });
+  });
+
+  seccionProductos.appendChild(formulario);
+}
+
+const guardarCambiosProducto = (idProducto) => {
+  console.log("Guardando cambios del producto con id: " + idProducto);
+
+  productoEditado = new Producto(
+    idProducto,
+    document.getElementById('subcategoriaProducto').value,
+    document.getElementById('descuentoProducto').value,
+    document.getElementById('nombreProducto').value,
+    document.getElementById('descripcionProducto').value,
+    document.getElementById('precioProducto').value,
+    document.getElementById('imagenProducto').value,
+    document.getElementById('activoProducto').checked,
+    null,// document.getElementById('porcentajeDescuentoProducto').value,
+    null,// document.getElementById('ingredientesProducto').value,
+    null,// document.getElementById('caracteristicasProducto').value,
+  );
+
+  console.log(productoEditado);
+
+  fetch(`api.php/?controller=Producto&action=guardarCambiosProducto&idProducto=${idProducto}`, { method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(productoEditado) })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    if(data.success) cargarProductos();
+    else alert(data.message);
+  });
+
+}
+
+const guardarNuevoProducto = () => {
+  // console.log("Guardando cambios del usuario con id: " + idUsuario);
+
+  productoEditado = new Producto(
+    idProducto,
+    document.getElementById('subcategoriaProducto').value,
+    document.getElementById('descuentoProducto').value,
+    document.getElementById('nombreProducto').value,
+    document.getElementById('descripcionProducto').value,
+    document.getElementById('precioProducto').value,
+    document.getElementById('imagenProducto').value,
+    document.getElementById('activoProducto').checked,
+    null,// document.getElementById('porcentajeDescuentoProducto').value,
+    null,// document.getElementById('ingredientesProducto').value,
+    null,// document.getElementById('caracteristicasProducto').value,
+  );
+
+  fetch(`api.php/?controller=Producto&action=guardarNuevoProducto`, { method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(productoEditado) })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    if(data.success) cargarProductos();
+    else alert(data.message);
+  });
+
 }
