@@ -125,11 +125,21 @@ const anadirEditarProducto = (isEditar, idProducto=null) => {
   }
 }
 
-construirFormularioProducto = (isEditar, producto) => {
+construirFormularioProducto = async (isEditar, producto) => {
   const seccionProductos = document.getElementById('productos');
 
   const formulario = document.createElement('div');
   formulario.classList.add('producto-formulario');
+
+  const subcategorias = [];
+
+  await fetch('api.php/?controller=Subcategoria&action=getSubcategorias')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(s => {
+      subcategorias.push(s);
+    })
+  });
 
   let ingredientesProducto = "";
 
@@ -158,12 +168,7 @@ construirFormularioProducto = (isEditar, producto) => {
       </div>
       <div class="form-group w-50">
         <label for="subcategoriaProducto">Subcategoria</label>
-        <select class="form-select" id="subcategoriaProducto" required>
-          <option selected disabled>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+        <select class="form-select" id="subcategoriaProducto" required></select>
       </div>
       <div class="form-group w-50">
         <label for="descuentoProducto">Descuento</label>
@@ -194,6 +199,21 @@ construirFormularioProducto = (isEditar, producto) => {
     </div>
   </form>
   `;
+
+  const selectSubcategoria = formulario.querySelector('#subcategoriaProducto');
+
+  selectSubcategoria.innerHTML = '<option value="" selected disabled>Selecciona una subcategoría</option>';
+
+  console.log(subcategorias);
+  subcategorias.forEach(s => {
+    console.log(s);
+    const option = document.createElement('option');
+    option.value = s.id_subcategoria;
+    option.selected = isEditar && producto.id_subcategoria == s.id_subcategoria ? true : false;
+    option.textContent = `${s.nombre_categoria} - ${s.nombre_subcategoria}`;
+    console.log(option);
+    selectSubcategoria.appendChild(option);
+  });
 
   const botonCancelar = formulario.querySelector('.cancelarEdicion');
   botonCancelar.addEventListener("click", () => {

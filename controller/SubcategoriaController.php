@@ -25,5 +25,18 @@ class SubcategoriaController{
     $listaSubcategorias = SubcategoriaDAO::getSubcategoriasByCategoria($idCategoria);
     return $listaSubcategorias;
   }
+
+  public function getSubcategorias() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $listaSubcategorias = SubcategoriaDAO::getSubcategorias();
+    $data = [];
+
+    foreach ($listaSubcategorias as $subcategoria) {
+      $data[] = $subcategoria->toArray();
+    }
+
+    echo json_encode($data);
+  }
 }
 ?>
