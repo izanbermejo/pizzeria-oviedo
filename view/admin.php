@@ -202,4 +202,11 @@ button.item-lista {
   padding-left: 10px;
 }
 
+.item-lista-modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 </style>

@@ -14,6 +14,16 @@ class Producto {
   }
 }
 
+class Ingrediente {
+  constructor(id_ingrediente, nombre_ingrediente, descripcion, precio, imagen_ingrediente) {
+    this.id_ingrediente = id_ingrediente;
+    this.nombre_ingrediente = nombre_ingrediente;
+    this.descripcion = descripcion;
+    this.precio = precio;
+    this.imagen_ingrediente = imagen_ingrediente;
+  }
+}
+
 const cargarProductos = () => {
   const seccionProductos = document.getElementById('productos');
 
@@ -198,6 +208,28 @@ construirFormularioProducto = async (isEditar, producto) => {
       <button class="btn btn-primary" type="submit">${isEditar ? 'Guardar Cambios' : 'Añadir Producto'}</button>
     </div>
   </form>
+
+  <div class="modal fade" id="modalEditarIngredientesProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingredientes</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div style="width: 100%;" class="lista-modal d-flex flex-row gap-3 justify-content-end">
+            <b style="width: 10%;">Defecto</b>
+            <b style="width: 10%;">Opcional</b>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   `;
 
   // Rellenar select subcategorias
@@ -230,7 +262,7 @@ construirFormularioProducto = async (isEditar, producto) => {
 
   const botonEditarIngredientes = formulario.querySelector('#editarIngredientesBtn');
   botonEditarIngredientes.addEventListener("click", () => {
-    modalEditarIngredientesProducto(isEditar ? producto.id_producto : null);
+    abrirModalEditarIngredientesProducto(isEditar ? producto.id_producto : null);
   });
 
   const botonCancelar = formulario.querySelector('.cancelarEdicion');
@@ -252,10 +284,36 @@ construirFormularioProducto = async (isEditar, producto) => {
   seccionProductos.appendChild(formulario);
 }
 
-const modalEditarIngredientesProducto = (idProducto=null) => {
-  console.log("Abrir modal editar ingredientes para producto id: " + idProducto);
-  alert("Funcionalidad editar ingredientes en desarrollo.");
+const abrirModalEditarIngredientesProducto = (idProducto=null) => {
+  const modal = new bootstrap.Modal(document.getElementById('modalEditarIngredientesProducto'));
+  cargarIngredientesProductoModal(idProducto);
+  modal.show();
 };
+
+cargarIngredientesProductoModal = (idProducto=null) => {
+  const listaIngredientes = document.querySelector('#modalEditarIngredientesProducto .modal-body');
+  fetch('api.php/?controller=Ingrediente&action=getIngredientes')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const ingredientes = data.map(i => new Ingrediente(i.id_ingrediente, i.nombre_ingrediente, i.descripcion, i.precio, i.imagen_ingrediente));
+
+    ingredientes.forEach(i => {
+      const divIngrediente = document.createElement('div');
+      divIngrediente.classList.add('item-lista-modal');
+
+      divIngrediente.innerHTML = `
+      <div style="width: 10%;"><img width="100%" src="public/assets/ingredientes/${i.imagen_ingrediente}" alt="imagen ${i.nombre_ingrediente}"></div>
+      <div style="width: 55%;"><h3>${i.nombre_ingrediente}</h3></div>
+      <div style="width: 5%; text-align: right"><p><b>${i.precio}€</b></p></div>
+      <div style="width: 10%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto"></div>
+      <div style="width: 10%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto"></div>
+      `;
+
+      listaIngredientes.appendChild(divIngrediente);
+    })    
+  });
+}
 
 const guardarCambiosProducto = (idProducto) => {
   console.log("Guardando cambios del producto con id: " + idProducto);

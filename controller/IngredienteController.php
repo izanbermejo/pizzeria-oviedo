@@ -30,5 +30,18 @@ class IngredienteController{
     include_once 'view/main.php';
   }
 
+  public function getIngredientes() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $listaIngredientes = IngredienteDAO::getIngredientes();
+    $data = [];
+
+    foreach ($listaIngredientes as $ingrediente) {
+      $data[] = $ingrediente->toArray();
+    }
+    
+    echo json_encode($data);
+  }
+
 }
 ?>
