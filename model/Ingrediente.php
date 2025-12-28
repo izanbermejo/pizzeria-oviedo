@@ -48,5 +48,15 @@ class Ingrediente {
     $this->imagen_ingrediente = $imagen_ingrediente;
   }
 
+  public function toArray() {
+    return [
+      'id_ingrediente' => $this->id_ingrediente,
+      'nombre_ingrediente' => $this->nombre_ingrediente,
+      'descripcion' => $this->descripcion,
+      'precio' => $this->precio,
+      'imagen_ingrediente' => $this->imagen_ingrediente
+    ];
+  }
+
 }
 ?>

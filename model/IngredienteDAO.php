@@ -33,11 +33,31 @@ class IngredienteDAO {
     return $ingrediente;
   }
 
-  public static function getIngredientesByProducto($idProducto) {
+  public static function getIngredientesDefectoByProducto($idProducto) {
     $con = DataBase::connect();
     $stmt = $con->prepare("SELECT i.* FROM ingredientes i
       JOIN ingredientes_productos ip ON ip.id_ingrediente = i.id_ingrediente
       WHERE ip.id_producto = ? AND ip.defecto = 1"
+    );
+    $stmt->bind_param('i', $idProducto);
+    $stmt->execute();
+    $results = $stmt->get_result();
+
+    $listaIngredientes = [];
+
+    while ($ingrediente = $results->fetch_object('Ingrediente')) {
+      $listaIngredientes[]=$ingrediente;
+    }
+
+    $con->close();
+    return $listaIngredientes;
+  }
+
+  public static function getIngredientesByProducto($idProducto) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT i.* FROM ingredientes i
+      JOIN ingredientes_productos ip ON ip.id_ingrediente = i.id_ingrediente
+      WHERE ip.id_producto = ?"
     );
     $stmt->bind_param('i', $idProducto);
     $stmt->execute();

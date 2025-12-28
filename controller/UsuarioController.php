@@ -61,13 +61,13 @@ class UsuarioController{
 
     $usuario = new Usuario(
       $_GET['idUsuario'],
-      $data['nombre'],
-      $data['apellidos'],
+      $data['nombre_usuario'],
+      $data['apellidos_usuario'],
       $data['email'],
       null, 
       $data['direccion'],
       $data['ciudad'],
-      $data['tipoUsuario']
+      $data['tipo_usuario']
     );
 
     $actualizado = UsuarioDAO::updateUsuario($usuario);
@@ -86,14 +86,14 @@ class UsuarioController{
     $data = json_decode(file_get_contents('php://input'), true);
 
     $usuario = new Usuario(
-      $data['idUsuario'],
-      $data['nombreUsuario'],
-      $data['apellidosUsuario'],
+      0,
+      $data['nombre_usuario'],
+      $data['apellidos_usuario'],
       $data['email'],
       password_hash($data['contrasena'], PASSWORD_DEFAULT),
       $data['direccion'],
       $data['ciudad'],
-      $data['tipoUsuario']
+      $data['tipo_usuario']
     );
 
     $anadido = UsuarioDAO::addNewUsuario($usuario);

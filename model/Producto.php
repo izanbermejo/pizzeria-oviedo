@@ -10,8 +10,8 @@ class Producto {
   private $imagen_producto;
   private $activo;
   private $porcentaje_descuento;
-  private array $ingredientes;
-  private array $caracteristicasNutricionales;
+  private array $ingredientes = [];
+  private array $caracteristicasNutricionales = [];
 
   public function getIdProducto() {
     return $this->id_producto;
@@ -99,6 +99,22 @@ class Producto {
 
   public function setCaracteristicasNutricionales($caracteristicasNutricionales) {
     $this->caracteristicasNutricionales = $caracteristicasNutricionales;
+  }
+
+  public function toArray() {
+    return [
+      'id_producto' => $this->id_producto,
+      'id_subcategoria' => $this->id_subcategoria,
+      'id_descuento' => $this->id_descuento,
+      'nombre_producto' => $this->nombre_producto,
+      'descripcion' => $this->descripcion,
+      'precio_producto' => $this->precio_producto,
+      'imagen_producto' => $this->imagen_producto,
+      'activo' => $this->activo,
+      'porcentaje_descuento' => $this->porcentaje_descuento,
+      'ingredientes' => $this->ingredientes,
+      'caracteristicasNutricionales' => $this->caracteristicasNutricionales
+    ];
   }
 }
 ?>

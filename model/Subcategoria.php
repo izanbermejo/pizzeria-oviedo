@@ -47,5 +47,15 @@ class Subcategoria {
   public function setDescripcionSubcategoria($descripcion_subcategoria) {
     $this->descripcion_subcategoria = $descripcion_subcategoria;
   }
+
+  public function toArray() {
+    return [
+      'id_subcategoria' => $this->id_subcategoria,
+      'id_categoria' => $this->id_categoria,
+      'nombre_subcategoria' => $this->nombre_subcategoria,
+      'nombre_categoria' => $this->nombre_categoria,
+      'descripcion_subcategoria' => $this->descripcion_subcategoria
+    ];
+  }
 }
 ?>
