@@ -5,7 +5,6 @@
 <section class="carrito d-flex flex-column justify-content-between gap-5">
   <!-- cuadro donde sale la lista de productos -->
   <div id="lista-productos" class="shadow">
-    <!-- aqui se añaden los productos -->
   </div>
 
   <!-- seccion debajo de la lista de productos -->
@@ -19,7 +18,7 @@
 
     <!-- cuadro del total y boton de pagar -->
     <div class="pagar d-flex flex-row justify-content-between align-items-center gap-4 shadow">
-      <h2>Total: 25,50 €</h2>
+      <h2 id="precio-total"></h2>
       <a href="?controller=Compra&action=index" class="btn btn-primary">Proceder al pago</a>
     </div>
   </div>
@@ -28,6 +27,13 @@
 <script>
   const productosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const seccionProductos = document.getElementById('lista-productos');
+
+  const precioTotalElemento = document.getElementById('precio-total');
+  let precioTotal = 0;
+
+  if (productosCarrito.length === 0) {
+    seccionProductos.innerHTML = '<h2>No hay productos en el carrito</h2>';
+  }
 
   Array.from(productosCarrito).forEach((producto) => {
     const divProducto = document.createElement('div');
@@ -74,6 +80,8 @@
         btnDisminuirCantidad.classList.add("disabled");
       }
       spanCantidad.textContent = producto.cantidad;
+      precioTotal -= Number(producto.precio_producto);
+      precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
       guardarCarrito(productosCarrito); 
     });
     
@@ -83,6 +91,8 @@
       btnDisminuirCantidad.disabled = false;
       btnDisminuirCantidad.classList.remove("disabled");
       spanCantidad.textContent = producto.cantidad;
+      precioTotal += Number(producto.precio_producto);
+      precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
       guardarCarrito(productosCarrito);
     });
 
@@ -95,13 +105,19 @@
     btnEliminarProducto.addEventListener("click", () => {
       
       const indexProducto = productosCarrito.findIndex(p => p.id_producto === producto.id_producto);
+      precioTotal -= Number(producto.precio_producto);
+      precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
       productosCarrito.splice(indexProducto, 1);
       divProducto.remove();
       guardarCarrito(productosCarrito);
     });
 
+    precioTotal += Number(producto.precio_producto) * producto.cantidad;
+
     seccionProductos.appendChild(divProducto);
   });
+  
+  precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
 
   document.getElementsByClassName("divisor")[productosCarrito.length - 1].remove();
 
