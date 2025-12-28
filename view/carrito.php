@@ -91,6 +91,15 @@
       btnDisminuirCantidad.classList.add("disabled");
     }
 
+    const btnEliminarProducto = divProducto.querySelector('.eliminar-producto');
+    btnEliminarProducto.addEventListener("click", () => {
+      
+      const indexProducto = productosCarrito.findIndex(p => p.id_producto === producto.id_producto);
+      productosCarrito.splice(indexProducto, 1);
+      divProducto.remove();
+      guardarCarrito(productosCarrito);
+    });
+
     seccionProductos.appendChild(divProducto);
   });
 
