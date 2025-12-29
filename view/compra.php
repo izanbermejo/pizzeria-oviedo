@@ -118,6 +118,7 @@
   const descuentoElemento = document.querySelector('.descuento');
 
   let precioTotal = 0;
+  let descuento = 0;
 
   Array.from(productosCarrito).forEach((producto) => {
     const trProducto = document.createElement('tr');
@@ -132,15 +133,16 @@
     `;
 
     precioTotal += Number(precioProducto) * producto.cantidad;
+    descuento = precioTotal * (JSON.parse(localStorage.getItem("descuentoPedido")) || 0) / 100;
 
     tablaResumen.appendChild(trProducto);
   });
   
-  precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
-  precioBaseElemento.textContent = `${(precioTotal * 0.9).toFixed(2)} €`;
-  ivaElemento.textContent = `${(precioTotal * 0.1).toFixed(2)} €`;
+  precioTotalElemento.textContent = `Total: ${(precioTotal - descuento).toFixed(2)} €`;
+  precioBaseElemento.textContent = `${((precioTotal - descuento) * 0.9).toFixed(2)} €`;
+  ivaElemento.textContent = `${((precioTotal - descuento) * 0.1).toFixed(2)} €`;
   subtotalElemento.textContent = `${precioTotal.toFixed(2)} €`;
-  descuentoElemento.textContent = `0.00 €`;
+  descuentoElemento.textContent = `${descuento.toFixed(2)} €`;  
 
 </script>
 

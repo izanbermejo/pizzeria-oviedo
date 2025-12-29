@@ -24,12 +24,27 @@
   </div>
 </section>
 
+<?php 
+$codigosDescuento = [];
+
+foreach ($listaCodigosDescuento as $codigoDescuento) {
+  $codigosDescuento[] = [
+    'codigo' => $codigoDescuento->getCodigo(),
+    'porcentaje_descuento' => $codigoDescuento->getPorcentajeDescuento()
+  ];
+}
+?>
+
 <script>
   const productosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const seccionProductos = document.getElementById('lista-productos');
 
   const precioTotalElemento = document.getElementById('precio-total');
   let precioTotal = 0;
+
+  const BtnAplicarDescuento = document.querySelector('.aplicar-descuento');
+  const inputCodigo = document.querySelector('.input-codigo');
+  const codigosDescuento = <?php echo json_encode($codigosDescuento); ?>;
 
   const btnPagar = document.querySelector('.btn-pagar');
 
@@ -141,7 +156,31 @@
   }
 
   document.getElementById("productosCarrito").textContent = cantidadProductos;
+
+  BtnAplicarDescuento.addEventListener("click", (e) => {
+    let descuentoPedido = JSON.parse(localStorage.getItem("descuentoPedido")) || 0;
+    const codigoIntroducido = inputCodigo.value.trim();
+
+    const descuento = codigosDescuento.find(d => d.codigo === codigoIntroducido);
+    if (descuento) {
+      inputCodigo.classList.remove("is-invalid");
+      inputCodigo.classList.add("is-valid");
+
+      const descuentoAplicado = precioTotal * (descuento.porcentaje_descuento / 100);
+      precioTotalConDescuento = precioTotal - descuentoAplicado
+      precioTotalElemento.textContent = `Total: ${precioTotalConDescuento.toFixed(2)} €`;
+      descuentoPedido = descuento.porcentaje_descuento;
+      localStorage.setItem("descuentoPedido", JSON.stringify(descuentoPedido));
+    } else {
+      inputCodigo.classList.add("is-invalid");
+      inputCodigo.classList.remove("is-valid");
+      descuentoPedido = 0;
+      localStorage.setItem("descuentoPedido", JSON.stringify(descuentoPedido));
+    }
+  });
 </script>
+
+
 
 <style>
 
@@ -247,6 +286,15 @@
 .disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.is-valid {
+  border-color: #198754;
+  background-color: #d1e7dd;
 }
 
 </style>
