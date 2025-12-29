@@ -73,56 +73,74 @@
           <th class="col-2 text-end">P. unidad</th>
           <th class="col-2 text-end">PvP</th>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Pizza Margarita</td>
-          <td class="text-end">12.00€</td>
-          <td class="text-end">24.00€</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Pizza Margarita</td>
-          <td class="text-end">12.00€</td>
-          <td class="text-end">24.00€</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Pizza Margarita</td>
-          <td class="text-end">12.00€</td>
-          <td class="text-end">24.00€</td>
-        </tr>
+        <!-- Aquí se añaden los productos que hay en el carrico en tr -->
       </table>
 
       <div class="final-resumen d-flex flex-row gap-3 mt-3 w-100 gap-5">
         <div class="d-flex flex-column gap-3 mt-3 w-50 justify-content-end align-items-center">
           <div class="d-flex w-75 justify-content-between">
             <span>Base:</span>
-            <p>64.80€</p>
+            <p class="precio-base"></p>
           </div>
           <div class="d-flex w-75 justify-content-between">
             <span>IVA (10%):</span>
-            <p>7.20€</p>
+            <p class="iva"></p>
           </div>
         </div>
         <div class="d-flex flex-column gap-3 mt-3 w-50 justify-content-end align-items-center">
           <div class="d-flex w-75 justify-content-between">
             <span>Subtotal:</span>
-            <p>72.00€</p>
+            <p class="subtotal"></p>
           </div>
           <div class="d-flex w-75 justify-content-between">
             <span>Descuento:</span>
-            <p>0.00€</p>
+            <p class="descuento"></p>
           </div>
         </div>
       </div>
       <div class="d-flex justify-content-end mt-5">
-        <span class="precio-final">Total: 72.00€</span>
+        <span class="precio-final"></span>
         <button class="btn btn-primary btn-lg px-4" type="submit">Finalizar compra</button>
       </div>
     </div>
   </div>
   </form>
 </section>
+
+<script>
+  const productosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const tablaResumen = document.querySelector('.tabla-resumen');
+
+  const precioTotalElemento = document.querySelector('.precio-final');
+  const precioBaseElemento = document.querySelector('.precio-base');
+  const ivaElemento = document.querySelector('.iva');
+  const subtotalElemento = document.querySelector('.subtotal');
+  const descuentoElemento = document.querySelector('.descuento');
+
+  let precioTotal = 0;
+
+  Array.from(productosCarrito).forEach((producto) => {
+    const trProducto = document.createElement('tr');
+
+    trProducto.innerHTML = `
+      <td>${producto.cantidad}</td>
+      <td>${producto.nombre_producto}</td>
+      <td class="text-end">${producto.precio_producto}€</td>
+      <td class="text-end">${(Number(producto.precio_producto) * producto.cantidad).toFixed(2)}€</td>
+    `;
+
+    precioTotal += Number(producto.precio_producto) * producto.cantidad;
+
+    tablaResumen.appendChild(trProducto);
+  });
+  
+  precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
+  precioBaseElemento.textContent = `${(precioTotal * 0.9).toFixed(2)} €`;
+  ivaElemento.textContent = `${(precioTotal * 0.1).toFixed(2)} €`;
+  subtotalElemento.textContent = `${precioTotal.toFixed(2)} €`;
+  descuentoElemento.textContent = `0.00 €`;
+
+</script>
 
 <style>
 
