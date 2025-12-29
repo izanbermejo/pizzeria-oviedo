@@ -42,6 +42,7 @@
     const divProducto = document.createElement('div');
 
     let ingredientesProducto = "";
+    const precioProducto = producto.id_descuento ? (producto.precio_producto - producto.precio_producto * producto.porcentaje_descuento / 100).toFixed(2) : producto.precio_producto;
 
     if (producto && Array.isArray(producto.ingredientes) && producto.ingredientes.length > 0) {
       producto.ingredientes.forEach(i => {
@@ -60,7 +61,7 @@
           </div>
         </div>
         <div class="precio-cantidad-producto d-flex flex-row align-items-center gap-4">
-          <span class="precio-producto">${producto.precio_producto} €</span>
+          <span class="precio-producto">${precioProducto} €</span>
           <div class="cantidad-producto d-flex flex-row align-items-center justify-content-between">
             <button class="disminuir-cantidad"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 24px"><path fill="white" d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg></button>
             <span class="num-cantidad-producto">${producto.cantidad}</span>
@@ -83,7 +84,7 @@
         btnDisminuirCantidad.classList.add("disabled");
       }
       spanCantidad.textContent = producto.cantidad;
-      precioTotal -= Number(producto.precio_producto);
+      precioTotal -= Number(precioProducto);
       precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
       guardarCarrito(productosCarrito); 
     });
@@ -94,7 +95,7 @@
       btnDisminuirCantidad.disabled = false;
       btnDisminuirCantidad.classList.remove("disabled");
       spanCantidad.textContent = producto.cantidad;
-      precioTotal += Number(producto.precio_producto);
+      precioTotal += Number(precioProducto);
       precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
       guardarCarrito(productosCarrito);
     });
@@ -108,7 +109,7 @@
     btnEliminarProducto.addEventListener("click", () => {
       
       const indexProducto = productosCarrito.findIndex(p => p.id_producto === producto.id_producto);
-      precioTotal -= Number(producto.precio_producto);
+      precioTotal -= Number(precioProducto);
       precioTotalElemento.textContent = `Total: ${precioTotal.toFixed(2)} €`;
       productosCarrito.splice(indexProducto, 1);
       divProducto.remove();
@@ -120,7 +121,7 @@
       }
     });
 
-    precioTotal += Number(producto.precio_producto) * producto.cantidad;
+    precioTotal += Number(precioProducto) * producto.cantidad;
 
     seccionProductos.appendChild(divProducto);
   });

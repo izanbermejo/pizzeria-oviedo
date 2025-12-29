@@ -122,14 +122,16 @@
   Array.from(productosCarrito).forEach((producto) => {
     const trProducto = document.createElement('tr');
 
+    const precioProducto = producto.id_descuento ? (producto.precio_producto - producto.precio_producto * producto.porcentaje_descuento / 100).toFixed(2) : producto.precio_producto;
+
     trProducto.innerHTML = `
       <td>${producto.cantidad}</td>
       <td>${producto.nombre_producto}</td>
-      <td class="text-end">${producto.precio_producto}€</td>
-      <td class="text-end">${(Number(producto.precio_producto) * producto.cantidad).toFixed(2)}€</td>
+      <td class="text-end">${precioProducto} €</td>
+      <td class="text-end">${(Number(precioProducto) * producto.cantidad).toFixed(2)}€</td>
     `;
 
-    precioTotal += Number(producto.precio_producto) * producto.cantidad;
+    precioTotal += Number(precioProducto) * producto.cantidad;
 
     tablaResumen.appendChild(trProducto);
   });
