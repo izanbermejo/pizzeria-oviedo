@@ -19,7 +19,7 @@
     <!-- cuadro del total y boton de pagar -->
     <div class="pagar d-flex flex-row justify-content-between align-items-center gap-4 shadow">
       <h2 id="precio-total"></h2>
-      <a href="?controller=Compra&action=index" class="btn btn-primary">Proceder al pago</a>
+      <a href="?controller=Compra&action=index" class="btn-pagar btn btn-primary">Proceder al pago</a>
     </div>
   </div>
 </section>
@@ -31,8 +31,11 @@
   const precioTotalElemento = document.getElementById('precio-total');
   let precioTotal = 0;
 
+  const btnPagar = document.querySelector('.btn-pagar');
+
   if (productosCarrito.length === 0) {
     seccionProductos.innerHTML = '<h2>No hay productos en el carrito</h2>';
+    btnPagar.classList.add("disabled");
   }
 
   Array.from(productosCarrito).forEach((producto) => {
@@ -110,6 +113,11 @@
       productosCarrito.splice(indexProducto, 1);
       divProducto.remove();
       guardarCarrito(productosCarrito);
+
+      if (JSON.parse(localStorage.getItem("carrito")).length === 0) {
+        seccionProductos.innerHTML = '<h2>No hay productos en el carrito</h2>';
+        btnPagar.classList.add("disabled");
+      }
     });
 
     precioTotal += Number(producto.precio_producto) * producto.cantidad;
