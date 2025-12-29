@@ -100,7 +100,7 @@
       </div>
       <div class="d-flex justify-content-end mt-5">
         <span class="precio-final"></span>
-        <button class="btn btn-primary btn-lg px-4" type="submit">Finalizar compra</button>
+        <a href="?controller=Compra&action=finalizar" class="btn btn-primary btn-lg px-4" type="submit">Finalizar compra</a>
       </div>
     </div>
   </div>
