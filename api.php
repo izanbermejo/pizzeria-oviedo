@@ -15,6 +15,9 @@ include_once 'controller/ContactoController.php';
 include_once 'controller/InicioSesionController.php';
 include_once 'controller/AdminController.php';
 include_once 'controller/UsuarioController.php';
+include_once 'controller/DescuentoController.php';
+include_once 'controller/CodigoDescuentoController.php';
+include_once 'controller/PedidoController.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();

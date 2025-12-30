@@ -31,8 +31,8 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Carta</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=1">Pizzas</a></li>
-            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=2">Bebidas</a></li>
-            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=3">Complementos</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=2">Complementos</a></li>
+            <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=3">Bebidas</a></li>
             <li><a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=4">Postres</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="?controller=Carta&action=indexOfertas">Ofertas</a></li>
@@ -49,19 +49,17 @@
       <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']->getTipoUsuario() == 'admin') { ?>
         <a class="btn-admin btn" href="?controller=Admin&action=index">Admin</a>
       <?php } ?>
-
       <!-- Icono carrito -->
-      <a href="#" class="text-decoration-none">
+      <a href="?controller=Carrito&action=index" class="text-decoration-none">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="height: 23px;">
           <path fill="#ffffff" d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z"/>
         </svg>
-        <span class="position-relative top-0 start-0 translate-middle badge rounded-pill bg-danger">
-          4
+        <span class="position-relative top-0 start-0 translate-middle badge rounded-pill bg-danger visually-hidden" id="productosCarrito">
+          0
         <span class="visually-hidden">unread messages</span>
         </span>
       </a>
-
-      <!-- Nombre usuario -->
+      <!-- nombre usuario activo -->
       <?php if (isset($_SESSION['usuario'])) { ?>
         <p><?= $_SESSION['usuario']->getNombreUsuario() ?></p>
       <?php } ?>
@@ -141,6 +139,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<script>
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  let cantidadProductos = 0;
+
+  Array.from(carrito).forEach((producto) => {
+    cantidadProductos += producto.cantidad;
+  });
+
+  if (cantidadProductos > 0) {
+    document.getElementById("productosCarrito").classList.remove("visually-hidden");
+  } else {
+    document.getElementById("productosCarrito").classList.add("visually-hidden");
+  }
+
+  document.getElementById("productosCarrito").textContent = cantidadProductos;
+</script>
 
 <style>
 
