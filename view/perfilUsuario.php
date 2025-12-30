@@ -15,7 +15,8 @@
       <h3><?php echo $_SESSION['usuario']->getApellidosUsuario(); ?></h3>
       <p><strong>Email:</strong> <?php echo $_SESSION['usuario']->getEmail(); ?></p>
       <p><strong>Dirección:</strong> <?php echo $_SESSION['usuario']->getDireccion(); ?></p>
-      <a href="#" class="btn btn-secondary">Editar Usuario</a>
+      <p><strong>Ciudad:</strong> <?php echo $_SESSION['usuario']->getCiudad(); ?></p>
+      <a href="?controller=Usuario&action=editarPerfil" class="btn btn-secondary">Editar Usuario</a>
     </div>
   </div>
 </section>
