@@ -106,5 +106,10 @@ class UsuarioController{
 
   }
 
+  public function verPerfil() {
+    $view = 'view/perfilUsuario.php';
+    include_once 'view/main.php';
+  }
+
 }
 ?>
