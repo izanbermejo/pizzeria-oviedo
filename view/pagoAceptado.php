@@ -20,7 +20,9 @@
   </style>
 
   <script>
+
     localStorage.removeItem("carrito");
+    localStorage.removeItem("descuentoPedido");
 
     setTimeout(() => {
       window.location.href = "index.php";

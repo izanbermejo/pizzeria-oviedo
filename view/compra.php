@@ -3,7 +3,7 @@
 </header>
 
 <section class="compra d-flex flex-row justify-content-between gap-5">
-<form class="d-flex flex-row w-100 gap-5">
+<form action="?controller=Pedido&action=addPedido" method="POST" class="d-flex flex-row w-100 gap-5">
   <!-- Parte izquierda de la pagina de pago -->
   <div class="col-izquierda d-flex flex-column gap-5 w-50">
     <!-- formulario datos envio -->
@@ -100,7 +100,9 @@
       </div>
       <div class="d-flex justify-content-end mt-5">
         <span class="precio-final"></span>
-        <a href="?controller=Compra&action=finalizar" class="btn btn-primary btn-lg px-4" type="submit">Finalizar compra</a>
+        <input type="hidden" name="precioTotal" id="precioTotal">
+        <input type="hidden" name="codigoDescuento" id="codigoDescuento">
+        <button class="btn btn-primary btn-lg px-4" type="submit">Finalizar compra</button>
       </div>
     </div>
   </div>
@@ -119,6 +121,8 @@
 
   let precioTotal = 0;
   let descuento = 0;
+  let codigoDescuento = null;
+  let porcentaje_descuento = 0;
 
   Array.from(productosCarrito).forEach((producto) => {
     const trProducto = document.createElement('tr');
@@ -133,12 +137,18 @@
     `;
 
     precioTotal += Number(precioProducto) * producto.cantidad;
-    descuento = precioTotal * (JSON.parse(localStorage.getItem("descuentoPedido")) || 0) / 100;
-
+    
     tablaResumen.appendChild(trProducto);
   });
   
+  codigoDescuento = JSON.parse(localStorage.getItem("descuentoPedido")) ? JSON.parse(localStorage.getItem("descuentoPedido")).codigo : null;
+  porcentaje_descuento = JSON.parse(localStorage.getItem("descuentoPedido")) ? JSON.parse(localStorage.getItem("descuentoPedido")).porcentaje_descuento : 0;
+
+  descuento = precioTotal * porcentaje_descuento / 100;
+  
   precioTotalElemento.textContent = `Total: ${(precioTotal - descuento).toFixed(2)} €`;
+  document.getElementById('precioTotal').value = (precioTotal - descuento).toFixed(2);
+  document.getElementById('codigoDescuento').value = codigoDescuento || "";
   precioBaseElemento.textContent = `${((precioTotal - descuento) * 0.9).toFixed(2)} €`;
   ivaElemento.textContent = `${((precioTotal - descuento) * 0.1).toFixed(2)} €`;
   subtotalElemento.textContent = `${precioTotal.toFixed(2)} €`;

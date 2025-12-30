@@ -169,7 +169,7 @@ foreach ($listaCodigosDescuento as $codigoDescuento) {
       const descuentoAplicado = precioTotal * (descuento.porcentaje_descuento / 100);
       precioTotalConDescuento = precioTotal - descuentoAplicado
       precioTotalElemento.textContent = `Total: ${precioTotalConDescuento.toFixed(2)} €`;
-      descuentoPedido = descuento.porcentaje_descuento;
+      descuentoPedido = descuento;
       localStorage.setItem("descuentoPedido", JSON.stringify(descuentoPedido));
     } else {
       inputCodigo.classList.add("is-invalid");

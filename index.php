@@ -15,6 +15,7 @@ include_once 'controller/CarritoController.php';
 include_once 'controller/CompraController.php';
 include_once 'controller/DescuentoController.php';
 include_once 'controller/CodigoDescuentoController.php';
+include_once 'controller/PedidoController.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();

@@ -48,5 +48,17 @@ class CodigoDescuentoDAO {
     $con->close();
     return $descuento;
   }
+
+  public static function getCodigoDescuentoByCodigo($codigo) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT * FROM codigos_descuento WHERE codigo = ?");
+    $stmt->bind_param('s', $codigo);
+    $stmt->execute();
+    $results = $stmt->get_result();
+
+    $descuento = $results->fetch_object('CodigoDescuento');
+    $con->close();
+    return $descuento;
+  }
 }
 ?>
