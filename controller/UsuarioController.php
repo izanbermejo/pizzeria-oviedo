@@ -128,7 +128,7 @@ class UsuarioController{
       $_SESSION['usuario']->getTipoUsuario()
     );
 
-    UsuarioDAO::updateUsuario($usuario);
+    UsuarioDAO::updateUsuarioPass($usuario);
 
     $_SESSION['usuario'] = UsuarioDAO::getUsuarioById($_SESSION['usuario']->getIdUsuario());
 

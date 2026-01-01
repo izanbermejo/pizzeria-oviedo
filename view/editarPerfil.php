@@ -24,10 +24,10 @@
           <label for="email">Email</label>
           <input type="email" id="email" name="email" value="<?php echo $_SESSION['usuario']->getEmail(); ?>" class="form-control" required>
         </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="contraseña">Contraseña</label>
           <input type="password" id="contrasena" name="contrasena" placeholder="******" class="form-control">
-        </div> -->
+        </div>
         <div class="form-group">
           <label for="direccion">Dirección</label>
           <input type="text" id="direccion" name="direccion" value="<?php echo $_SESSION['usuario']->getDireccion(); ?>" class="form-control">
