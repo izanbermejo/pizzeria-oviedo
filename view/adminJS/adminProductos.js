@@ -218,8 +218,7 @@ construirFormularioProducto = async (isEditar, producto) => {
         </div>
         <div class="modal-body">
           <div style="width: 100%;" class="lista-modal d-flex flex-row gap-3 justify-content-end">
-            <b style="width: 10%;">Defecto</b>
-            <b style="width: 10%;">Opcional</b>
+            <b style="width: 20%;">Añadido</b>
           </div>
           
         </div>
@@ -305,9 +304,7 @@ cargarIngredientesProductoModal = (idProducto=null) => {
       divIngrediente.innerHTML = `
       <div style="width: 10%;"><img width="100%" src="public/assets/ingredientes/${i.imagen_ingrediente}" alt="imagen ${i.nombre_ingrediente}"></div>
       <div style="width: 55%;"><h3>${i.nombre_ingrediente}</h3></div>
-      <div style="width: 5%; text-align: right"><p><b>${i.precio}€</b></p></div>
-      <div style="width: 10%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto"></div>
-      <div style="width: 10%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto"></div>
+      <div style="width: 20%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto"></div>
       `;
 
       listaIngredientes.appendChild(divIngrediente);

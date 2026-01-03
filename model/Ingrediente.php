@@ -5,7 +5,6 @@ class Ingrediente {
   private $id_ingrediente;
   private $nombre_ingrediente;
   private $descripcion;
-  private $precio;
   private $imagen_ingrediente;
 
   public function getIdIngrediente() {
@@ -32,14 +31,6 @@ class Ingrediente {
     $this->descripcion = $descripcion;
   }
 
-  public function getPrecio() {
-    return $this->precio;
-  }
-
-  public function setPrecio($precio) {
-    $this->precio = $precio;
-  }
-
   public function getImagenIngrediente() {
     return $this->imagen_ingrediente;
   }
@@ -53,7 +44,6 @@ class Ingrediente {
       'id_ingrediente' => $this->id_ingrediente,
       'nombre_ingrediente' => $this->nombre_ingrediente,
       'descripcion' => $this->descripcion,
-      'precio' => $this->precio,
       'imagen_ingrediente' => $this->imagen_ingrediente
     ];
   }

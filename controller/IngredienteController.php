@@ -16,13 +16,6 @@ class IngredienteController{
     include_once 'view/main.php';
   }
 
-  public function indexDefectoByProducto(){
-    $view = 'view/ingrediente/indexByProducto.php';
-    $idProducto = $_GET['idproducto'];
-    $listaIngredientes = IngredienteDAO::getIngredientesDefectoByProducto($idProducto);
-    include_once 'view/main.php';
-  }
-
   public function indexByProducto(){
     $view = 'view/ingrediente/indexByProducto.php';
     $idProducto = $_GET['idproducto'];
