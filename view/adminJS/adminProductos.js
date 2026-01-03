@@ -34,7 +34,6 @@ const cargarProductos = () => {
   fetch('api.php/?controller=Producto&action=getProductos')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
     const productos = data.map(p => new Producto(p.id_producto, p.id_subcategoria, p.id_descuento, p.nombre_producto, p.descripcion, p.precio_producto, p.imagen_producto, p.activo, p.porcentaje_descuento, p.ingredientes, p.caracteristicasNutricionales));
 
     productos.forEach(p => {
@@ -101,7 +100,6 @@ const cargarProductos = () => {
 }
 
 const eliminarProducto = (idProducto) => {
-  console.log("Eliminando producto con id: " + idProducto);
   fetch(`api.php/?controller=Producto&action=eliminarProducto&idProducto=${idProducto}`, { method: 'DELETE' })
   .then(response => response.json())
   .then(data => {
@@ -189,11 +187,11 @@ construirFormularioProducto = async (isEditar, producto) => {
         <select class="form-select" id="descuentoProducto"></select>
       </div>
     </div>
-    <div class='form-group'>
-      <label for="ingredientesProducto">Ingredientes</label>
-      <input type="text" class="form-control" id="ingredientesProducto" value="${isEditar ? ingredientesProducto : ''}" disabled>
-      <button type="button" id="editarIngredientesBtn" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;">Editar Ingredientes</button>
-    </div>
+    ${(ingredientesProducto || !isEditar) ? "<div class='form-group'>" : ''}
+    ${(ingredientesProducto || !isEditar) ?  "<label for='ingredientesProducto'>Ingredientes</label>" : ''}
+    ${(ingredientesProducto || !isEditar) ?  `<input type="text" class="form-control" id="ingredientesProducto" value="${isEditar ? ingredientesProducto : ''}" disabled>` : ''}
+    ${(ingredientesProducto || !isEditar) ?  `<button type="button" id="editarIngredientesBtn" class="btn btn-secondary mt-2" style="background-color: #c6d0d3ff;">Editar Ingredientes</button>` : ''}
+    ${(ingredientesProducto || !isEditar) ? `</div>` : ''}
     <div class='form-group'>
       <label for="imagenProducto" class="form-label">Imagen del producto</label>
       <input class="form-control" type="file" id="imagenProducto" name="imagenProducto">
@@ -223,7 +221,7 @@ construirFormularioProducto = async (isEditar, producto) => {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-primary" id="guardarIngredientes">Guardar</button>
         </div>
       </div>
     </div>
@@ -235,7 +233,6 @@ construirFormularioProducto = async (isEditar, producto) => {
 
   selectSubcategoria.innerHTML = '<option value="" selected disabled>Selecciona una subcategoría</option>';
 
-  console.log(subcategorias);
   subcategorias.forEach(s => {
     const option = document.createElement('option');
     option.value = s.id_subcategoria;
@@ -249,7 +246,6 @@ construirFormularioProducto = async (isEditar, producto) => {
 
   selectDescuento.innerHTML = '<option value="" selected disabled>Selecciona un descuento</option>';
 
-  console.log(descuentos);
   descuentos.forEach(d => {
     const option = document.createElement('option');
     option.value = d.id_descuento;
@@ -258,26 +254,29 @@ construirFormularioProducto = async (isEditar, producto) => {
     selectDescuento.appendChild(option);
   });
 
-  const botonEditarIngredientes = formulario.querySelector('#editarIngredientesBtn');
-  botonEditarIngredientes.addEventListener("click", () => {
-    abrirModalEditarIngredientesProducto(isEditar ? producto : null);
-  });
-
-  const botonCancelar = formulario.querySelector('.cancelarEdicion');
-  botonCancelar.addEventListener("click", () => {
-    cargarProductos();
-  });
-
-  const formEdicion = formulario.querySelector('.formulario-edicion');
-  formEdicion?.addEventListener("submit", (e) => {
-    e.preventDefault();
+  if (ingredientesProducto || !isEditar) {
     
-    if (isEditar) {
-      guardarCambiosProducto(producto.id_producto);
-    } else {
-      guardarNuevoProducto();
-    }
-  });
+    const botonEditarIngredientes = formulario.querySelector('#editarIngredientesBtn');
+    botonEditarIngredientes.addEventListener("click", () => {
+      abrirModalEditarIngredientesProducto(isEditar ? producto : null);
+    });
+    
+    const botonCancelar = formulario.querySelector('.cancelarEdicion');
+    botonCancelar.addEventListener("click", () => {
+      cargarProductos();
+    });
+    
+    const formEdicion = formulario.querySelector('.formulario-edicion');
+    formEdicion?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      if (isEditar) {
+        guardarCambiosProducto(producto.id_producto);
+      } else {
+        guardarNuevoProducto();
+      }
+    });
+  }
 
   seccionProductos.appendChild(formulario);
 }
@@ -286,16 +285,19 @@ const abrirModalEditarIngredientesProducto = (producto=null) => {
   const modal = new bootstrap.Modal(document.getElementById('modalEditarIngredientesProducto'));
   cargarIngredientesProductoModal(producto ? producto : null);
   modal.show();
+
+  const botonGuardarIngredientes = document.getElementById('guardarIngredientes');
+  botonGuardarIngredientes.addEventListener("click", () => {
+    abrirModalEditarIngredientesProducto(isEditar ? producto : null);
+  });
 };
 
 cargarIngredientesProductoModal = (producto=null) => {
-  console.log(producto);
   const listaIngredientes = document.querySelector('#modalEditarIngredientesProducto .modal-body');
   fetch('api.php/?controller=Ingrediente&action=getIngredientes')
   .then(response => response.json())
   .then(data => {
     const ingredientes = data.map(i => new Ingrediente(i.id_ingrediente, i.nombre_ingrediente, i.descripcion, i.imagen_ingrediente));
-    console.log(ingredientes);
 
     ingredientes.forEach(i => {
 
@@ -316,7 +318,6 @@ cargarIngredientesProductoModal = (producto=null) => {
 }
 
 const guardarCambiosProducto = (idProducto) => {
-  console.log("Guardando cambios del producto con id: " + idProducto);
 
   productoEditado = new Producto(
     idProducto,
@@ -332,14 +333,11 @@ const guardarCambiosProducto = (idProducto) => {
     null,// document.getElementById('caracteristicasProducto').value,
   );
 
-  console.log(productoEditado);
-
   fetch(`api.php/?controller=Producto&action=guardarCambiosProducto&idProducto=${idProducto}`, { method: 'PUT',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(productoEditado) })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
     if(data.success) cargarProductos();
     else alert(data.message);
   });
@@ -347,7 +345,6 @@ const guardarCambiosProducto = (idProducto) => {
 }
 
 const guardarNuevoProducto = () => {
-  // console.log("Guardando cambios del usuario con id: " + idUsuario);
 
   productoEditado = new Producto(
     idProducto,
@@ -368,7 +365,6 @@ const guardarNuevoProducto = () => {
     body: JSON.stringify(productoEditado) })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
     if(data.success) cargarProductos();
     else alert(data.message);
   });
