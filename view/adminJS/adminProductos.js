@@ -15,11 +15,10 @@ class Producto {
 }
 
 class Ingrediente {
-  constructor(id_ingrediente, nombre_ingrediente, descripcion, precio, imagen_ingrediente) {
+  constructor(id_ingrediente, nombre_ingrediente, descripcion, imagen_ingrediente) {
     this.id_ingrediente = id_ingrediente;
     this.nombre_ingrediente = nombre_ingrediente;
     this.descripcion = descripcion;
-    this.precio = precio;
     this.imagen_ingrediente = imagen_ingrediente;
   }
 }
@@ -218,7 +217,7 @@ construirFormularioProducto = async (isEditar, producto) => {
         </div>
         <div class="modal-body">
           <div style="width: 100%;" class="lista-modal d-flex flex-row gap-3 justify-content-end">
-            <b style="width: 20%;">Añadido</b>
+            <b style="width: 20%; text-align: center">Añadido</b>
           </div>
           
         </div>
@@ -261,7 +260,7 @@ construirFormularioProducto = async (isEditar, producto) => {
 
   const botonEditarIngredientes = formulario.querySelector('#editarIngredientesBtn');
   botonEditarIngredientes.addEventListener("click", () => {
-    abrirModalEditarIngredientesProducto(isEditar ? producto.id_producto : null);
+    abrirModalEditarIngredientesProducto(isEditar ? producto : null);
   });
 
   const botonCancelar = formulario.querySelector('.cancelarEdicion');
@@ -283,28 +282,32 @@ construirFormularioProducto = async (isEditar, producto) => {
   seccionProductos.appendChild(formulario);
 }
 
-const abrirModalEditarIngredientesProducto = (idProducto=null) => {
+const abrirModalEditarIngredientesProducto = (producto=null) => {
   const modal = new bootstrap.Modal(document.getElementById('modalEditarIngredientesProducto'));
-  cargarIngredientesProductoModal(idProducto);
+  cargarIngredientesProductoModal(producto ? producto : null);
   modal.show();
 };
 
-cargarIngredientesProductoModal = (idProducto=null) => {
+cargarIngredientesProductoModal = (producto=null) => {
+  console.log(producto);
   const listaIngredientes = document.querySelector('#modalEditarIngredientesProducto .modal-body');
   fetch('api.php/?controller=Ingrediente&action=getIngredientes')
   .then(response => response.json())
   .then(data => {
-    console.log(data);
-    const ingredientes = data.map(i => new Ingrediente(i.id_ingrediente, i.nombre_ingrediente, i.descripcion, i.precio, i.imagen_ingrediente));
+    const ingredientes = data.map(i => new Ingrediente(i.id_ingrediente, i.nombre_ingrediente, i.descripcion, i.imagen_ingrediente));
+    console.log(ingredientes);
 
     ingredientes.forEach(i => {
+
+      const ingredienteYaSeleccionado = producto && Array.isArray(producto.ingredientes) && producto.ingredientes.some(ing => ing.id_ingrediente === i.id_ingrediente);
+
       const divIngrediente = document.createElement('div');
       divIngrediente.classList.add('item-lista-modal');
 
       divIngrediente.innerHTML = `
       <div style="width: 10%;"><img width="100%" src="public/assets/ingredientes/${i.imagen_ingrediente}" alt="imagen ${i.nombre_ingrediente}"></div>
-      <div style="width: 55%;"><h3>${i.nombre_ingrediente}</h3></div>
-      <div style="width: 20%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto"></div>
+      <div style="width: 70%; padding-left: 10px;"><h3>${i.nombre_ingrediente}</h3></div>
+      <div style="width: 20%;" class="acciones-item-lista d-flex flex-row justify-content-center gap-3"><input type="checkbox" class="form-check-input" id="activoProducto" ${ingredienteYaSeleccionado ? 'checked' : ''}></div>
       `;
 
       listaIngredientes.appendChild(divIngrediente);
