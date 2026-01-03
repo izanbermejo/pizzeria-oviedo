@@ -54,6 +54,13 @@ class PedidoController{
     $view = 'view/historialPedidos.php';
     include_once 'view/main.php';
   }
+
+  public function repetir() {
+    $idPedido = $_GET['idpedido'];
+    $listaProductos = ProductoDAO::getProductosByPedido($idPedido);
+    $view = 'view/repetirPedido.php';
+    include_once 'view/main.php';
+  }
 }
 
 ?>
