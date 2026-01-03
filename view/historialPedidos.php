@@ -11,7 +11,7 @@
     <div style="width: 40%;"><p>Dirección: <?= $pedido->getDireccionPedido(); ?></p></div>
     <div style="text-align: right"><p>Fecha: <?= $pedido->getFechaPedido(); ?></p></div>
     <div style="text-align: right"><p><b>Precio: <?= $pedido->getImporteTotal(); ?></b></p></div>
-    <a class="btn btn-secondary" href="detallePedido.php?idPedido=<?= $pedido->getIdPedido() ?>">Ver información</a>
+    <a class="btn btn-secondary" href="?controller=Producto&action=indexByPedido&idpedido=<?= $pedido->getIdPedido() ?>">Ver información</a>
   </div>
   <?php } ?>
 </section>
@@ -35,7 +35,7 @@
   align-items: center;
   background-color: white;
   padding: 20px;
-  margin: 15px 20px;
+  margin: 15px 0px;
   border-radius: 16px;
   width: 100%;
 }
