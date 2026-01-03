@@ -13,6 +13,20 @@ class Producto {
   private array $ingredientes = [];
   private array $caracteristicasNutricionales = [];
 
+  public function __construct($id_producto, $id_subcategoria, $id_descuento, $nombre_producto, $descripcion, $precio_producto, $imagen_producto, $activo, $porcentaje_descuento, $ingredientes = [], $caracteristicasNutricionales = []) {
+    $this->id_producto = $id_producto;
+    $this->id_subcategoria = $id_subcategoria;
+    $this->id_descuento = $id_descuento;
+    $this->nombre_producto = $nombre_producto;
+    $this->descripcion = $descripcion;
+    $this->precio_producto = $precio_producto;
+    $this->imagen_producto = $imagen_producto;
+    $this->activo = $activo;
+    $this->porcentaje_descuento = $porcentaje_descuento;
+    $this->ingredientes = $ingredientes;
+    $this->caracteristicasNutricionales = $caracteristicasNutricionales;
+  }
+
   public function getIdProducto() {
     return $this->id_producto;
   }

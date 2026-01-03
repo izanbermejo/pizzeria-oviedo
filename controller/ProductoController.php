@@ -97,6 +97,34 @@ class ProductoController{
 
   }
 
+  public function guardarCambiosProducto() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $producto = new Producto(
+      $_GET['idProducto'],
+      $data['id_subcategoria'],
+      $data['id_descuento'],
+      $data['nombre_producto'],
+      $data['descripcion'],
+      $data['precio_producto'],
+      $data['imagen_producto'],
+      $data['activo'],
+      [],
+      [],
+    );
+
+    $actualizado = ProductoDAO::updateProducto($producto);
+
+    if ($actualizado) {
+      echo json_encode(['success' => true, 'message' => 'Producto editado correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al editar el producto.']);
+    }
+
+  }
+
   public function getProductoById() {
     header('Content-Type: application/json; charset-utf-8');
 
