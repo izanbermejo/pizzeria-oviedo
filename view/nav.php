@@ -72,6 +72,7 @@
           </a>
           <ul class="dropdown-menu">
             <li ><a class="dropdown-item" href="?controller=Usuario&action=verPerfil">Perfil</a></li>
+            <li ><a class="dropdown-item" href="?controller=Pedido&action=pedidosUsuario">Historial de Pedidos</a></li>
             <li><a class="dropdown-item" href="?controller=InicioSesion&action=login">Cambiar usuario</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="?controller=InicioSesion&action=logoutUsuario">Cerrar sesión</a></li>

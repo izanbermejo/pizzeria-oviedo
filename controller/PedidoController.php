@@ -48,6 +48,12 @@ class PedidoController{
     $view = 'view/pagoAceptado.php';
     include_once 'view/main.php';
   }
+
+  public function pedidosUsuario() {
+    $pedidos = PedidoDAO::getPedidosByUsuario($_SESSION['usuario']->getIdUsuario());
+    $view = 'view/historialPedidos.php';
+    include_once 'view/main.php';
+  }
 }
 
 ?>
