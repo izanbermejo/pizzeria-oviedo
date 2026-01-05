@@ -38,5 +38,14 @@ class CodigoDescuento {
   public function setActivo($activo) {
     $this->activo = $activo;
   }
+
+  public function toArray() {
+    return [
+      'id_codigo_descuento' => $this->id_codigo_descuento,
+      'porcentaje_descuento' => $this->porcentaje_descuento,
+      'codigo' => $this->codigo,
+      'activo' => $this->activo
+    ];
+  }
 }
 ?>

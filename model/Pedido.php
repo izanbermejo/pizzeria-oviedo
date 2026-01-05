@@ -72,5 +72,16 @@ class Pedido {
   public function setFechaPedido($fecha_pedido) {
     $this->fecha_pedido = $fecha_pedido;
   }
+
+  public function toArray() {
+    return [
+      'id_pedido' => $this->id_pedido,
+      'id_usuario' => $this->id_usuario,
+      'id_codigo_descuento' => $this->id_codigo_descuento,
+      'direccion_pedido' => $this->direccion_pedido,
+      'importe_total' => $this->importe_total,
+      'fecha_pedido' => $this->fecha_pedido,
+    ];
+  }
 }
 ?>

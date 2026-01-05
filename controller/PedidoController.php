@@ -7,6 +7,38 @@ include_once 'model/PedidoDAO.php';
 
 class PedidoController{
 
+  public function getPedidos() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $listaPedidos = PedidoDAO::getPedidos();
+    $data = [];
+    
+    
+    foreach ($listaPedidos as $pedido) {
+      $data[] = $pedido->toArray();
+    }
+    
+    echo json_encode($data);
+  }
+
+  public function getPedidoById() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    if (!isset($_GET['idPedido'])) {
+      echo json_encode(['success' => false, 'message' => 'ID de pedido no proporcionado.']);
+      return;
+    }
+
+    $idPedido = $_GET['idPedido'];
+    $pedido = PedidoDAO::getPedidoById($idPedido);
+
+    if ($pedido) {
+      echo json_encode(['success' => true, 'data' => $pedido->toArray()]);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Pedido no encontrado.']);
+    }
+  }
+
   public function addPedido() {
 
     $idCodigoDescuento = CodigoDescuentoDAO::getCodigoDescuentoByCodigo($_POST['codigoDescuento']);
@@ -60,6 +92,73 @@ class PedidoController{
     $listaProductos = ProductoDAO::getProductosByPedido($idPedido);
     $view = 'view/repetirPedido.php';
     include_once 'view/main.php';
+  }
+
+  public function eliminarPedido() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    if (!isset($_GET['idPedido'])) {
+      echo json_encode(['success' => false, 'message' => 'ID de pedido no proporcionado.']);
+      return;
+    }
+
+    $idPedido = $_GET['idPedido'];
+    $eliminado = PedidoDAO::eliminarPedido($idPedido);
+
+    if ($eliminado) {
+      echo json_encode(['success' => true, 'message' => 'Pedido eliminado correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al eliminar el pedido.']);
+    }
+
+  }
+
+  public function guardarCambiosPedido() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $pedido = new Pedido(
+      $_GET['idPedido'],
+      null,
+      $data['id_codigo_descuento'],
+      $data['direccion_pedido'],
+      $data['importe_total'],
+      null,
+    );
+
+    $actualizado = PedidoDAO::updatePedido($pedido);
+
+    if ($actualizado) {
+      echo json_encode(['success' => true, 'message' => 'Pedido editado correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al editar el pedido.']);
+    }
+
+  }
+
+  public function guardarNuevoPedido() {
+    header('Content-Type: application/json; charset-utf-8');
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $pedido = new Pedido(
+      null,
+      null,
+      $data['id_codigo_descuento'],
+      $data['direccion_pedido'],
+      $data['importe_total'],
+      null,
+    );
+
+    $creado = PedidoDAO::createPedido($pedido);
+
+    if ($creado) {
+      echo json_encode(['success' => true, 'message' => 'Pedido creado correctamente.']);
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Error al crear el pedido.']);
+    }
+
   }
 }
 

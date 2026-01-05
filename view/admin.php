@@ -89,6 +89,7 @@
 
 <!-- Scripts -->
 <script src="view/adminJS/adminProductos.js"></script>
+<script src="view/adminJS/adminPedidos.js"></script>
 <script src="view/adminJS/adminUsuarios.js"></script>
 
 <!-- Script para gestionar que sección se muestra -->
@@ -115,6 +116,9 @@
           switch(seccion.id) {
             case 'productos':
               cargarProductos();
+              break;
+            case 'pedidos':
+              cargarPedidos();
               break;
             case 'usuarios':
               cargarUsuarios();
