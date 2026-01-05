@@ -130,8 +130,7 @@
     if ($_GET['action'] == 'index') {
       foreach ($listaSubcategorias as $subcategoria) { 
         // muestra los productos de la subcategoria seleccionada o todos los productos si no hay ninguna seleccionada
-        if ((isset($_GET['idsubcategoria']) && $_GET['idsubcategoria'] == $subcategoria->getIdSubcategoria()) || !isset($_GET['idsubcategoria'])) {
-        ?>
+        if ((isset($_GET['idsubcategoria']) && $_GET['idsubcategoria'] == $subcategoria->getIdSubcategoria()) || !isset($_GET['idsubcategoria'])) { ?>
         <div class="productos-subcategoria">
           <div class="titulo-subcategoria">
             <h2><?= $subcategoria->getNombreSubcategoria() ?></h2>
@@ -149,7 +148,7 @@
                 $ingredientesProducto = rtrim($ingredientesProducto, ", ");
                 ?>
                 <!-- Cards productos -->
-                  <div class="card-producto card overflow-hidden">
+                  <div class="card-producto card overflow-hidden shadow">
                     <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
                       <h3><?= $producto->getNombreProducto(); ?></h3>
                     </div>
@@ -176,7 +175,7 @@
                             <span class="precio precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
                           </div>
                         <?php } ?>
-                        <button class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
+                        <button data-id="<?= $producto->getIdProducto(); ?>" class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
                       </div>
                     </div>
                   </div>
@@ -186,6 +185,7 @@
           </div>
         <?php }
       } 
+      // productos en oferta
     } else if ($_GET['action'] == 'indexOfertas') { ?>
       <div class="cards-productos d-flex flex-row justify-content-center flex-wrap">
       
@@ -198,7 +198,7 @@
           $ingredientesProducto = rtrim($ingredientesProducto, ", ");
           ?>
           <!-- Cards productos -->
-          <div class="card-producto card overflow-hidden">
+          <div class="card-producto card overflow-hidden shadow">
             <div class="card-producto-header card-header bg-secondary d-flex align-items-center">
               <h3><?= $producto->getNombreProducto(); ?></h3>
             </div>
@@ -225,7 +225,7 @@
                     <span class="precio precio-producto-original"><?= $producto->getPrecioProducto(); ?></>
                   </div>
                 <?php } ?>
-                <button class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
+                <button data-id="<?= $producto->getIdProducto(); ?>" class="btn-anadir-carrito btn btn-primary">Añadir al carrito</button>
               </div>
             </div>
           </div>
@@ -234,6 +234,55 @@
     <?php } ?>
   </div>
 </section>
+
+<script>
+
+  const botonesAnadir = document.getElementsByClassName("btn-anadir-carrito");
+
+  Array.from(botonesAnadir).forEach((botonAnadir) => {
+    botonAnadir.addEventListener("click", () => {
+      const idProducto = botonAnadir.dataset.id;
+      añadirProductoAlCarrito(idProducto);
+    });
+  });
+
+  const añadirProductoAlCarrito = (idProducto) => {
+    fetch(`api.php/?controller=Producto&action=getProductoById&idProducto=${idProducto}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(producto => {
+      guardarEnCarrito(producto.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al añadir el producto al carrito');
+    });
+  };
+
+  const guardarEnCarrito = (producto) => {
+    // obtiene el carrito del localStorage o crea uno nuevo si no existe
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    // comprueba si el producto ya esta añadido en el carrito
+    const productoExistente = carrito.find(p => p.id_producto === producto.id_producto);
+
+    // si ya existe aumenta la cantidad, si no lo añade con cantidad 1
+    if (productoExistente) {
+      productoExistente.cantidad++;
+    } else {
+      producto.cantidad = 1;
+      carrito.push(producto);
+    }
+
+    // guarda el carrito actualizado en el localStorage
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  };
+
+</script>
 
 <style>
 

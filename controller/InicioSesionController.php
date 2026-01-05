@@ -30,6 +30,7 @@ class InicioSesionController{
     if (!UsuarioDAO::emailExiste($usuario->getEmail())) {
       UsuarioDAO::addUsuario($usuario);
       header("Location: ?");
+      $this->loginUsuario();
     } else {
       $nombre = $_POST['nombre'] ?? '';
       $apellidos = $_POST['apellidos'] ?? '';
