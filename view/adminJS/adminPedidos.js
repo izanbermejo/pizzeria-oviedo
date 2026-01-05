@@ -17,6 +17,37 @@ const cargarPedidos = () => {
     divsExistentes.forEach(div => div.remove());
   }
 
+  const divFiltrosPedidos = document.createElement('div');
+  divFiltrosPedidos.id = 'filtrosPedidos';
+
+  divFiltrosPedidos.innerHTML = `
+    <form class='formulario-edicion'>
+    <div class="d-flex flex-row gap-3">
+      <div class='form-group w-50'>
+        <label for="usuario">ID usuario</label>
+        <input type="text" class="form-control" id="usuario" placeholder="ID usuario">
+      </div>
+      <div class="form-group w-50">
+        <label for="orden">Ordenar</label>
+        <select class="form-select" id="orden">
+          <option value="" disabled selected>Selecciona un orden</option>
+          <option value="fecha_desc">Fecha (más reciente)</option>
+          <option value="fecha_asc">Fecha (más antiguo)</option>
+          <option value="importe_desc">Importe (mayor a menor)</option>
+          <option value="importe_asc">Importe (menor a mayor)</option>  
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Filtrar</button>
+    </div>
+  </form>
+  `;
+
+
+
+  seccionPedidos.appendChild(divFiltrosPedidos);
+
+
+
   fetch('api.php/?controller=Pedido&action=getPedidos')
   .then(response => response.json())
   .then(data => {
