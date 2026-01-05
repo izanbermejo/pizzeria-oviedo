@@ -293,6 +293,13 @@ const abrirModalEditarIngredientesProducto = (producto=null) => {
 };
 
 cargarIngredientesProductoModal = (producto=null) => {
+  const elementosListados = document.getElementsByClassName('item-lista-modal');
+  if (elementosListados.length > 0) {
+    while(elementosListados.length > 0){
+      elementosListados[0].parentNode.removeChild(elementosListados[0]);
+    }
+  }
+
   const listaIngredientes = document.querySelector('#modalEditarIngredientesProducto .modal-body');
   fetch('api.php/?controller=Ingrediente&action=getIngredientes')
   .then(response => response.json())
