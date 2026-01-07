@@ -9,7 +9,7 @@ class Pedido {
   }
 }
 
-const cargarPedidos = () => {
+const cargarPedidos = (tasa, simbolo) => {
   const seccionPedidos = document.getElementById('pedidos');
 
   const divsExistentes = seccionPedidos.querySelectorAll('div');
