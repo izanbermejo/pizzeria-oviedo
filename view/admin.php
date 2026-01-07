@@ -51,8 +51,21 @@
         <strong><?= $_SESSION['usuario']->getNombreUsuario() ?></strong>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="?controller=Usuario&action=verPerfil">Perfil</a></li>
+        <li>
+          <a class="dropdown-item" href="#">Moneda &raquo;</a>
+          <ul class="dropdown-menu dropdown-submenu dropdown-menu-dark text-small shadow">
+            <li>
+              <a class="dropdown-item" href="?controller=Admin&action=index&moneda=EUR">Euro</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="?controller=Admin&action=index&moneda=USD">Dólar estadounidense</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="?controller=Admin&action=index&moneda=GBP">Libra esterlina</a>
+            </li>
+          </ul>
+        </li>
         <li>
           <hr class="dropdown-divider" />
         </li>
@@ -93,10 +106,57 @@
 <script src="view/adminJS/adminUsuarios.js"></script>
 
 <!-- Script para gestionar que sección se muestra -->
-<script>
+<script type="module">
+const API_KEY = 'fca_live_gy8rqu1MhXPLdHU8V7XYwatrU7eJVPKVcqzmu7UI';
+
+  const params = new URLSearchParams(window.location.search);
+  const moneda = params.get('moneda') || 'EUR';
+
+  const calcularCambioMoneda = async (cambioMoneda) => {
+    return fetch(`https://api.freecurrencyapi.com/v1/latest?apikey=${API_KEY}&base_currency=EUR&currencies=${cambioMoneda}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        console.log('EUR → ' + cambioMoneda + ':', data.data[cambioMoneda]);
+        return data.data[cambioMoneda];
+      })
+      .catch(error => console.error(error));
+  }
+
+  const buscarSimboloMoneda = async (cambioMoneda) => {
+    return fetch(`https://api.freecurrencyapi.com/v1/currencies?apikey=${API_KEY}&base_currency=EUR&currencies=${cambioMoneda}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        console.log('Simbolo → ' + cambioMoneda + ':', data.data[cambioMoneda].symbol);
+        return data.data[cambioMoneda].symbol;
+      })
+      .catch(error => console.error(error));
+  }
+
+  const tasa = await calcularCambioMoneda(moneda);
+  const simbolo = await buscarSimboloMoneda(moneda);
+
+  console.log('Tasa de cambio: ' + tasa);
+  console.log('Símbolo de la moneda: ' + simbolo);
+
+  // const calcularCambioMonedaYSimbolo = async () => {
+  //   try {
+  //     const [tasa, simbolo] = await Promise.all([
+  //       calcularCambioMoneda(moneda),
+  //       buscarSimboloMoneda(moneda)
+  //     ]);
+      
+  //   }
+  // }
+
+  // calcularCambioMonedaYSimbolo();
+  // console.log(tasa, simbolo);
+  
+  
 
   // Al cargar la página, muestra la sección de productos por defecto
-  cargarProductos();
+  cargarProductos(tasa, simbolo);
 
   const botonesMenu = document.querySelectorAll('.menu-btn');
 
@@ -115,10 +175,10 @@
           //dependiendo del id de la seccion cargada ejecuta el metodo de carga de datos
           switch(seccion.id) {
             case 'productos':
-              cargarProductos();
+              cargarProductos(tasa, simbolo);
               break;
             case 'pedidos':
-              cargarPedidos();
+              cargarPedidos(tasa, simbolo);
               break;
             case 'usuarios':
               cargarUsuarios();
@@ -216,6 +276,17 @@ button.item-lista {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
+}
+
+.dropdown-menu > li:hover > .dropdown-submenu {
+  display: block;
 }
 
 </style>
