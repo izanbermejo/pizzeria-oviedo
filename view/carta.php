@@ -162,7 +162,7 @@
                         <p class="card-producto-text card-text overflow-hidden"><?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
                         <div class="caracteristicas-producto d-flex flex-row align-items-center">
                           <?php foreach ($producto->getCaracteristicasNutricionales() as $caracteristicaNutricional) {?>
-                            <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
+                            <img src="public/assets/caracteristicasNutricionales/<?= $caracteristicaNutricional->getIcono() ?>" alt="Icono de la caracteristica nutricional <?= $caracteristicaNutricional->getNombreCaracteristica() ?>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="<?= $caracteristicaNutricional->getNombreCaracteristica() ?>">
                           <?php } ?>
                         </div>
                       </div>
