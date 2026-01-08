@@ -41,6 +41,11 @@ class PedidoController{
 
   public function addPedido() {
 
+    if (!isset($_SESSION['usuario'])) {
+      header("Location: ?controller=InicioSesion&action=login");
+      return;
+    }
+
     $idCodigoDescuento = CodigoDescuentoDAO::getCodigoDescuentoByCodigo($_POST['codigoDescuento']);
 
     $pedido = new Pedido(
