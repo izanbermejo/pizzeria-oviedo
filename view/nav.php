@@ -92,7 +92,7 @@
 <!-- OFFCANVAS PARA MÓVIL -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="menuMovil">
   <div class="offcanvas-header">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="?">
       <img src="public/assets/imagen_LOGO.png" alt="imagen_LOGO" id="logo_principal">
     </a>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
@@ -101,7 +101,7 @@
     <!-- Enlaces del menú -->
     <ul class="navbar-nav">
       <li class="nav-item mb-2">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="?">
           Inicio
         </a>
       </li>
@@ -111,25 +111,25 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item" href="#">Pizzas</a>
+            <a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=1">Pizzas</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Bebidas</a>
+            <a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=2">Complementos</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Complementos</a>
+            <a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=3">Bebidas</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Postres</a>
+            <a class="dropdown-item" href="?controller=Carta&action=index&idcategoria=4">Postres</a>
           </li>
           <li><hr class="dropdown-divider" /></li>
           <li>
-            <a class="dropdown-item" href="#">Ofertas</a>
+            <a class="dropdown-item" href="?controller=Carta&action=indexOfertas">Ofertas</a>
           </li>
         </ul>
       </li>
       <li class="nav-item mb-2">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="?controller=Contacto&action=index">
           Contacto
         </a>
       </li>
@@ -168,6 +168,7 @@ nav {
 
 .offcanvas a {
   color: #0032A0 !important;
+  font-size: 20px !important;
 }
 
 #logo_principal {
