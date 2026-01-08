@@ -9,7 +9,7 @@ class Pedido {
   }
 }
 
-const cargarPedidos = (tasa, simbolo) => {
+const cargarPedidos = (tasa = 1, simbolo = '€', idUsuario = null, orden = null) => {
   const seccionPedidos = document.getElementById('pedidos');
 
   const divsExistentes = seccionPedidos.querySelectorAll('div');
@@ -21,7 +21,7 @@ const cargarPedidos = (tasa, simbolo) => {
   divFiltrosPedidos.id = 'filtrosPedidos';
 
   divFiltrosPedidos.innerHTML = `
-    <form class='formulario-edicion'>
+    <form class='formulario-filtrar'>
     <div class="d-flex flex-row gap-3">
       <div class='form-group w-50'>
         <label for="usuario">ID usuario</label>
@@ -37,21 +37,52 @@ const cargarPedidos = (tasa, simbolo) => {
           <option value="importe_asc">Importe (menor a mayor)</option>  
         </select>
       </div>
-      <button class="btn btn-primary" type="submit">Filtrar</button>
+      <button id="filtrarPedidos" class="btn btn-primary" type="submit">Filtrar</button>
     </div>
   </form>
   `;
 
-
+  const formFiltrar = divFiltrosPedidos.querySelector('.formulario-filtrar');
+  formFiltrar?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const idUsuario = document.getElementById('usuario').value;
+    const orden = document.getElementById('orden').value;
+    console.log(idUsuario, orden);
+    cargarPedidos(tasa, simbolo, idUsuario, orden);
+  });
 
   seccionPedidos.appendChild(divFiltrosPedidos);
-
-
 
   fetch('api.php/?controller=Pedido&action=getPedidos')
   .then(response => response.json())
   .then(data => {
-    const pedidos = data.map(p => new Pedido(p.id_pedido, p.id_usuario, p.id_codigo_descuento, p.direccion_pedido, p.importe_total, p.fecha_pedido));
+    let pedidos = data.map(p => new Pedido(p.id_pedido, p.id_usuario, p.id_codigo_descuento, p.direccion_pedido, p.importe_total, p.fecha_pedido));
+
+    if (idUsuario) {
+      pedidos = pedidos.filter(p => p.id_usuario == idUsuario);
+      if(pedidos.length == 0) {
+        const noResultados = document.createElement('div');
+        noResultados.innerHTML = `<p style="padding: 15px; margin-left: 20px;">No se han encontrado pedidos para el ID de usuario proporcionado.</p>`;
+        seccionPedidos.appendChild(noResultados);
+        return;
+      }
+    }
+    if (orden) {
+      switch(orden) {
+        case 'fecha_desc':
+          pedidos.sort((a, b) => new Date(b.fecha_pedido) - new Date(a.fecha_pedido));
+          break;
+        case 'fecha_asc':
+          pedidos.sort((a, b) => new Date(a.fecha_pedido) - new Date(b.fecha_pedido));
+          break;
+        case 'importe_desc':
+          pedidos.sort((a, b) => b.importe_total - a.importe_total);
+          break;
+        case 'importe_asc':
+          pedidos.sort((a, b) => a.importe_total - b.importe_total);
+          break;
+      }
+    }
 
     pedidos.forEach(p => {
       const divPedido = document.createElement('div');
@@ -62,7 +93,7 @@ const cargarPedidos = (tasa, simbolo) => {
       <div style="width: 15%;"><p><b>Usuario: ${p.id_usuario}</b></p></div>
       <div style="width: 40%;"><p><b>${p.direccion_pedido}</b></p></div>
       <div style="width: 10%; text-align: right; ${p.id_codigo_descuento ? 'color: red' : ''}"><p><b>${p.id_codigo_descuento ? '-'+p.id_codigo_descuento : 'Sin descuento'}</b></p></div>
-      <div style="width: 5%; text-align: right"><p><b>${p.importe_total}€</b></p></div>
+      <div style="width: 5%; text-align: right"><p><b>${(p.importe_total * tasa).toFixed(2)} ${simbolo}</b></p></div>
       <div style="width: 15%; text-align: right"><p><b>${p.fecha_pedido}</b></p></div>
       <div style="width: 10%; text-align: right" class="acciones-item-lista d-flex flex-row justify-content-end gap-3">
         <button class="editar-pedido" data-id="${p.id_pedido}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path fill="#285db8" d="M416.9 85.2L372 130.1L509.9 268L554.8 223.1C568.4 209.6 576 191.2 576 172C576 152.8 568.4 134.4 554.8 120.9L519.1 85.2C505.6 71.6 487.2 64 468 64C448.8 64 430.4 71.6 416.9 85.2zM338.1 164L122.9 379.1C112.2 389.8 104.4 403.2 100.3 417.8L64.9 545.6C62.6 553.9 64.9 562.9 71.1 569C77.3 575.1 86.2 577.5 94.5 575.2L222.3 539.7C236.9 535.6 250.2 527.9 261 517.1L476 301.9L338.1 164z"/></svg></button>

@@ -256,7 +256,7 @@ button.item-lista {
   cursor: pointer;
 }
 
-.formulario-edicion {
+.formulario-edicion, .formulario-filtrar {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -267,7 +267,7 @@ button.item-lista {
   padding: 30px;
 }
 
-.formulario-edicion label {
+.formulario-edicion label, .formulario-filtrar label {
   padding-left: 10px;
 }
 
