@@ -102,6 +102,7 @@
         <span class="precio-final"></span>
         <input type="hidden" name="precioTotal" id="precioTotal">
         <input type="hidden" name="codigoDescuento" id="codigoDescuento">
+        <input type="hidden" name="carrito" id="carrito">
         <button class="btn btn-primary btn-lg px-4" type="submit">Finalizar compra</button>
       </div>
     </div>
@@ -149,6 +150,7 @@
   precioTotalElemento.textContent = `Total: ${(precioTotal - descuento).toFixed(2)} €`;
   document.getElementById('precioTotal').value = (precioTotal - descuento).toFixed(2);
   document.getElementById('codigoDescuento').value = codigoDescuento || "";
+  document.getElementById('carrito').value = localStorage.getItem("carrito") || "";
   precioBaseElemento.textContent = `${((precioTotal - descuento) * 0.9).toFixed(2)} €`;
   ivaElemento.textContent = `${((precioTotal - descuento) * 0.1).toFixed(2)} €`;
   subtotalElemento.textContent = `${precioTotal.toFixed(2)} €`;

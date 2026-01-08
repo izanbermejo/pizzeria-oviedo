@@ -174,11 +174,11 @@
               <img src="public/assets/productos/<?= $producto->getImagenProducto(); ?>" class="img-producto card-img-top" alt="imagen <?= $producto->getNombreProducto(); ?>">
             </div>
             <div class="card-body-producto card-body">
-              <div>
+              <div style="height: 80%;">
                 <h3 class="titulo-producto card-title"><?= $producto->getNombreProducto(); ?></h3>
                 <p class="ingredientes-producto card-text"> <?= $ingredientesProducto ? $ingredientesProducto . "." : $producto->getDescripcion() ?></p>
               </div>
-              <div class="d-flex flex-row justify-content-between">
+              <div class="d-flex flex-row justify-content-between" style="height: 20%;">
                 <?php if ($producto->getIdDescuento() == NULL) { ?>
                   <span class="precio-producto"><?= $producto->getPrecioProducto(); ?></span>
                 <?php } else { ?>
@@ -552,6 +552,14 @@
   .precio-producto-original {
     color: #939393;
     text-decoration: line-through;
+  }
+
+  .ingredientes-producto {
+    display: -webkit-box;       /* Necesario para line-clamp */
+    -webkit-line-clamp: 2;      /* Número máximo de líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;           /* Oculta el texto que sobra */
+    text-overflow: ellipsis;    /* Agrega "..." al final */
   }
 
   @media (max-width: 768px) {

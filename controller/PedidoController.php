@@ -1,5 +1,8 @@
 <?php 
 include_once 'model/Pedido.php';
+include_once 'model/LineaPedido.php';
+include_once 'model/CodigoDescuentoDAO.php';
+include_once 'model/LineaPedidoDAO.php';
 include_once 'model/PedidoDAO.php';
 
 class PedidoController{
@@ -24,21 +27,45 @@ class PedidoController{
 
     PedidoDAO::addPedido($pedido);
 
+    $ultimoPedido = PedidoDAO::getUltimoPedido($_SESSION['usuario']->getIdUsuario());
+
+    $carrito = json_decode($_POST['carrito'], true);
+
+    foreach ($carrito as $producto) {
+
+      if ($producto['porcentaje_descuento']) {
+        $precioProducto = ($producto['precio_producto'] - ($producto['precio_producto'] * $producto['porcentaje_descuento'] / 100));
+      } else {
+        $precioProducto = $producto['precio_producto'];
+      }
+
+      $lineaPedido = new LineaPedido(
+        null,
+        $ultimoPedido->getIdPedido(),
+        $producto['id_producto'],
+        round($precioProducto, 2, PHP_ROUND_HALF_DOWN),
+        $producto['cantidad']
+      );
+
+      LineaPedidoDAO::addLineaPedido($lineaPedido);
+    }
+
     $view = 'view/pagoAceptado.php';
     include_once 'view/main.php';
   }
 
-  // public function getPedidoById() {
-  //   $usuario = UsuarioDAO::getUsuarioByEmail($_POST['email']);
+  public function pedidosUsuario() {
+    $pedidos = PedidoDAO::getPedidosByUsuario($_SESSION['usuario']->getIdUsuario());
+    $view = 'view/historialPedidos.php';
+    include_once 'view/main.php';
+  }
 
-  //   if ($usuario && password_verify($_POST['password'], $usuario->getContrasena())) {
-  //     $_SESSION['usuario'] = $usuario;
-  //     header("Location: ?");
-  //   } else {
-  //     $view = 'view/login.php';
-  //     include_once 'view/main.php';
-  //   }
-  // }  
+  public function repetir() {
+    $idPedido = $_GET['idpedido'];
+    $listaProductos = ProductoDAO::getProductosByPedido($idPedido);
+    $view = 'view/repetirPedido.php';
+    include_once 'view/main.php';
+  }
 }
 
 ?>

@@ -57,6 +57,25 @@ class ProductoDAO {
     return $listaProductosActivos;
   }
 
+  public static function getProductosByPedido($idPedido) {
+    $con = DataBase::connect();
+    $stmt = $con->prepare("SELECT p.*, lp.cantidad, lp.precio_unidad 
+      FROM productos p
+      JOIN linea_pedido lp ON p.id_producto = lp.id_producto
+      WHERE lp.id_pedido = ?");
+    $stmt->bind_param('i', $idPedido);
+    $stmt->execute();
+    $results = $stmt->get_result();
+
+    $listaProductosByPedido = [];
+
+    while ($producto = $results->fetch_object('Producto')) {
+      $listaProductosByPedido[]=$producto;
+    }
+    $con->close();
+    return $listaProductosByPedido;
+  }
+
   public static function getProductosEnOferta() {
     $con = DataBase::connect();
     $stmt = $con->prepare("SELECT p.*, d.porcentaje_descuento 

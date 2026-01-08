@@ -106,5 +106,35 @@ class UsuarioController{
 
   }
 
+  public function verPerfil() {
+    $view = 'view/perfilUsuario.php';
+    include_once 'view/main.php';
+  }
+
+  public function editarPerfil() {
+    $view = 'view/editarPerfil.php';
+    include_once 'view/main.php';
+  }
+
+  public function guardarCambiosPerfil() {
+      $usuario = new Usuario(
+      $_SESSION['usuario']->getIdUsuario(),
+      $_POST['nombreUsuario'],
+      $_POST['apellidosUsuario'],
+      $_POST['email'],
+      isset($_POST['contrasena']) && !empty($_POST['contrasena']) ? password_hash($_POST['contrasena'], PASSWORD_DEFAULT) : $_SESSION['usuario']->getContrasena(),
+      $_POST['direccion'],
+      $_POST['ciudad'],
+      $_SESSION['usuario']->getTipoUsuario()
+    );
+
+    UsuarioDAO::updateUsuarioPass($usuario);
+
+    $_SESSION['usuario'] = UsuarioDAO::getUsuarioById($_SESSION['usuario']->getIdUsuario());
+
+    $view = 'view/perfilUsuario.php';
+    include_once 'view/main.php';
+  }
+
 }
 ?>

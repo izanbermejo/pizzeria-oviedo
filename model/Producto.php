@@ -12,6 +12,8 @@ class Producto {
   private $porcentaje_descuento;
   private array $ingredientes = [];
   private array $caracteristicasNutricionales = [];
+  private $cantidad; // Se usa cuando se obtienen productos por pedido
+  private $precio_unidad; // Se usa cuando se obtienen productos por pedido
 
   public function getIdProducto() {
     return $this->id_producto;
@@ -99,6 +101,22 @@ class Producto {
 
   public function setCaracteristicasNutricionales($caracteristicasNutricionales) {
     $this->caracteristicasNutricionales = $caracteristicasNutricionales;
+  }
+
+  public function getCantidad() {
+    return $this->cantidad;
+  }
+
+  public function setCantidad($cantidad) {
+    $this->cantidad = $cantidad;
+  }
+
+  public function getPrecioUnidad() {
+    return $this->precio_unidad;
+  }
+
+  public function setPrecioUnidad($precio_unidad) {
+    $this->precio_unidad = $precio_unidad;
   }
 
   public function toArray() {

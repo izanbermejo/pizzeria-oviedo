@@ -29,6 +29,13 @@ class ProductoController{
     return $listaProductosActivos;
   }
 
+  public function indexByPedido() {
+    $idPedido = isset($_GET['idpedido']) ? $_GET['idpedido'] : 1;
+    $listaProductos = ProductoDAO::getProductosByPedido($idPedido);
+    $view = 'view/pedidoAnterior.php';
+    include_once 'view/main.php';
+  }
+
   public function ofertados(){
     $listaProductosEnOferta = ProductoDAO::getProductosEnOferta();
     foreach ($listaProductosEnOferta as $producto) {
