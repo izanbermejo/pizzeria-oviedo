@@ -468,12 +468,12 @@
     }
 
     .carousel-control-next-ofertas {
-      right: -40px; 
+      right: -40px !important; 
     }
 
     .card-ofertas {
       flex: 0 0 auto;
-      width: 100%; 
+      width: 100% !important; 
     }
   }
 
@@ -575,7 +575,7 @@
     #carouselProductosMovil {
       display: block;
       padding-top: 40px;
-      width: 100%;
+      width: 90%;
     }
 
     .card-producto {
@@ -603,7 +603,7 @@
     }
 
     .carousel-control-next-productos {
-      right: -40px; 
+      right: -40px !important; 
     }
   }
   
