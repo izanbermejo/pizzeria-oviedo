@@ -23,7 +23,7 @@ class Ingrediente {
   }
 }
 
-const cargarProductos = (tasa, simbolo) => {
+const cargarProductos = (tasa = 1, simbolo = '€') => {
   const seccionProductos = document.getElementById('productos');
 
   const divsExistentes = seccionProductos.querySelectorAll('div');
