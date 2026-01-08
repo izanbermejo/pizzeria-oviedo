@@ -112,9 +112,28 @@ class ProductoDAO {
 
     $listaProductosByPedido = [];
 
-    while ($producto = $results->fetch_object('Producto')) {
+    while ($row = $results->fetch_assoc()) {
+
+      $producto = new Producto(
+        $row['id_producto'],
+        $row['id_subcategoria'],
+        $row['id_descuento'],
+        $row['nombre_producto'],
+        $row['descripcion'],
+        $row['precio_producto'],
+        $row['imagen_producto'],
+        $row['activo'],
+        [],
+        [],
+        [],
+      );
+
+      $producto->setCantidad($row['cantidad']);
+      $producto->setPrecioUnidad($row['precio_unidad']);
+
       $listaProductosByPedido[]=$producto;
     }
+
     $con->close();
     return $listaProductosByPedido;
   }
