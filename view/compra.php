@@ -55,8 +55,8 @@
         <input type="text" class="form-control" id="nombre-tarjeta" name="nombre-tarjeta" required>
       </div>
       <div class="logos-bancos d-flex flex-row justify-content-center">
-        <img src="public/assets/Mastercard_Logo.png" alt="">
-        <img src="public/assets/Visa_Logo.png" alt="">
+        <img src="public/assets/Mastercard_Logo.webp" alt="Logo Mastercard">
+        <img src="public/assets/Visa_Logo.webp" alt="Logo Visa">
       </div>
     </div>
   </div>

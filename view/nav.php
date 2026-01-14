@@ -18,7 +18,7 @@
     </button>
     <!-- logo -->
     <a class="navbar-brand" href="<?= BASE_URL ?>">
-      <img src="public/assets/imagen_LOGO.png" alt="imagen_LOGO" id="logo_principal">
+      <img src="public/assets/imagen_LOGO.webp" alt="imagen_LOGO" id="logo_principal">
     </a>
    </div>
     <!-- Links paginas -->
@@ -93,7 +93,7 @@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="menuMovil">
   <div class="offcanvas-header">
     <a class="navbar-brand" href="?">
-      <img src="public/assets/imagen_LOGO.png" alt="imagen_LOGO" id="logo_principal">
+      <img src="public/assets/imagen_LOGO.webp" alt="imagen_LOGO" id="logo_principal">
     </a>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>

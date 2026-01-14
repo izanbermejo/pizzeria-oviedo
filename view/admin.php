@@ -2,7 +2,7 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark justify-content-between" style="width: 280px; height: 100vh; position: fixed; ">
   <div>
     <a href="?" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <img src="public/assets/imagen_LOGO.png" alt="Logo pizzeria Oviedo" width="40" height="40" class="me-2" />
+      <img src="public/assets/imagen_LOGO.webp" alt="Logo pizzeria Oviedo" width="40" height="40" class="me-2" />
       <span class="fs-4">Panel admin</span>
     </a>
     <hr />

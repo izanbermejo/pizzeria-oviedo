@@ -69,7 +69,7 @@ foreach ($listaCodigosDescuento as $codigoDescuento) {
     divProducto.innerHTML = `
       <div class="producto d-flex flex-row justify-content-between align-items-center">
         <div class="img-nombre-producto d-flex flex-row align-items-center gap-4">
-          <img class="img-producto" src="public/assets/productos/${producto.imagen_producto}" alt="imagen pizza margarita">
+          <img class="img-producto" src="public/assets/productos/${producto.imagen_producto}" alt="imagen ${producto.nombre_producto}">
           <div class="nombre-producto d-flex flex-column">
             <h2>${producto.nombre_producto}</h2>
             <p>${ingredientesProducto}</p>

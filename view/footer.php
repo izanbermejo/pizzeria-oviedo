@@ -20,20 +20,18 @@
       </div>
       <div class="imagenes-patrcinadores d-flex flex-row gap-4">
         <!-- Logo 1 -->
-        <img src="public/assets/patrocinador_1.png" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 1">
-        <img src="public/assets/patrocinador_1.png" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 1">
+        <img src="public/assets/patrocinador_1.webp" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 1">
+        <img src="public/assets/patrocinador_1.webp" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 1">
 
         <!-- Logo 2 -->
-        <img src="public/assets/patrocinador_2.png" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 1">
-        <img src="public/assets/patrocinador_2.png" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 1">
-
+        <img src="public/assets/patrocinador_2.webp" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 2">
+        <img src="public/assets/patrocinador_2.webp" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 2">
         <!-- Logo 3 -->
-        <img src="public/assets/patrocinador_3.png" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 1">
-        <img src="public/assets/patrocinador_3.png" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 1">
-
+        <img src="public/assets/patrocinador_3.webp" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 3">
+        <img src="public/assets/patrocinador_3.webp" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 3">
         <!-- Logo 4 -->
-        <img src="public/assets/patrocinador_4.png" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 1">
-        <img src="public/assets/patrocinador_4.png" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 1">
+        <img src="public/assets/patrocinador_4.webp" width="70" height="70" class="d-block d-md-none" alt="Logo de patrocinador 4">
+        <img src="public/assets/patrocinador_4.webp" width="200" height="200" class="d-none d-md-block" alt="Logo de patrocinador 4">
       </div>
 
       <h2>REDES SOCIALES</h2>

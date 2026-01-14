@@ -7,19 +7,19 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="public/assets/imagen_banner_1.png" class="d-block" alt="Imagen 1 La Mejor Pizza de la Ciudad">
+        <img src="public/assets/imagen_banner_1.webp" class="d-block" alt="Imagen 1 La Mejor Pizza de la Ciudad">
         <div class="carousel-caption d-block">
           <h1>La Mejor Pizza de la Ciudad</h1>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="public/assets/imagen_banner_2.png" class="d-block" alt="Imagen 2 Tu Lugar Favorito para Celebrar">
+        <img src="public/assets/imagen_banner_2.webp" class="d-block" alt="Imagen 2 Tu Lugar Favorito para Celebrar">
         <div class="carousel-caption d-block">
           <h1>Tu Lugar Favorito para Celebrar</h1>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="public/assets/imagen_banner_3.png" class="d-block" alt="Imagen 3 La Perfección en Cada Porción">
+        <img src="public/assets/imagen_banner_3.webp" class="d-block" alt="Imagen 3 La Perfección en Cada Porción">
         <div class="carousel-caption d-block">
           <h1>La Perfección en Cada Porción</h1>
         </div>
@@ -331,7 +331,7 @@
   /* ofertas y productos */
   .section-ofertas-productos {
     height: 1550px;
-    background-image: url('public/assets/fondo_productos_home.png');
+    background-image: url(public/assets/fondo_productos_home.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -523,7 +523,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-image: url(public/assets/fondo_tarjeta_producto_home.png);
+    background-image: url(public/assets/fondo_tarjeta_producto_home.webp);
     background-size: cover;
     background-position: center;
   }
