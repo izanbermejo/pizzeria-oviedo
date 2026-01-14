@@ -85,7 +85,7 @@
       </div>
 
       <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
-        <img src="public/assets/imagen_LOGO.png" alt="Logo de la pizzeria">
+        <img src="public/assets/imagen_LOGO.webp" alt="Logo de la pizzeria">
       </div>
 
     </div>
