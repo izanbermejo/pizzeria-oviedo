@@ -28,11 +28,11 @@ const cargarUsuarios = () => {
       console.log(usuario);
     });
 
-    usuarios.forEach(u => {
-      const divUsuario = document.createElement('div');
-      divUsuario.classList.add('item-lista');
+    const divusuarios = usuarios.map(u => {
+      const div = document.createElement('div');
+      div.classList.add('item-lista');
 
-      divUsuario.innerHTML = `
+      div.innerHTML = `
         <div style="width: 40%;"><h3>${u.nombre_usuario} ${u.apellidos_usuario}</h3></div>
         <div style="width: 40%;"><p>Email: ${u.email}</p></div>
         <div style="width: 10%; text-align: right"><p>${u.tipo_usuario}</p></div>
@@ -42,8 +42,10 @@ const cargarUsuarios = () => {
         </div>
       `;
 
-      seccionUsuarios.appendChild(divUsuario);
+      return div;
     })
+
+    divusuarios.forEach(div => seccionUsuarios.appendChild(div))
 
     const anadirUsuario = document.createElement('div');
     anadirUsuario.classList.add('item-lista');
@@ -84,6 +86,14 @@ const cargarUsuarios = () => {
       isEditar = false;
       anadirEditarUsuario(isEditar);
     });
+
+    const totalUsuarios = usuarios.reduce((contadorUsuarios) => contadorUsuarios + 1, 0);
+
+    const contadorUsuarios = document.createElement('div');
+    contadorUsuarios.innerHTML = `
+      <span style="margin-left: 25px;"><b>Total de usuarios: ${totalUsuarios}</b></span>
+    `;
+    seccionUsuarios.appendChild(contadorUsuarios);
     
   });
 }

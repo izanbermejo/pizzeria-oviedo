@@ -36,11 +36,11 @@ const cargarProductos = (tasa = 1, simbolo = '€') => {
   .then(data => {
     const productos = data.map(p => new Producto(p.id_producto, p.id_subcategoria, p.id_descuento, p.nombre_producto, p.descripcion, p.precio_producto, p.imagen_producto, p.activo, p.porcentaje_descuento, p.ingredientes, p.caracteristicasNutricionales));
 
-    productos.forEach(p => {
-      const divProducto = document.createElement('div');
-      divProducto.classList.add('item-lista');
+    const divProductos = productos.map(p => {
+      const div = document.createElement('div');
+      div.classList.add('item-lista');
 
-      divProducto.innerHTML = `
+      div.innerHTML = `
       <div style="width: 10%;"><img width="100%" src="public/assets/productos/${p.imagen_producto}" alt="imagen ${p.nombre_producto}"></div>
       <div style="width: 65%;"><h3>${p.nombre_producto}</h3></div>
       <div style="width: 5%; text-align: right; color: red"><p><b>${p.porcentaje_descuento ? p.porcentaje_descuento + "%" : ""}</b></p></div>
@@ -52,8 +52,10 @@ const cargarProductos = (tasa = 1, simbolo = '€') => {
       </div>
       `;
 
-      seccionProductos.appendChild(divProducto);
+      return div;
     })
+    
+    divProductos.forEach(div => seccionProductos.appendChild(div));
 
     // Añadir botón de añadir producto
     const anadirProducto = document.createElement('div');
@@ -95,6 +97,19 @@ const cargarProductos = (tasa = 1, simbolo = '€') => {
       isEditar = false;
       anadirEditarProducto(isEditar);
     });
+
+    const resumenProductos = productos.reduce((contadores, p) => {
+      contadores.total += 1;
+      if(p.activo) contadores.activos += 1;
+      else contadores.inactivos += 1;
+      return contadores;
+    }, { total: 0, activos: 0, inactivos: 0 });
+
+    const contadorProductos = document.createElement('div');
+    contadorProductos.innerHTML = `
+      <span style="margin-left: 25px;"><b>Total de productos: ${resumenProductos.total}</b>  |  Total de productos activos: ${resumenProductos.activos}  |  Total de productos inactivos: ${resumenProductos.inactivos}</span>
+    `;
+    seccionProductos.appendChild(contadorProductos);
     
   });
 }
